@@ -16,6 +16,10 @@
 #include <string>
 #include <cstring>
 
+// Non-class defined static string to store the translated result
+// after performing the curl operation
+static std::string readBuffer;
+
 class Translator
 {
 public:
@@ -25,7 +29,15 @@ public:
     // dtor
     ~Translator();
 
-    // Function to perform the translation
+    // Function to perform the translation.
+    //
+    // Inputs:
+    //          textToBeTranslated - the input text
+    //          fromLang - the language that textToBeTranslated is in
+    //          toLang - the language to translate to
+    // Outputs:
+    //          translatedText - the translated text
+    //          bool - indicates success (true) or failure (false)
     bool doTranslation(std::string& translatedText, // output
                        std::string textToBeTranslated,
                        std::string fromLang,

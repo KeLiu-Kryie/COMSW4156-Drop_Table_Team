@@ -1,6 +1,6 @@
 #Source: https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/Makefile
 CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb -Wno-unused-parameter -Wno-deprecated-declarations
 
 BIN		:= bin
 SRC		:= src/*.cpp $(shell find $(lib) -name *.cpp)
@@ -10,7 +10,7 @@ INCLUDE	:= -Iinclude -Ilib \
 LIB		:= lib
 
 LIBRARIES	:= -lboost_system -lpthread -lcrypto \
--lssl -lmongocxx -lbsoncxx
+-lssl -lmongocxx -lbsoncxx -lcurl -lssl
 EXECUTABLE	:= main
 
 
