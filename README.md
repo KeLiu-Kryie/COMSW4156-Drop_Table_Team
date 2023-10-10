@@ -41,6 +41,9 @@ For accessing translation, use the following query parameters:
 
 * [Query strings](https://crowcpp.org/master/guides/query-string/)
 
+### Curl
+* [Saving CURL response](https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c)
+
 ### Datastore
 * [MongoDB Atlas Tutorials](https://mongocxx.org/mongocxx-v3/tutorial/)
 
