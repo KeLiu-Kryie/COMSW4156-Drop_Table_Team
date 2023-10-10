@@ -1,3 +1,4 @@
+/* TODO fix
 #include "../include/DatabaseHandler.h"
 
 #include <typeinfo>
@@ -105,6 +106,4 @@ int DatabaseHandler::delete_id(string id)
 
         return 1;
 }
-
-
-
+*/
