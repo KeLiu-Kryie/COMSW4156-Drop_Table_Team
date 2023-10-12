@@ -10,7 +10,7 @@ INCLUDE	:= -Iinclude -Ilib \
 LIB		:= lib
 
 LIBRARIES	:=  -lpthread -lcrypto \
--lssl  -lbsoncxx -lcurl #-lboost_system -lmongocxx	# TODO fix this
+-lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx	# TODO fix this
 EXECUTABLE	:= main
 
 

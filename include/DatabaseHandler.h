@@ -1,4 +1,3 @@
-/* TODO fix
 #include <chrono>
 
 #include <bsoncxx/builder/basic/array.hpp>
@@ -19,6 +18,7 @@ class DatabaseHandler {
 
 public:
         DatabaseHandler(string uri);
+        DatabaseHandler();
 //Get
 
         //string GetDataFromId(string id);
@@ -38,8 +38,10 @@ public:
         //int UpdateDataInCollection(string id, string jsonData);
         int put(string id, string json);
 
+        void setupCollectionEndpoint(string uri_str, string dbName);
+
 private:
-  // Create an instance.
+  // Create an instance. Note there must only be one instance
         mongocxx::instance inst{};
   //Database
         mongocxx::database db;
@@ -49,4 +51,3 @@ private:
         mongocxx::client client;
 
 };
-*/

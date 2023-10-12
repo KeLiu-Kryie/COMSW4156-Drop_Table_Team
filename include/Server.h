@@ -11,6 +11,7 @@
 
 // This is the only include needed for crow
 #include "crow.h"
+#include "DatabaseHandler.h"
 
 // Translator header
 #include "../include/Translator.h"
@@ -30,6 +31,10 @@ private:
 
     // Translator object to do translations
     Translator translator;
+
+    //dbHandler takes care of sending and getting data to and from
+    //a mongoDB collection
+    DatabaseHandler dbHandler = DatabaseHandler();
     
 };
 

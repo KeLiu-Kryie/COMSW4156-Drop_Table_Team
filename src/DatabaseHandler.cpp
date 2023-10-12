@@ -1,7 +1,18 @@
-/* TODO fix
 #include "../include/DatabaseHandler.h"
 
 #include <typeinfo>
+
+DatabaseHandler::DatabaseHandler(){
+        try {
+                // Replace the connection string with your MongoDB deployment's connection string.
+                uri = mongocxx::uri("mongodb+srv://supersid2001:rpEfY5npaFwTFoLl@translationservice.05k94ez.mongodb.net/");
+                client = mongocxx::client(uri);
+                db = client["test"];
+        } catch (const std::exception& e) {
+                // Handle errors.
+                std::cerr<< "Exception: " << e.what() << std::endl;
+        }
+}
 
 DatabaseHandler::DatabaseHandler(std::string uriStr)
 {
@@ -106,4 +117,15 @@ int DatabaseHandler::delete_id(string id)
 
         return 1;
 }
-*/
+
+void DatabaseHandler::setupCollectionEndpoint(string uri_str, string dbName){
+        try {
+                // Replace the connection string with your MongoDB deployment's connection string.
+                uri = mongocxx::uri(uri_str);
+                client = mongocxx::client(uri);
+                db = client[dbName];
+        } catch (const std::exception& e) {
+                // Handle errors.
+                std::cerr<< "Exception: " << e.what() << std::endl;
+        }
+}
