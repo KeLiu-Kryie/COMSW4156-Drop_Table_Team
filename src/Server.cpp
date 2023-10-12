@@ -54,8 +54,9 @@ Server::Server()
         auto textToBeTranslated = req.url_params.get("tbt");
         auto toLang = req.url_params.get("tl");
         auto fromLang = req.url_params.get("fl");
-        auto uri_str = req.url_params.get("uri");
+        std::string uri_str = req.url_params.get("uri");
         auto dbName = req.url_params.get("db");
+        std::replace( uri_str.begin(), uri_str.end(), ' ', '+');
 
         dbHandler.setupCollectionEndpoint(uri_str, dbName);
 

@@ -17,7 +17,6 @@ using namespace std;
 class DatabaseHandler {
 
 public:
-        DatabaseHandler(string uri);
         DatabaseHandler();
 //Get
 

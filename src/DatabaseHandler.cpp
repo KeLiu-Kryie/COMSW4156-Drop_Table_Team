@@ -2,33 +2,7 @@
 
 #include <typeinfo>
 
-DatabaseHandler::DatabaseHandler(){
-        try {
-                // Replace the connection string with your MongoDB deployment's connection string.
-                uri = mongocxx::uri("mongodb+srv://supersid2001:rpEfY5npaFwTFoLl@translationservice.05k94ez.mongodb.net/");
-                client = mongocxx::client(uri);
-                db = client["test"];
-        } catch (const std::exception& e) {
-                // Handle errors.
-                std::cerr<< "Exception: " << e.what() << std::endl;
-        }
-}
-
-DatabaseHandler::DatabaseHandler(std::string uriStr)
-{
-
-        try {
-                // Replace the connection string with your MongoDB deployment's connection string.
-                uri = mongocxx::uri(uriStr);
-                client = mongocxx::client(uri);
-                db = client["test"];
-        } catch (const std::exception& e) {
-                // Handle errors.
-                std::cerr<< "Exception: " << e.what() << std::endl;
-        }
-
-}
-
+DatabaseHandler::DatabaseHandler(){}
 
 std::string DatabaseHandler::get(string id, string field) {
 
