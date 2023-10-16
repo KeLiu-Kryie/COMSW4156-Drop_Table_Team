@@ -1,0 +1,7 @@
+*
+!.gitignore
+!CMakeLists.txt
+!installGtest.sh
+!runGtest.sh
+!testMain.cpp
+!README.md
