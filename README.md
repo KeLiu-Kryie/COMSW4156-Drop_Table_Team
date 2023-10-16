@@ -87,6 +87,7 @@ For accessing translation, use the following query parameters:
 | Simplified Chinese | zh |
 | Traditional Chinese | cht |
 | Vietnamese | vie |
+
 automatic detection : 'auto' can only be used in source language.
 
 ### Error code list:
