@@ -56,4 +56,54 @@ For accessing translation, use the following query parameters:
 
 * [Setup dependencies file source](https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/setup-mongocxx) -- Modifications were made based on different versions of the library.
 
+## Translation API doc
+### Languages list:
+| Supported Languages | Code |
+| :-----| :---- |
+| English	| en |
+| Japenese | jp |
+| Korean | kor |
+| French | fra | 
+| Spanish	| spa |
+| Thai | th |
+| Arabic | ara |
+| Russian | ru | 
+| Portuguese	| pt |
+| German | de |
+| Italian | it |
+| Greek | el | 
+| Dutch	| nl |
+| Polish | pl |
+| Italian | it |
+| Bulgarian | bul | 
+| Estonian | est |
+| Danish | dan |
+| Finnish | fin |
+| Czech | cs |
+| Romanian | rom |
+| Slovenia | slo |
+| Swedish | swe |
+| Hungarian | hu |
+| Simplified Chinese | zh |
+| Traditional Chinese | cht |
+| Vietnamese | vie |
+
+automatic detection : 'auto' can only be used in source language.
+
+### Error code list:
+| Error Code | Meaning | Solution |
+| :-----| :---- | :---- |
+| 0 | Success  |  |
+| 52001 | Request timeout | Retry |
+| 52002 | System error | Retry |
+| 52003 | Unauthorized user | Please check whether your appid is correct or whether the service is enabled |
+| 54000 | The required parameter is null | Check whether parameters are not transmitted |
+| 54001 | Signature error | Please check your signature generation method |
+| 54003 | Limited access frequency | Please reduce the frequency of your calls |
+| 54004 | Insufficient account balance | Please go to the Admin console to top up your account |
+| 54009 | Language detection failure | Not in the range of languages supported |
+| 58000 | The IP address of the client is invalid | Check whether the IP address filled in the personal information is correct, you can go to the management control platform to modify, IP restrictions, IP can be left blank  |
+| 58002 | The service is currently closed | Please go to the administrative console to start the service |
+
+
 ---
