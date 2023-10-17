@@ -18,24 +18,19 @@ class DatabaseHandler {
 
 public:
         DatabaseHandler();
-//Get
+//Get transaltion history
 
-        //string GetDataFromId(string id);
-        string get(string id, string field);
+        std::pair<int, string> get_translation_history(string id);
 
 //Post
 
-        //string AddNewDataToCollection(string jsonData);
-        string post(string json);
+        std::pair<int, string> create_user();
 
 //Delete
 
-        //string deleteDataWithId(string id);
-        int delete_id(string id);
-//Update
+        std::pair<int, string> delete_user(string id);
 
-        //int UpdateDataInCollection(string id, string jsonData);
-        int put(string id, string json);
+        std::pair<int, string> post_translation(string id, string translationDataJson);
 
         void setupCollectionEndpoint(string uri_str, string dbName);
 
