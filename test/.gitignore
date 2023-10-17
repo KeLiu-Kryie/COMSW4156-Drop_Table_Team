@@ -5,3 +5,4 @@
 !runGtest.sh
 !testMain.cpp
 !README.md
+!TranslationUnitTests.h
