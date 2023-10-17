@@ -10,6 +10,8 @@
 
 #include <gtest/gtest.h>
 
+#include "../include/Translator.h"
+
 namespace my {
 namespace project {
 namespace {
@@ -22,6 +24,8 @@ class FooTest : public ::testing::Test {
 
   FooTest() {
      // You can do set-up work for each test here.
+
+     Translator translator;
   }
 
   ~FooTest() override {
