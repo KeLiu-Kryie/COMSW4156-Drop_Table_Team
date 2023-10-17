@@ -4,7 +4,7 @@
 
 DatabaseHandler::DatabaseHandler(){}
 
-std::string DatabaseHandler::get(string id, string field) {
+std::string DatabaseHandler::get(std::string id, std::string field) {
 
         try {
 
@@ -32,8 +32,8 @@ std::string DatabaseHandler::get(string id, string field) {
         return "ERROR";
 }
 
-//int DatabaseHandler::UpdateDataInCollection(string id, string jsonData){
-int DatabaseHandler::put(string id, string json)
+//int DatabaseHandler::UpdateDataInCollection(std::string id, std::string jsonData){
+int DatabaseHandler::put(std::string id, std::string json)
 {
 
         try {
@@ -52,8 +52,8 @@ int DatabaseHandler::put(string id, string json)
         return 500;
 }
 
-//string DatabaseHandler::AddNewDataToCollection(string jsonData){
-string DatabaseHandler::post(string json)
+//std::string DatabaseHandler::AddNewDataToCollection(std::string jsonData){
+std::string DatabaseHandler::post(std::string json)
 {
 
         try {
@@ -69,7 +69,7 @@ string DatabaseHandler::post(string json)
         return "ERROR";
 }
 
-int DatabaseHandler::delete_id(string id)
+int DatabaseHandler::delete_id(std::string id)
 {
         try {
 
@@ -92,9 +92,9 @@ int DatabaseHandler::delete_id(string id)
         return 1;
 }
 
-void DatabaseHandler::setupCollectionEndpoint(string uri_str, string dbName){
+void DatabaseHandler::setupCollectionEndpoint(std::string uri_str, std::string dbName){
         try {
-                // Replace the connection string with your MongoDB deployment's connection string.
+                // Replace the connection std::string with your MongoDB deployment's connection std::string.
                 uri = mongocxx::uri(uri_str);
                 client = mongocxx::client(uri);
                 db = client[dbName];

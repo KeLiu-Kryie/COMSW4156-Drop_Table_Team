@@ -12,7 +12,6 @@
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
-using namespace std;
 
 class DatabaseHandler {
 
@@ -20,24 +19,24 @@ public:
         DatabaseHandler();
 //Get
 
-        //string GetDataFromId(string id);
-        string get(string id, string field);
+        //std::string GetDataFromId(std::string id);
+        std::string get(std::string id, std::string field);
 
 //Post
 
-        //string AddNewDataToCollection(string jsonData);
-        string post(string json);
+        //std::string AddNewDataToCollection(std::string jsonData);
+        std::string post(std::string json);
 
 //Delete
 
-        //string deleteDataWithId(string id);
-        int delete_id(string id);
+        //std::string deleteDataWithId(std::string id);
+        int delete_id(std::string id);
 //Update
 
-        //int UpdateDataInCollection(string id, string jsonData);
-        int put(string id, string json);
+        //int UpdateDataInCollection(std::string id, std::string jsonData);
+        int put(std::string id, std::string json);
 
-        void setupCollectionEndpoint(string uri_str, string dbName);
+        void setupCollectionEndpoint(std::string uri_str, std::string dbName);
 
 private:
   // Create an instance. Note there must only be one instance

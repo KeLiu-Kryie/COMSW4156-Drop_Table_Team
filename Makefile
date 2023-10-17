@@ -6,11 +6,16 @@ BIN		:= bin
 SRC		:= src/*.cpp $(shell find $(lib) -name *.cpp)
 INCLUDE	:= -Iinclude -Ilib \
  -I/usr/local/include/mongocxx/v_noabi \
- -I/usr/local/include/bsoncxx/v_noabi
+ -I/usr/local/include/bsoncxx/v_noabi  \
+ -I/usr/include/poppler/cpp -I/usr/include/poppler \
+ -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include 
+
+
 LIB		:= lib
 
 LIBRARIES	:=  -lpthread -lcrypto \
--lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx	# TODO fix this
+-lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx -lpoppler-cpp -lglib-2.0 -ltesseract -llept
+
 EXECUTABLE	:= main
 
 
