@@ -1,0 +1,1 @@
+g++ -o pdftotext pdftotext.cpp -I/usr/include/poppler/cpp -I/usr/include/poppler -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -lpoppler-cpp -lglib-2.0
