@@ -27,7 +27,7 @@ Server::Server()
         {
             // Output
             std::string translatedText;
-            translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
+            translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
 
             // The rest of this IF block is for debugging
             std::ostringstream oss;
@@ -67,7 +67,7 @@ Server::Server()
         {
             // Output
             std::string translatedText;
-            translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
+            translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
             //TODO: Check if output is valid or not
             std::string mongoRes = dbHandler.post(translatedText);
             // The rest of this IF block is for debugging
@@ -174,8 +174,7 @@ Server::Server()
         {
             // Output
             std::string translatedText;
-            translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
-
+            translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
             // The rest of this IF block is for debugging
             std::ostringstream oss;
             oss << "textToBeTranslated: " << textToBeTranslated
@@ -218,7 +217,7 @@ Server::Server()
         {
             // Output
             std::string translatedText;
-            translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
+            translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
 
             //TODO: Check if output is valid or not
             std::string mongoRes = dbHandler.post(translatedText);
@@ -328,7 +327,7 @@ Server::Server()
         {
             // Output
             std::string translatedText;
-            translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
+            translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
 
             // The rest of this IF block is for debugging
             std::ostringstream oss;
@@ -373,7 +372,7 @@ Server::Server()
         {
             // Output
             std::string translatedText;
-            translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
+            translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
 
             //TODO: Check if output is valid or not
             std::string mongoRes = dbHandler.post(translatedText);
