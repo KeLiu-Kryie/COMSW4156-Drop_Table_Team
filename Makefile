@@ -3,14 +3,14 @@ CXX		  := g++
 CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb -Wno-unused-parameter -Wno-deprecated-declarations
 
 BIN		:= bin
-SRC		:= src/*.cpp $(shell find $(lib) -name *.cpp)
+SRC		:= src/*.cpp $(shell find $(lib) -name *.cpp -not -path "./test*")
 INCLUDE	:= -Iinclude -Ilib \
  -I/usr/local/include/mongocxx/v_noabi \
  -I/usr/local/include/bsoncxx/v_noabi
 LIB		:= lib
 
 LIBRARIES	:=  -lpthread -lcrypto \
--lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx	# TODO fix this
+-lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx
 EXECUTABLE	:= main
 
 
@@ -24,4 +24,4 @@ $(BIN)/$(EXECUTABLE): $(SRC)
 	$(CXX) $(CXX_FLAGS) $(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
 clean:
-	-rm $(BIN)/*
+	-rm -f $(BIN)/*
