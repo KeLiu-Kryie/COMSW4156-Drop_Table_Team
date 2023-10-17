@@ -48,6 +48,12 @@ bool Translator::doTranslation(std::string& translatedText, // output
         std::cerr << "Error initializing libcurl." << std::endl;
         return false;
     }
+    // Change the space to '-'
+    for (char &ch : textToBeTranslated) {
+        if (ch == ' ') {
+            ch = '-';
+        }
+    }
 
     // Create the salt
     char salt[60];
@@ -102,5 +108,6 @@ bool Translator::doTranslation(std::string& translatedText, // output
 
     // Set the output
     translatedText = readBuffer;
+
     return true;
 }
