@@ -8,7 +8,6 @@
 
 #ifndef TRANSLATOR_H
 #define TRANSLATOR_H
-
 #include <curl/curl.h>
 #include <iostream>
 #include <openssl/md5.h>

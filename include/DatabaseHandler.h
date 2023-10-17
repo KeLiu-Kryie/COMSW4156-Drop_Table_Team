@@ -1,3 +1,4 @@
+
 #include <chrono>
 
 #include <bsoncxx/builder/basic/array.hpp>
@@ -8,6 +9,8 @@
 #include <mongocxx/client.hpp>
 #include <mongocxx/instance.hpp>
 #include <mongocxx/uri.hpp>
+#include "TranslationOutput.h"
+#include "Translations.h"
 
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
@@ -30,7 +33,7 @@ public:
 
         std::pair<int, string> delete_user(string id);
 
-        std::pair<int, string> post_translation(string id, string translationDataJson);
+        std::pair<int, string> post_translation(string id, TranslationOutput newTranslation);
 
         void setupCollectionEndpoint(string uri_str, string dbName);
 

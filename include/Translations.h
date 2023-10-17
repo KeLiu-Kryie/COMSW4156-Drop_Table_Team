@@ -1,3 +1,5 @@
+#ifndef TRANSLATIONS_H
+#define TRANSLATIONS_H
 #include <nlohmann/json.hpp>
 #include "TranslationOutput.h"
 
@@ -8,6 +10,9 @@ private:
 
 public:
   Translations();
+  void AddTranslation(TranslationOutput newTranslation);
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(Translations, translationData)
 
 };
+
+#endif

@@ -6,8 +6,8 @@
 
 DatabaseHandler::DatabaseHandler(){
         nlohmann::json config;
-        std::ifstream configFile("../config.json");
-        configFile >> config;
+        std::ifstream configFile("config.json");
+        config = nlohmann::json::parse(configFile);
         std::string connectionStr = config["ConnectionString"];
         std::string dbName = config["DBName"];
         uri = mongocxx::uri(connectionStr);
@@ -16,12 +16,24 @@ DatabaseHandler::DatabaseHandler(){
 
 }
 
-std::pair<int, string> DatabaseHandler::post_translation(string id, string translationDataJson){
+std::pair<int, string> DatabaseHandler::post_translation(string id, TranslationOutput newTranslation){
         try{
-                bsoncxx::oid currId = bsoncxx::oid(id);
-                auto response = db["translations"].update_one(make_document(kvp("_id", currId)), make_document(kvp("$set", make_document(kvp("translationData", translationDataJson)))));
+                auto collection = db["translations"];
+                auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(id))));
+                if (!doc)
+                        return std::make_pair(404, "ID not found!");
+
+                auto view = doc->view();
+                auto element = view["translationData"];
+
+                auto value = element.get_string().value;
+                Translations currData = nlohmann::json::parse(value.to_string());
+                currData.AddTranslation(newTranslation);
+                nlohmann::json updatedJson = currData;
+                std::string updatedData = updatedJson.dump();
+                auto response = db["translations"].update_one(make_document(kvp("_id", bsoncxx::oid(id))), make_document(kvp("$set", make_document(kvp("translationData", updatedData)))));
                 if(response->modified_count() > 0){
-                        return std::make_pair(200, "Update Successful");
+                        return std::make_pair(200, "Update successful");
                 } else {
                         return std::make_pair(404, "ID not found!");
                 }
@@ -37,11 +49,9 @@ std::pair<int, string> DatabaseHandler::post_translation(string id, string trans
 std::pair<int, string> DatabaseHandler::get_translation_history(string id) {
 
         try {
-
-                bsoncxx::oid currId = bsoncxx::oid(id);
                 
                 auto collection = db["translations"];
-                auto doc = collection.find_one(make_document(kvp("_id", currId)));
+                auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(id))));
 
                 if (!doc)
                         return std::make_pair(404, "ID not found!");
@@ -88,7 +98,9 @@ std::pair<int, string> DatabaseHandler::create_user()
 {
 
         try {
-                bsoncxx::document::value new_doc = make_document(kvp("translationData", ""));
+                Translations translations = Translations();
+                nlohmann::json newData = translations;
+                bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
                 auto res = db["translations"].insert_one(std::move(new_doc));
                 bsoncxx::oid oid = res->inserted_id().get_oid().value;
                 return std::make_pair(200, oid.to_string());

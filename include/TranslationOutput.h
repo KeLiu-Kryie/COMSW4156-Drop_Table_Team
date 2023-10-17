@@ -1,3 +1,5 @@
+#ifndef TRANSLATIONOUTPUT_H
+#define TRANSLATIONOUTPUT_H
 #include <nlohmann/json.hpp>
 
 class TranslationOutput{
@@ -13,3 +15,5 @@ public:
   TranslationOutput();
   NLOHMANN_DEFINE_TYPE_INTRUSIVE(TranslationOutput, to, from, inputText, outputText)
 };
+
+#endif
