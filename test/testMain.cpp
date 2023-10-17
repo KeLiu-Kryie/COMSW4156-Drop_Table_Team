@@ -12,24 +12,21 @@
 
 #include "../include/Translator.h"
 
-namespace my {
-namespace project {
-namespace {
+namespace TranslationUnitTests {
 
 // The fixture for testing class Foo.
-class FooTest : public ::testing::Test {
+class TranslatorTest : public ::testing::Test {
  protected:
   // You can remove any or all of the following functions if their bodies would
   // be empty.
 
-  FooTest() {
-     // You can do set-up work for each test here.
-
-     Translator translator;
+  TranslatorTest() {
+      translator = new Translator();
   }
 
-  ~FooTest() override {
-     // You can do clean-up work that doesn't throw exceptions here.
+  ~TranslatorTest() override {
+     if(translator != nullptr)
+         delete translator;
   }
 
   // If the constructor and destructor are not enough for setting up
@@ -47,24 +44,38 @@ class FooTest : public ::testing::Test {
 
   // Class members declared here can be used by all tests in the test suite
   // for Foo.
+  Translator* translator;
 };
 
-// Tests that the Foo::Bar() method does Abc.
-TEST_F(FooTest, DoesAbc)
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: TranslateHelloFromEnglishToSpanish
+// 
+// Description: Test case to translate "Hello" from English to Spanish.
+//              The expected translation is "Hola".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateHelloFromEnglishToSpanish)
 {
-  EXPECT_EQ(1,1);
+  std::string outputText;
+  translator->doTranslation(outputText, "Hello", "en", "spa");
+  std::cout << outputText << std::endl;
+
+   // Find "Hola" in outputText
+   EXPECT_NE(outputText.find("Hola"), std::string::npos);
 }
 
-// Tests that Foo does Xyz.
-TEST_F(FooTest, DoesXyz)
+///////////////////////////////////////////////////////////////////////////////
+// Test case: DoesXyz
+// 
+// Description: Test case to do Xyz.
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, DoesXyz)
 {
   // Exercises the Xyz feature of Foo.
   EXPECT_NE(5,4);
 }
 
-}  // namespace
 }  // namespace project
-}  // namespace my
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

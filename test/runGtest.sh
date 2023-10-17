@@ -9,7 +9,6 @@ if ! test -d ./CMakeFiles; then
     cmake CMakeLists.txt
     echo "First-time CMAKE DONE"
 fi
-
-make
-echo "================================================================================"
+make clean
+make && echo "================================================================================" && \
 ./testMain
