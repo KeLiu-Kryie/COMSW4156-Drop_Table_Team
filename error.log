@@ -1,602 +1,262 @@
-g++ -Wall -Wextra -std=c++20 -ggdb -Wno-unused-parameter -Wno-deprecated-declarations -Iinclude -Ilib -I/usr/local/include/mongocxx/v_noabi -I/usr/local/include/bsoncxx/v_noabi -I/usr/include/poppler/cpp -I/usr/include/poppler/cpp -I/usr/include/poppler -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  -Llib src/DatabaseHandler.cpp src/main.cpp src/Server.cpp src/Translator.cpp -o bin/main -lpthread -lcrypto -lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx -lpoppler-cpp -lglib-2.0 -llept -ltesseract
-In file included from /usr/include/tesseract/baseapi.h:33,
-                 from src/../include/ocr.h:1,
-                 from src/Server.cpp:11:
-/usr/include/tesseract/tesscallback.h:161:8: error: ‘remove_reference’ is not a class template
-  161 | struct remove_reference<T&> {
-      |        ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:161:8: error: redefinition of ‘struct remove_reference<T>’
-/usr/include/tesseract/tesscallback.h:157:8: note: previous definition of ‘struct remove_reference<T>’
-  157 | struct remove_reference {
-      |        ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:182:12: error: expected nested-name-specifier before ‘remove_reference’
-  182 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:182:12: error: expected ‘;’ at end of member declaration
-  182 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:182:28: error: expected unqualified-id before ‘<’ token
-  182 |   typename remove_reference<P1>::type p1_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:183:12: error: expected nested-name-specifier before ‘remove_reference’
-  183 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:183:12: error: expected ‘;’ at end of member declaration
-  183 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:183:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:182:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-  182 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:183:28: error: expected unqualified-id before ‘<’ token
-  183 |   typename remove_reference<P2>::type p2_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:184:12: error: expected nested-name-specifier before ‘remove_reference’
-  184 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:184:12: error: expected ‘;’ at end of member declaration
-  184 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:184:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:182:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-  182 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:184:28: error: expected unqualified-id before ‘<’ token
-  184 |   typename remove_reference<P3>::type p3_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:185:12: error: expected nested-name-specifier before ‘remove_reference’
-  185 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:185:12: error: expected ‘;’ at end of member declaration
-  185 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:185:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:182:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-  182 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:185:28: error: expected unqualified-id before ‘<’ token
-  185 |   typename remove_reference<P4>::type p4_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:186:12: error: expected nested-name-specifier before ‘remove_reference’
-  186 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:186:12: error: expected ‘;’ at end of member declaration
-  186 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:186:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:182:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::remove_reference’
-  182 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:186:28: error: expected unqualified-id before ‘<’ token
-  186 |   typename remove_reference<P5>::type p5_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h: In constructor ‘_ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::_ConstTessMemberResultCallback_5_0(const T*, _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::MemberSignature, P1, P2, P3, P4, P5)’:
-/usr/include/tesseract/tesscallback.h:194:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p1_’
-  194 |         p1_(p1),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:195:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p2_’
-  195 |         p2_(p2),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:196:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p3_’
-  196 |         p3_(p3),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:197:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p4_’
-  197 |         p4_(p4),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:198:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p5_’
-  198 |         p5_(p5) {}
-      |         ^~~
-/usr/include/tesseract/tesscallback.h: In member function ‘R _ConstTessMemberResultCallback_5_0<del, R, T, P1, P2, P3, P4, P5>::Run()’:
-/usr/include/tesseract/tesscallback.h:202:38: error: ‘p1_’ was not declared in this scope
-  202 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                      ^~~
-/usr/include/tesseract/tesscallback.h:202:43: error: ‘p2_’ was not declared in this scope
-  202 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                           ^~~
-/usr/include/tesseract/tesscallback.h:202:48: error: ‘p3_’ was not declared in this scope
-  202 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                                ^~~
-/usr/include/tesseract/tesscallback.h:202:53: error: ‘p4_’ was not declared in this scope
-  202 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                                     ^~~
-/usr/include/tesseract/tesscallback.h:202:58: error: ‘p5_’ was not declared in this scope
-  202 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                                          ^~~
-/usr/include/tesseract/tesscallback.h:205:36: error: ‘p1_’ was not declared in this scope
-  205 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                    ^~~
-/usr/include/tesseract/tesscallback.h:205:41: error: ‘p2_’ was not declared in this scope
-  205 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                         ^~~
-/usr/include/tesseract/tesscallback.h:205:46: error: ‘p3_’ was not declared in this scope
-  205 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                              ^~~
-/usr/include/tesseract/tesscallback.h:205:51: error: ‘p4_’ was not declared in this scope
-  205 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                                   ^~~
-/usr/include/tesseract/tesscallback.h:205:56: error: ‘p5_’ was not declared in this scope
-  205 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                                        ^~~
-/usr/include/tesseract/tesscallback.h: At global scope:
-/usr/include/tesseract/tesscallback.h:223:12: error: expected nested-name-specifier before ‘remove_reference’
-  223 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:223:12: error: expected ‘;’ at end of member declaration
-  223 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:223:28: error: expected unqualified-id before ‘<’ token
-  223 |   typename remove_reference<P1>::type p1_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:224:12: error: expected nested-name-specifier before ‘remove_reference’
-  224 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:224:12: error: expected ‘;’ at end of member declaration
-  224 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:224:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:223:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-  223 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:224:28: error: expected unqualified-id before ‘<’ token
-  224 |   typename remove_reference<P2>::type p2_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:225:12: error: expected nested-name-specifier before ‘remove_reference’
-  225 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:225:12: error: expected ‘;’ at end of member declaration
-  225 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:225:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:223:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-  223 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:225:28: error: expected unqualified-id before ‘<’ token
-  225 |   typename remove_reference<P3>::type p3_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:226:12: error: expected nested-name-specifier before ‘remove_reference’
-  226 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:226:12: error: expected ‘;’ at end of member declaration
-  226 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:226:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:223:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-  223 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:226:28: error: expected unqualified-id before ‘<’ token
-  226 |   typename remove_reference<P4>::type p4_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:227:12: error: expected nested-name-specifier before ‘remove_reference’
-  227 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:227:12: error: expected ‘;’ at end of member declaration
-  227 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:227:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-/usr/include/tesseract/tesscallback.h:223:12: note: previous declaration ‘int _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::remove_reference’
-  223 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:227:28: error: expected unqualified-id before ‘<’ token
-  227 |   typename remove_reference<P5>::type p5_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h: In constructor ‘_ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::_ConstTessMemberResultCallback_5_0(const T*, _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::MemberSignature, P1, P2, P3, P4, P5)’:
-/usr/include/tesseract/tesscallback.h:235:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p1_’
-  235 |         p1_(p1),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:236:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p2_’
-  236 |         p2_(p2),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:237:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p3_’
-  237 |         p3_(p3),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:238:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p4_’
-  238 |         p4_(p4),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:239:9: error: class ‘_ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>’ does not have any field named ‘p5_’
-  239 |         p5_(p5) {}
-      |         ^~~
-/usr/include/tesseract/tesscallback.h: In member function ‘void _ConstTessMemberResultCallback_5_0<del, void, T, P1, P2, P3, P4, P5>::Run()’:
-/usr/include/tesseract/tesscallback.h:243:27: error: ‘p1_’ was not declared in this scope
-  243 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                           ^~~
-/usr/include/tesseract/tesscallback.h:243:32: error: ‘p2_’ was not declared in this scope
-  243 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                ^~~
-/usr/include/tesseract/tesscallback.h:243:37: error: ‘p3_’ was not declared in this scope
-  243 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                     ^~~
-/usr/include/tesseract/tesscallback.h:243:42: error: ‘p4_’ was not declared in this scope
-  243 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                          ^~~
-/usr/include/tesseract/tesscallback.h:243:47: error: ‘p5_’ was not declared in this scope
-  243 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                               ^~~
-/usr/include/tesseract/tesscallback.h:245:27: error: ‘p1_’ was not declared in this scope
-  245 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                           ^~~
-/usr/include/tesseract/tesscallback.h:245:32: error: ‘p2_’ was not declared in this scope
-  245 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                ^~~
-/usr/include/tesseract/tesscallback.h:245:37: error: ‘p3_’ was not declared in this scope
-  245 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                     ^~~
-/usr/include/tesseract/tesscallback.h:245:42: error: ‘p4_’ was not declared in this scope
-  245 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                          ^~~
-/usr/include/tesseract/tesscallback.h:245:47: error: ‘p5_’ was not declared in this scope
-  245 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_);
-      |                                               ^~~
-/usr/include/tesseract/tesscallback.h: At global scope:
-/usr/include/tesseract/tesscallback.h:281:12: error: expected nested-name-specifier before ‘remove_reference’
-  281 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:281:12: error: expected ‘;’ at end of member declaration
-  281 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:281:28: error: expected unqualified-id before ‘<’ token
-  281 |   typename remove_reference<P1>::type p1_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:282:12: error: expected nested-name-specifier before ‘remove_reference’
-  282 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:282:12: error: expected ‘;’ at end of member declaration
-  282 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:282:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:281:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  281 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:282:28: error: expected unqualified-id before ‘<’ token
-  282 |   typename remove_reference<P2>::type p2_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:283:12: error: expected nested-name-specifier before ‘remove_reference’
-  283 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:283:12: error: expected ‘;’ at end of member declaration
-  283 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:283:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:281:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  281 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:283:28: error: expected unqualified-id before ‘<’ token
-  283 |   typename remove_reference<P3>::type p3_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:284:12: error: expected nested-name-specifier before ‘remove_reference’
-  284 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:284:12: error: expected ‘;’ at end of member declaration
-  284 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:284:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:281:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  281 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:284:28: error: expected unqualified-id before ‘<’ token
-  284 |   typename remove_reference<P4>::type p4_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:285:12: error: expected nested-name-specifier before ‘remove_reference’
-  285 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:285:12: error: expected ‘;’ at end of member declaration
-  285 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:285:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:281:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  281 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:285:28: error: expected unqualified-id before ‘<’ token
-  285 |   typename remove_reference<P5>::type p5_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:286:12: error: expected nested-name-specifier before ‘remove_reference’
-  286 |   typename remove_reference<P6>::type p6_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:286:12: error: expected ‘;’ at end of member declaration
-  286 |   typename remove_reference<P6>::type p6_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:286:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:281:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  281 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:286:28: error: expected unqualified-id before ‘<’ token
-  286 |   typename remove_reference<P6>::type p6_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h: In constructor ‘_ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::_ConstTessMemberResultCallback_6_0(const T*, _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::MemberSignature, P1, P2, P3, P4, P5, P6)’:
-/usr/include/tesseract/tesscallback.h:294:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p1_’
-  294 |         p1_(p1),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:295:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p2_’
-  295 |         p2_(p2),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:296:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p3_’
-  296 |         p3_(p3),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:297:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p4_’
-  297 |         p4_(p4),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:298:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p5_’
-  298 |         p5_(p5),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:299:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p6_’
-  299 |         p6_(p6) {}
-      |         ^~~
-/usr/include/tesseract/tesscallback.h: In member function ‘R _ConstTessMemberResultCallback_6_0<del, R, T, P1, P2, P3, P4, P5, P6>::Run()’:
-/usr/include/tesseract/tesscallback.h:303:38: error: ‘p1_’ was not declared in this scope
-  303 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                      ^~~
-/usr/include/tesseract/tesscallback.h:303:43: error: ‘p2_’ was not declared in this scope
-  303 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                           ^~~
-/usr/include/tesseract/tesscallback.h:303:48: error: ‘p3_’ was not declared in this scope
-  303 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                ^~~
-/usr/include/tesseract/tesscallback.h:303:53: error: ‘p4_’ was not declared in this scope
-  303 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                     ^~~
-/usr/include/tesseract/tesscallback.h:303:58: error: ‘p5_’ was not declared in this scope
-  303 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                          ^~~
-/usr/include/tesseract/tesscallback.h:303:63: error: ‘p6_’ was not declared in this scope
-  303 |       R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                               ^~~
-/usr/include/tesseract/tesscallback.h:306:36: error: ‘p1_’ was not declared in this scope
-  306 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                    ^~~
-/usr/include/tesseract/tesscallback.h:306:41: error: ‘p2_’ was not declared in this scope
-  306 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                         ^~~
-/usr/include/tesseract/tesscallback.h:306:46: error: ‘p3_’ was not declared in this scope
-  306 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                              ^~~
-/usr/include/tesseract/tesscallback.h:306:51: error: ‘p4_’ was not declared in this scope
-  306 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                   ^~~
-/usr/include/tesseract/tesscallback.h:306:56: error: ‘p5_’ was not declared in this scope
-  306 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                        ^~~
-/usr/include/tesseract/tesscallback.h:306:61: error: ‘p6_’ was not declared in this scope
-  306 |     R result = (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                             ^~~
-/usr/include/tesseract/tesscallback.h: At global scope:
-/usr/include/tesseract/tesscallback.h:325:12: error: expected nested-name-specifier before ‘remove_reference’
-  325 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:325:12: error: expected ‘;’ at end of member declaration
-  325 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:325:28: error: expected unqualified-id before ‘<’ token
-  325 |   typename remove_reference<P1>::type p1_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:326:12: error: expected nested-name-specifier before ‘remove_reference’
-  326 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:326:12: error: expected ‘;’ at end of member declaration
-  326 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:326:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:325:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  325 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:326:28: error: expected unqualified-id before ‘<’ token
-  326 |   typename remove_reference<P2>::type p2_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:327:12: error: expected nested-name-specifier before ‘remove_reference’
-  327 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:327:12: error: expected ‘;’ at end of member declaration
-  327 |   typename remove_reference<P3>::type p3_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:327:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:325:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  325 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:327:28: error: expected unqualified-id before ‘<’ token
-  327 |   typename remove_reference<P3>::type p3_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:328:12: error: expected nested-name-specifier before ‘remove_reference’
-  328 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:328:12: error: expected ‘;’ at end of member declaration
-  328 |   typename remove_reference<P4>::type p4_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:328:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:325:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  325 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:328:28: error: expected unqualified-id before ‘<’ token
-  328 |   typename remove_reference<P4>::type p4_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:329:12: error: expected nested-name-specifier before ‘remove_reference’
-  329 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:329:12: error: expected ‘;’ at end of member declaration
-  329 |   typename remove_reference<P5>::type p5_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:329:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:325:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  325 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:329:28: error: expected unqualified-id before ‘<’ token
-  329 |   typename remove_reference<P5>::type p5_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:330:12: error: expected nested-name-specifier before ‘remove_reference’
-  330 |   typename remove_reference<P6>::type p6_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:330:12: error: expected ‘;’ at end of member declaration
-  330 |   typename remove_reference<P6>::type p6_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:330:12: error: redeclaration of ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-/usr/include/tesseract/tesscallback.h:325:12: note: previous declaration ‘int _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::remove_reference’
-  325 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:330:28: error: expected unqualified-id before ‘<’ token
-  330 |   typename remove_reference<P6>::type p6_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h: In constructor ‘_ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::_ConstTessMemberResultCallback_6_0(const T*, _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::MemberSignature, P1, P2, P3, P4, P5, P6)’:
-/usr/include/tesseract/tesscallback.h:338:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p1_’
-  338 |         p1_(p1),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:339:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p2_’
-  339 |         p2_(p2),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:340:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p3_’
-  340 |         p3_(p3),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:341:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p4_’
-  341 |         p4_(p4),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:342:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p5_’
-  342 |         p5_(p5),
-      |         ^~~
-/usr/include/tesseract/tesscallback.h:343:9: error: class ‘_ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>’ does not have any field named ‘p6_’
-  343 |         p6_(p6) {}
-      |         ^~~
-/usr/include/tesseract/tesscallback.h: In member function ‘void _ConstTessMemberResultCallback_6_0<del, void, T, P1, P2, P3, P4, P5, P6>::Run()’:
-/usr/include/tesseract/tesscallback.h:347:27: error: ‘p1_’ was not declared in this scope
-  347 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                           ^~~
-/usr/include/tesseract/tesscallback.h:347:32: error: ‘p2_’ was not declared in this scope
-  347 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                ^~~
-/usr/include/tesseract/tesscallback.h:347:37: error: ‘p3_’ was not declared in this scope
-  347 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                     ^~~
-/usr/include/tesseract/tesscallback.h:347:42: error: ‘p4_’ was not declared in this scope
-  347 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                          ^~~
-/usr/include/tesseract/tesscallback.h:347:47: error: ‘p5_’ was not declared in this scope
-  347 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                               ^~~
-/usr/include/tesseract/tesscallback.h:347:52: error: ‘p6_’ was not declared in this scope
-  347 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                    ^~~
-/usr/include/tesseract/tesscallback.h:349:27: error: ‘p1_’ was not declared in this scope
-  349 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                           ^~~
-/usr/include/tesseract/tesscallback.h:349:32: error: ‘p2_’ was not declared in this scope
-  349 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                ^~~
-/usr/include/tesseract/tesscallback.h:349:37: error: ‘p3_’ was not declared in this scope
-  349 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                     ^~~
-/usr/include/tesseract/tesscallback.h:349:42: error: ‘p4_’ was not declared in this scope
-  349 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                          ^~~
-/usr/include/tesseract/tesscallback.h:349:47: error: ‘p5_’ was not declared in this scope
-  349 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                               ^~~
-/usr/include/tesseract/tesscallback.h:349:52: error: ‘p6_’ was not declared in this scope
-  349 |       (object_->*member_)(p1_, p2_, p3_, p4_, p5_, p6_);
-      |                                                    ^~~
-/usr/include/tesseract/tesscallback.h: At global scope:
-/usr/include/tesseract/tesscallback.h:557:12: error: expected nested-name-specifier before ‘remove_reference’
-  557 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:557:12: error: expected ‘;’ at end of member declaration
-  557 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:557:28: error: expected unqualified-id before ‘<’ token
-  557 |   typename remove_reference<P1>::type p1_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h: In constructor ‘_TessFunctionResultCallback_1_1<del, R, P1, A1>::_TessFunctionResultCallback_1_1(_TessFunctionResultCallback_1_1<del, R, P1, A1>::FunctionSignature, P1)’:
-/usr/include/tesseract/tesscallback.h:561:30: error: class ‘_TessFunctionResultCallback_1_1<del, R, P1, A1>’ does not have any field named ‘p1_’
-  561 |       : function_(function), p1_(p1) {}
-      |                              ^~~
-/usr/include/tesseract/tesscallback.h: In member function ‘virtual R _TessFunctionResultCallback_1_1<del, R, P1, A1>::Run(A1)’:
-/usr/include/tesseract/tesscallback.h:565:31: error: ‘p1_’ was not declared in this scope
-  565 |       R result = (*function_)(p1_, a1);
-      |                               ^~~
-/usr/include/tesseract/tesscallback.h:568:29: error: ‘p1_’ was not declared in this scope
-  568 |     R result = (*function_)(p1_, a1);
-      |                             ^~~
-/usr/include/tesseract/tesscallback.h: At global scope:
-/usr/include/tesseract/tesscallback.h:585:12: error: expected nested-name-specifier before ‘remove_reference’
-  585 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:585:12: error: expected ‘;’ at end of member declaration
-  585 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:585:28: error: expected unqualified-id before ‘<’ token
-  585 |   typename remove_reference<P1>::type p1_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h: In constructor ‘_TessFunctionResultCallback_1_1<del, void, P1, A1>::_TessFunctionResultCallback_1_1(_TessFunctionResultCallback_1_1<del, void, P1, A1>::FunctionSignature, P1)’:
-/usr/include/tesseract/tesscallback.h:589:30: error: class ‘_TessFunctionResultCallback_1_1<del, void, P1, A1>’ does not have any field named ‘p1_’
-  589 |       : function_(function), p1_(p1) {}
-      |                              ^~~
-/usr/include/tesseract/tesscallback.h: In member function ‘void _TessFunctionResultCallback_1_1<del, void, P1, A1>::Run(A1)’:
-/usr/include/tesseract/tesscallback.h:593:20: error: ‘p1_’ was not declared in this scope
-  593 |       (*function_)(p1_, a1);
-      |                    ^~~
-/usr/include/tesseract/tesscallback.h:595:20: error: ‘p1_’ was not declared in this scope
-  595 |       (*function_)(p1_, a1);
-      |                    ^~~
-/usr/include/tesseract/tesscallback.h: At global scope:
-/usr/include/tesseract/tesscallback.h:805:12: error: expected nested-name-specifier before ‘remove_reference’
-  805 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:805:12: error: expected ‘;’ at end of member declaration
-  805 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:805:28: error: expected unqualified-id before ‘<’ token
-  805 |   typename remove_reference<P1>::type p1_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h:806:12: error: expected nested-name-specifier before ‘remove_reference’
-  806 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:806:12: error: expected ‘;’ at end of member declaration
-  806 |   typename remove_reference<P2>::type p2_;
-      |            ^~~~~~~~~~~~~~~~
-      |                            ;
-/usr/include/tesseract/tesscallback.h:806:12: error: redeclaration of ‘int _TessMemberResultCallback_2_2<del, R, T, P1, P2, A1, A2>::remove_reference’
-/usr/include/tesseract/tesscallback.h:805:12: note: previous declaration ‘int _TessMemberResultCallback_2_2<del, R, T, P1, P2, A1, A2>::remove_reference’
-  805 |   typename remove_reference<P1>::type p1_;
-      |            ^~~~~~~~~~~~~~~~
-/usr/include/tesseract/tesscallback.h:806:28: error: expected unqualified-id before ‘<’ token
-  806 |   typename remove_reference<P2>::type p2_;
-      |                            ^
-/usr/include/tesseract/tesscallback.h: In constructor ‘_TessMemberResultCallback_2_2<del, R, T, P1, P2, A1, A2>::_TessMemberResultCallback_2_2(T*, _TessMemberResultCallback_2_2<del, R, T, P1, P2, A1, A2>::MemberSignature, P1, P2)’:
-/usr/include/tesseract/tesscallback.h:811:43: error: class ‘_TessMemberResultCallback_2_2<del, R, T, P1, P2, A1, A2>’ does not have any field named ‘p1_’
-  811 |       : object_(object), member_(member), p1_(p1), p2_(p2) {}
-      |                                           ^~~
-/usr/include/tesseract/tesscallback.h:811:52: error: class ‘_TessMemberResultCallback_2_2<del, R, T, P1, P2, A1, A2>’ does not have any field named ‘p2_’
-  811 |       : object_(object), member_(member), p1_(p1), p2_(p2) {}
-      |                                                    ^~~
-/usr/include/tesseract/tesscallback.h: In member function ‘R _TessMemberResultCallback_2_2<del, R, T, P1, P2, A1, A2>::Run(A1, A2)’:
-/usr/include/tesseract/tesscallback.h:815:38: error: ‘p1_’ was not declared in this scope
-  815 |       R result = (object_->*member_)(p1_, p2_, a1, a2);
-      |                                      ^~~
-/usr/include/tesseract/tesscallback.h:815:43: error: ‘p2_’ was not declared in this scope
-  815 |       R result = (object_->*member_)(p1_, p2_, a1, a2);
-      |                                           ^~~
-/usr/include/tesseract/tesscallback.h:818:36: error: ‘p1_’ was not declared in this scope
-  818 |     R result = (object_->*member_)(p1_, p2_, a1, a2);
-      |                                    ^~~
-/usr/include/tesseract/tesscallback.h:818:41: error: ‘p2_’ was not declared in this scope
-  818 |     R result = (object_->*member_)(p1_, p2_, a1, a2);
-      |                                         ^~~
-make: *** [Makefile:30: bin/main] Error 1
+g++ -Wall -Wextra -std=c++17 -ggdb -Wno-unused-parameter -Wno-deprecated-declarations -Iinclude -Ilib -I/usr/local/include/mongocxx/v_noabi -I/usr/local/include/bsoncxx/v_noabi -I/usr/include/poppler/cpp -I/usr/include/poppler -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  -Llib src/DatabaseHandler.cpp src/main.cpp src/Server.cpp src/Translator.cpp -o bin/main -lpthread -lcrypto -lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx -lpoppler-cpp -lglib-2.0 -ltesseract -llept
+src/DatabaseHandler.cpp:7:13: error: ‘std::string DatabaseHandler::get’ is not a static data member of ‘class DatabaseHandler’
+    7 | std::string DatabaseHandler::get(string id, string field) {
+      |             ^~~~~~~~~~~~~~~
+src/DatabaseHandler.cpp:7:34: error: ‘string’ was not declared in this scope
+    7 | std::string DatabaseHandler::get(string id, string field) {
+      |                                  ^~~~~~
+src/DatabaseHandler.cpp:7:34: note: suggested alternatives:
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/bits/shared_ptr.h:52,
+                 from /usr/include/c++/11/memory:77,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:18,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note:   ‘std::string’
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+In file included from /usr/local/include/mongocxx/v_noabi/mongocxx/database.hpp:21,
+                 from /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp:20,
+                 from src/../include/DatabaseHandler.h:8,
+                 from src/DatabaseHandler.cpp:1:
+/usr/local/include/bsoncxx/v_noabi/bsoncxx/string/view_or_value.hpp:26:11: note:   ‘bsoncxx::v_noabi::string’
+   26 | namespace string {
+      |           ^~~~~~
+In file included from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/streambuf:41,
+                 from /usr/include/c++/11/bits/streambuf_iterator.h:35,
+                 from /usr/include/c++/11/iterator:66,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/view.hpp:19,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:20,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/string:67:11: note:   ‘std::pmr::string’
+   67 |     using string    = basic_string<char>;
+      |           ^~~~~~
+src/DatabaseHandler.cpp:7:45: error: ‘string’ was not declared in this scope
+    7 | std::string DatabaseHandler::get(string id, string field) {
+      |                                             ^~~~~~
+src/DatabaseHandler.cpp:7:45: note: suggested alternatives:
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/bits/shared_ptr.h:52,
+                 from /usr/include/c++/11/memory:77,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:18,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note:   ‘std::string’
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+In file included from /usr/local/include/mongocxx/v_noabi/mongocxx/database.hpp:21,
+                 from /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp:20,
+                 from src/../include/DatabaseHandler.h:8,
+                 from src/DatabaseHandler.cpp:1:
+/usr/local/include/bsoncxx/v_noabi/bsoncxx/string/view_or_value.hpp:26:11: note:   ‘bsoncxx::v_noabi::string’
+   26 | namespace string {
+      |           ^~~~~~
+In file included from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/streambuf:41,
+                 from /usr/include/c++/11/bits/streambuf_iterator.h:35,
+                 from /usr/include/c++/11/iterator:66,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/view.hpp:19,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:20,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/string:67:11: note:   ‘std::pmr::string’
+   67 |     using string    = basic_string<char>;
+      |           ^~~~~~
+src/DatabaseHandler.cpp:7:59: error: expected ‘,’ or ‘;’ before ‘{’ token
+    7 | std::string DatabaseHandler::get(string id, string field) {
+      |                                                           ^
+src/DatabaseHandler.cpp:36:5: error: ‘int DatabaseHandler::put’ is not a static data member of ‘class DatabaseHandler’
+   36 | int DatabaseHandler::put(string id, string json)
+      |     ^~~~~~~~~~~~~~~
+src/DatabaseHandler.cpp:36:26: error: ‘string’ was not declared in this scope
+   36 | int DatabaseHandler::put(string id, string json)
+      |                          ^~~~~~
+src/DatabaseHandler.cpp:36:26: note: suggested alternatives:
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/bits/shared_ptr.h:52,
+                 from /usr/include/c++/11/memory:77,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:18,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note:   ‘std::string’
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+In file included from /usr/local/include/mongocxx/v_noabi/mongocxx/database.hpp:21,
+                 from /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp:20,
+                 from src/../include/DatabaseHandler.h:8,
+                 from src/DatabaseHandler.cpp:1:
+/usr/local/include/bsoncxx/v_noabi/bsoncxx/string/view_or_value.hpp:26:11: note:   ‘bsoncxx::v_noabi::string’
+   26 | namespace string {
+      |           ^~~~~~
+In file included from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/streambuf:41,
+                 from /usr/include/c++/11/bits/streambuf_iterator.h:35,
+                 from /usr/include/c++/11/iterator:66,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/view.hpp:19,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:20,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/string:67:11: note:   ‘std::pmr::string’
+   67 |     using string    = basic_string<char>;
+      |           ^~~~~~
+src/DatabaseHandler.cpp:36:37: error: ‘string’ was not declared in this scope
+   36 | int DatabaseHandler::put(string id, string json)
+      |                                     ^~~~~~
+src/DatabaseHandler.cpp:36:37: note: suggested alternatives:
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/bits/shared_ptr.h:52,
+                 from /usr/include/c++/11/memory:77,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:18,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note:   ‘std::string’
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+In file included from /usr/local/include/mongocxx/v_noabi/mongocxx/database.hpp:21,
+                 from /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp:20,
+                 from src/../include/DatabaseHandler.h:8,
+                 from src/DatabaseHandler.cpp:1:
+/usr/local/include/bsoncxx/v_noabi/bsoncxx/string/view_or_value.hpp:26:11: note:   ‘bsoncxx::v_noabi::string’
+   26 | namespace string {
+      |           ^~~~~~
+In file included from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/streambuf:41,
+                 from /usr/include/c++/11/bits/streambuf_iterator.h:35,
+                 from /usr/include/c++/11/iterator:66,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/view.hpp:19,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:20,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/string:67:11: note:   ‘std::pmr::string’
+   67 |     using string    = basic_string<char>;
+      |           ^~~~~~
+src/DatabaseHandler.cpp:36:48: error: expression list treated as compound expression in initializer [-fpermissive]
+   36 | int DatabaseHandler::put(string id, string json)
+      |                                                ^
+src/DatabaseHandler.cpp:56:1: error: ‘string’ does not name a type; did you mean ‘stdin’?
+   56 | string DatabaseHandler::post(string json)
+      | ^~~~~~
+      | stdin
+src/DatabaseHandler.cpp:72:5: error: ‘int DatabaseHandler::delete_id’ is not a static data member of ‘class DatabaseHandler’
+   72 | int DatabaseHandler::delete_id(string id)
+      |     ^~~~~~~~~~~~~~~
+src/DatabaseHandler.cpp:72:32: error: ‘string’ was not declared in this scope
+   72 | int DatabaseHandler::delete_id(string id)
+      |                                ^~~~~~
+src/DatabaseHandler.cpp:72:32: note: suggested alternatives:
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/bits/shared_ptr.h:52,
+                 from /usr/include/c++/11/memory:77,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:18,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note:   ‘std::string’
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+In file included from /usr/local/include/mongocxx/v_noabi/mongocxx/database.hpp:21,
+                 from /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp:20,
+                 from src/../include/DatabaseHandler.h:8,
+                 from src/DatabaseHandler.cpp:1:
+/usr/local/include/bsoncxx/v_noabi/bsoncxx/string/view_or_value.hpp:26:11: note:   ‘bsoncxx::v_noabi::string’
+   26 | namespace string {
+      |           ^~~~~~
+In file included from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/streambuf:41,
+                 from /usr/include/c++/11/bits/streambuf_iterator.h:35,
+                 from /usr/include/c++/11/iterator:66,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/view.hpp:19,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:20,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/string:67:11: note:   ‘std::pmr::string’
+   67 |     using string    = basic_string<char>;
+      |           ^~~~~~
+src/DatabaseHandler.cpp:95:6: error: variable or field ‘setupCollectionEndpoint’ declared void
+   95 | void DatabaseHandler::setupCollectionEndpoint(string uri_str, string dbName){
+      |      ^~~~~~~~~~~~~~~
+src/DatabaseHandler.cpp:95:47: error: ‘string’ was not declared in this scope
+   95 | void DatabaseHandler::setupCollectionEndpoint(string uri_str, string dbName){
+      |                                               ^~~~~~
+src/DatabaseHandler.cpp:95:47: note: suggested alternatives:
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/bits/shared_ptr.h:52,
+                 from /usr/include/c++/11/memory:77,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:18,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note:   ‘std::string’
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+In file included from /usr/local/include/mongocxx/v_noabi/mongocxx/database.hpp:21,
+                 from /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp:20,
+                 from src/../include/DatabaseHandler.h:8,
+                 from src/DatabaseHandler.cpp:1:
+/usr/local/include/bsoncxx/v_noabi/bsoncxx/string/view_or_value.hpp:26:11: note:   ‘bsoncxx::v_noabi::string’
+   26 | namespace string {
+      |           ^~~~~~
+In file included from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/streambuf:41,
+                 from /usr/include/c++/11/bits/streambuf_iterator.h:35,
+                 from /usr/include/c++/11/iterator:66,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/view.hpp:19,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:20,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/string:67:11: note:   ‘std::pmr::string’
+   67 |     using string    = basic_string<char>;
+      |           ^~~~~~
+src/DatabaseHandler.cpp:95:63: error: ‘string’ was not declared in this scope
+   95 | void DatabaseHandler::setupCollectionEndpoint(string uri_str, string dbName){
+      |                                                               ^~~~~~
+src/DatabaseHandler.cpp:95:63: note: suggested alternatives:
+In file included from /usr/include/c++/11/iosfwd:39,
+                 from /usr/include/c++/11/bits/shared_ptr.h:52,
+                 from /usr/include/c++/11/memory:77,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:18,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/bits/stringfwd.h:79:33: note:   ‘std::string’
+   79 |   typedef basic_string<char>    string;
+      |                                 ^~~~~~
+In file included from /usr/local/include/mongocxx/v_noabi/mongocxx/database.hpp:21,
+                 from /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp:20,
+                 from src/../include/DatabaseHandler.h:8,
+                 from src/DatabaseHandler.cpp:1:
+/usr/local/include/bsoncxx/v_noabi/bsoncxx/string/view_or_value.hpp:26:11: note:   ‘bsoncxx::v_noabi::string’
+   26 | namespace string {
+      |           ^~~~~~
+In file included from /usr/include/c++/11/bits/locale_classes.h:40,
+                 from /usr/include/c++/11/bits/ios_base.h:41,
+                 from /usr/include/c++/11/streambuf:41,
+                 from /usr/include/c++/11/bits/streambuf_iterator.h:35,
+                 from /usr/include/c++/11/iterator:66,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/view.hpp:19,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/array/value.hpp:20,
+                 from /usr/local/include/bsoncxx/v_noabi/bsoncxx/builder/basic/array.hpp:17,
+                 from src/../include/DatabaseHandler.h:3,
+                 from src/DatabaseHandler.cpp:1:
+/usr/include/c++/11/string:67:11: note:   ‘std::pmr::string’
+   67 |     using string    = basic_string<char>;
+      |           ^~~~~~
+make: *** [Makefile:29: bin/main] Error 1
