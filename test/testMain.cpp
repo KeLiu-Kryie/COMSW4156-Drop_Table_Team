@@ -9,6 +9,7 @@
 #include <gtest/gtest.h>
 
 #include "TranslationUnitTests.h"
+#include "DatabaseHandlerUnitTests.h"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

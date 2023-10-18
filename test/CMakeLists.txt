@@ -13,8 +13,9 @@ find_package( Threads )
 add_executable(testMain
     testMain.cpp
     ../src/DatabaseHandler.cpp
-    ../src/Server.cpp
-    ../src/Translator.cpp)
+    ../src/Translator.cpp
+    ../src/Translations.cpp
+    ../src/TranslationOutput.cpp)
 
 # Equivalent of INCLUDE
 target_include_directories(testMain
