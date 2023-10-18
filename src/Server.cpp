@@ -100,7 +100,7 @@ Server::Server()
         }
     });
     //Add a translation into a user given a user id
-    CROW_ROUTE(app,"/post_translation/")([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app,"/post_translation_to_user/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         auto id = req.url_params.get("id");
         auto textToBeTranslated = req.url_params.get("tbt");
