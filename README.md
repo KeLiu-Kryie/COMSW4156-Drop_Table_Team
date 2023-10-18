@@ -23,6 +23,8 @@ This project uses Crow to set up an HTTP server to host the service. You can dow
 
 This project uses libcurl to perform REST operations. Install this with: `sudo apt-get install libcurl4-openssl-dev`.
 
+This project uses nlohmann json to serialize and deserialize data into json strings.Install this with: 'sudo apt-get install nlohmann-json3-dev'.
+
 ## Getting Started
 1. In the project directory, run `make && ./bin/main` to compile the source code and run the server
 2. In your web browser, visit [http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en](http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en)
