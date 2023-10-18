@@ -24,8 +24,8 @@ target_include_directories(testMain
     /usr/local/include/mongocxx/v_noabi
     /usr/local/include/bsoncxx/v_noabi
     /usr/include/glib-2.0
-    /usr/lib/x86_64-linux-gnu/glib-2.0/include)
-    # /usr/include/poppler)
+    /usr/lib/x86_64-linux-gnu/glib-2.0/include
+    /usr/include/poppler)
 
 # Equivalent of LIBS
 target_link_libraries(testMain
@@ -39,8 +39,8 @@ target_link_libraries(testMain
     mongocxx
     glib-2.0
     tesseract
-    lept)
-    # poppler-cpp)
+    lept
+    poppler-cpp)
 
 # Equivalent of CXX_FLAGS
 target_compile_options(testMain PRIVATE -Wno-deprecated-declarations)
