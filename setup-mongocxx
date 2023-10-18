@@ -1,6 +1,6 @@
 #!/bin/bash
 # Source: https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/setup-mongocxx
-# i found the below steps from:
+# I found the below steps from:
 # https://developer.mongodb.com/community/forums/t/problems-trying-to-compile-mongocxx/2084
 function install_mongocxx_dependencies() {
   TOP_DIR=$(pwd)
