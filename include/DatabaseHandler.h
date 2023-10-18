@@ -15,14 +15,12 @@
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
-using namespace std;
 
 class DatabaseHandler {
 
 public:
         DatabaseHandler();
 //Get transaltion history
-
         std::pair<int, string> get_translation_history(string id);
 
 //Post
@@ -35,7 +33,7 @@ public:
 
         std::pair<int, string> post_translation(string id, TranslationOutput newTranslation);
 
-        void setupCollectionEndpoint(string uri_str, string dbName);
+        void setupCollectionEndpoint(std::string uri_str, std::string dbName);
 
 private:
   // Create an instance. Note there must only be one instance

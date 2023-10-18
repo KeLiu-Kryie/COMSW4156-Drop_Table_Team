@@ -73,27 +73,6 @@ std::pair<int, string> DatabaseHandler::get_translation_history(string id) {
         return std::make_pair(500, "Server error!");
 }
 
-// //int DatabaseHandler::UpdateDataInCollection(string id, string jsonData){
-// std::pair<int, string> DatabaseHandler::put(string id, string json)
-// {
-
-//         try {
-//                 bsoncxx::oid currId = bsoncxx::oid(id);
-//                 auto response = db["translations"].update_one(make_document(kvp("_id", currId)), make_document(kvp("$set", make_document(kvp("userData", json)))));
-//                 if(response->modified_count() > 0){
-//                         return std::make_pair(200, "Update Successful");
-//                 } else {
-//                         return std::make_pair(404, "ID not found!");
-//                 }
-//         } catch (const std::exception& e) {
-//                 std::cerr<< "Exception: " << e.what() << std::endl;
-//                 return std::make_pair(500, e.what());
-//         }
-
-//         return std::make_pair(500, "Server error!");
-// }
-
-//string DatabaseHandler::AddNewDataToCollection(string jsonData){
 std::pair<int, string> DatabaseHandler::create_user()
 {
 
