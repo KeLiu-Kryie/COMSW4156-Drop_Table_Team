@@ -7,6 +7,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include "../include/Translator.h"
+#include <ctype.h>
 
 // ctor
 Translator::Translator()
@@ -37,6 +38,14 @@ size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
     return realsize;
 }
 
+std::string url_encode(const std::string& decoded)
+{
+    const auto encoded_value = curl_easy_escape(nullptr, decoded.c_str(), static_cast<int>(decoded.length()));
+    std::string result(encoded_value);
+    curl_free(encoded_value);
+    return result;
+}
+
 // Function to perform the translation
 bool Translator::doTranslation(std::string& translatedText, // output
                                std::string textToBeTranslated,
@@ -49,18 +58,32 @@ bool Translator::doTranslation(std::string& translatedText, // output
         return false;
     }
     // Change the space to '-'
+
+
     for (char &ch : textToBeTranslated) {
         if (ch == ' ') {
             ch = '-';
         }
     }
 
+    std::string tbt = "";
+
+
+    for (const auto& x : textToBeTranslated) {
+            if (isalnum(x) || x == '-')
+                    tbt.push_back(x);
+    }
+
+    tbt = url_encode(tbt);
+
     // Create the salt
     char salt[60];
     sprintf(salt, "%d", rand());
 
     // Create the sign
-    std::string sign = appId + textToBeTranslated + salt + key;
+    std::string sign = appId + tbt + salt + key;
+
+    std::cerr << sign << "\n";
 
     // Generate an MD5 hash of the sign
     unsigned char md[16];
@@ -78,7 +101,7 @@ bool Translator::doTranslation(std::string& translatedText, // output
     // Assemble the query string
     std::ostringstream oss;
     oss << url 
-    << "q=" << textToBeTranslated
+    << "q=" << tbt
     << "&from=" << fromLang <<
     "&to=" << toLang <<
     "&appid=" << appId
@@ -95,7 +118,7 @@ bool Translator::doTranslation(std::string& translatedText, // output
     // Check for errors
     if (res != CURLE_OK)
     {
-        std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
+        std::cerr << "TRANSLATOR: curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
         return false;
     }
 

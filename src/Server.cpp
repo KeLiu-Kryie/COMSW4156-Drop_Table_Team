@@ -167,21 +167,20 @@ Server::Server()
 
         auto toLang = req.url_params.get("tl");
         auto fromLang = req.url_params.get("fl");
-        auto textToBeTranslated = data_to_text(pdf);
+        std::string textToBeTranslated = data_to_text(pdf);
 
         // Check if parameters exist and handle accordingly
         if (textToBeTranslated.size() && toLang && fromLang)
         {
             // Output
             std::string translatedText;
+            // translator.doTranslation(translatedText, "hello", toLang, fromLang);
             translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
 
             // The rest of this IF block is for debugging
             std::ostringstream oss;
-            oss << "textToBeTranslated: " << textToBeTranslated
-                << ", toLang: " << toLang
+            oss << "toLang: " << toLang
                 << ", fromLang: " << fromLang
-                << std::endl
                 << "Translated text: " << translatedText
                 << std::endl;
                 
@@ -321,7 +320,7 @@ Server::Server()
         auto toLang = req.url_params.get("tl");
         auto fromLang = req.url_params.get("fl");
 
-        auto textToBeTranslated = ocr::image_to_text(image, fromLang);
+        auto textToBeTranslated = ocr::image_to_text(image, "eng");
 
         // Check if parameters exist and handle accordingly
         if (textToBeTranslated.size() && toLang && fromLang)

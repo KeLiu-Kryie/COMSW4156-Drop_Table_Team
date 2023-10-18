@@ -4,6 +4,14 @@
 #include <fstream>
 #include <glib.h>
 
+std::string trim(const std::string& line)
+{
+    const char* WhiteSpace = " \t\v\r\n";
+    std::size_t start = line.find_first_not_of(WhiteSpace);
+    std::size_t end = line.find_last_not_of(WhiteSpace);
+    return start == end ? std::string() : line.substr(start, end - start + 1);
+}
+
 std::string data_to_text(const std::string& input_str)
 {
 
@@ -17,18 +25,18 @@ std::string data_to_text(const std::string& input_str)
                 return "UNABLE TO READ PDF";
 
         int numPages = doc->pages();
-        std::cerr << numPages << "\n";
         std::string output = "";
 
         for (int i = 0; i < numPages; ++i) {
                 const page *pdfPage = doc->create_page(i);
                 auto text = pdfPage->text().to_latin1();
-                output += text;
+                std::replace( text.begin(), text.end(), '\n', ' ');
+                std::replace( text.begin(), text.end(), '\t', ' ');
+                output += trim(text);
         }
 
         std::cerr << output << "\n";
         return output;
-
 }
 
 std::string file_to_text(const std::string& inputPdfPath)
