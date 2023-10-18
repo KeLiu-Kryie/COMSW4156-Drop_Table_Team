@@ -16,7 +16,7 @@ DatabaseHandler::DatabaseHandler(){
 
 }
 
-std::pair<int, string> DatabaseHandler::post_translation(string id, TranslationOutput newTranslation){
+std::pair<int, std::string> DatabaseHandler::post_translation(std::string id, TranslationOutput newTranslation){
         try{
                 auto collection = db["translations"];
                 auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(id))));
@@ -46,7 +46,7 @@ std::pair<int, string> DatabaseHandler::post_translation(string id, TranslationO
         return std::make_pair(500, "Server error!");
 }
 
-std::pair<int, string> DatabaseHandler::get_translation_history(string id) {
+std::pair<int, std::string> DatabaseHandler::get_translation_history(std::string id) {
 
         try {
                 
@@ -73,7 +73,7 @@ std::pair<int, string> DatabaseHandler::get_translation_history(string id) {
         return std::make_pair(500, "Server error!");
 }
 
-std::pair<int, string> DatabaseHandler::create_user()
+std::pair<int, std::string> DatabaseHandler::create_user()
 {
 
         try {
@@ -91,7 +91,7 @@ std::pair<int, string> DatabaseHandler::create_user()
         return std::make_pair(500, "Server error!");
 }
 
-std::pair<int, string> DatabaseHandler::delete_user(string id)
+std::pair<int, std::string> DatabaseHandler::delete_user(std::string id)
 {
         try {
 

@@ -21,17 +21,17 @@ class DatabaseHandler {
 public:
         DatabaseHandler();
 //Get transaltion history
-        std::pair<int, string> get_translation_history(string id);
+        std::pair<int, std::string> get_translation_history(std::string id);
 
 //Post
 
-        std::pair<int, string> create_user();
+        std::pair<int, std::string> create_user();
 
 //Delete
 
-        std::pair<int, string> delete_user(string id);
+        std::pair<int, std::string> delete_user(std::string id);
 
-        std::pair<int, string> post_translation(string id, TranslationOutput newTranslation);
+        std::pair<int, std::string> post_translation(std::string id, TranslationOutput newTranslation);
 
         void setupCollectionEndpoint(std::string uri_str, std::string dbName);
 

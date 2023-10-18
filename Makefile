@@ -14,7 +14,6 @@ INCLUDE	:= -Iinclude -Ilib \
 LIB		:= lib
 
 LIBRARIES	:=  -lpthread -lcrypto \
-
 -lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx -lpoppler-cpp -lglib-2.0 -ltesseract -llept
 
 
