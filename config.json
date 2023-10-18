@@ -1,4 +1,4 @@
 {
-  "ConnectionString": "ADD_STRING_HERE",
+  "ConnectionString": "mongodb+srv://supersid2001:UIygJmuzVXK19Ywp@translationservice.05k94ez.mongodb.net/",
   "DBName": "test"
 }

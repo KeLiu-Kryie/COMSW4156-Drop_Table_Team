@@ -47,7 +47,7 @@ class DatabaseHandlerTest : public ::testing::Test {
 
   DatabaseHandlerTest() {
       nlohmann::json config;
-      std::ifstream configFile("../config.json");
+      std::ifstream configFile("config.json");
       config = nlohmann::json::parse(configFile);
       std::string connectionStr = config["ConnectionString"];
       std::string dbName = config["DBName"];
