@@ -39,7 +39,9 @@ target_link_libraries(testMain
     mongocxx
     glib-2.0
     tesseract
-    lept)
+    lept
+    poppler-cpp
+    glib-2.0)
     # poppler-cpp)
 
 # Equivalent of CXX_FLAGS
