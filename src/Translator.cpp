@@ -100,7 +100,7 @@ bool Translator::doTranslation(std::string& translatedText, // output
     }
 
     // Print the raw response (for debugging only; TODO delete)
-    std::cout << "Response: " << readBuffer << std::endl;
+    // std::cout << "Response: " << readBuffer << std::endl;
 
     // The raw response is a std::string containing JSON data.
     // The relevant field is trans_result.dst which contains the translated text.
