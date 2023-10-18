@@ -14,6 +14,8 @@ add_executable(testMain
     testMain.cpp
     ../src/DatabaseHandler.cpp
     ../src/Server.cpp
+    ../src/TranslationOutput.cpp
+    ../src/Translations.cpp
     ../src/Translator.cpp)
 
 # Equivalent of INCLUDE
@@ -23,9 +25,10 @@ target_include_directories(testMain
     ../include
     /usr/local/include/mongocxx/v_noabi
     /usr/local/include/bsoncxx/v_noabi
+    /usr/include/poppler
+    /usr/include/poppler/cpp
     /usr/include/glib-2.0
     /usr/lib/x86_64-linux-gnu/glib-2.0/include)
-    # /usr/include/poppler)
 
 # Equivalent of LIBS
 target_link_libraries(testMain
@@ -37,12 +40,10 @@ target_link_libraries(testMain
     curl
     boost_system
     mongocxx
+    poppler-cpp
     glib-2.0
     tesseract
-    lept
-    poppler-cpp
-    glib-2.0)
-    # poppler-cpp)
+    lept)
 
 # Equivalent of CXX_FLAGS
 target_compile_options(testMain PRIVATE -Wno-deprecated-declarations)
