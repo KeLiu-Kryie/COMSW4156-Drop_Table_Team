@@ -268,6 +268,7 @@ TEST_F(DatabaseHandlerTest, PostSingleTranslation)
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
+  Translations translationsExpected = Translations();
   nlohmann::json newData = translations;
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
@@ -278,10 +279,47 @@ TEST_F(DatabaseHandlerTest, PostSingleTranslation)
   std::string oidStr = oid.to_string();
   //Post a test translation to current id
   dbHanlder.post_translation(oidStr, testTranslationOutput);
+  translationsExpected.AddTranslation(testTranslationOutput);
+  nlohmann::json expected = translationsExpected;
   auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
   auto view = doc->view();
   auto element = view["translationData"];
   auto value = element.get_string().value;
+  EXPECT_EQ(value.to_string(), expected.dump());
+  //TODO: ADD LINES TO COMPARE JSON STRING VALUES!!
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: PostLessThanTenTranslations
+// 
+// Description: Test case to multiple (but less than 10) translations
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, PostLessThanTenTranslations)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  Translations translationsExpected = Translations();
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  //Post a test translation to current id
+  for(int i = 0; i < 5; i++){
+    dbHanlder.post_translation(oidStr, testTranslationOutput);
+    translationsExpected.AddTranslation(testTranslationOutput);
+  }
+  nlohmann::json expected = translationsExpected;
+  auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
+  auto view = doc->view();
+  auto element = view["translationData"];
+  auto value = element.get_string().value;
+  EXPECT_EQ(value.to_string(), expected.dump());
   //TODO: ADD LINES TO COMPARE JSON STRING VALUES!!
 }
 
