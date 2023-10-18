@@ -6,11 +6,13 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+
 #ifndef SERVER_H
 #define SERVER_H
-
 // This is the only include needed for crow
 #include "crow.h"
+#include "TranslationOutput.h"
+#include "Translations.h"
 #include "DatabaseHandler.h"
 
 // Translator header

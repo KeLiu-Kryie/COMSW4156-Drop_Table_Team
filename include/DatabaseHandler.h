@@ -1,3 +1,4 @@
+
 #include <chrono>
 
 #include <bsoncxx/builder/basic/array.hpp>
@@ -8,6 +9,8 @@
 #include <mongocxx/client.hpp>
 #include <mongocxx/instance.hpp>
 #include <mongocxx/uri.hpp>
+#include "TranslationOutput.h"
+#include "Translations.h"
 
 using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
@@ -17,24 +20,18 @@ class DatabaseHandler {
 
 public:
         DatabaseHandler();
-//Get
-
-        //std::string GetDataFromId(std::string id);
-        std::string get(std::string id, std::string field);
+//Get transaltion history
+        std::pair<int, string> get_translation_history(string id);
 
 //Post
 
-        //std::string AddNewDataToCollection(std::string jsonData);
-        std::string post(std::string json);
+        std::pair<int, string> create_user();
 
 //Delete
 
-        //std::string deleteDataWithId(std::string id);
-        int delete_id(std::string id);
-//Update
+        std::pair<int, string> delete_user(string id);
 
-        //int UpdateDataInCollection(std::string id, std::string jsonData);
-        int put(std::string id, std::string json);
+        std::pair<int, string> post_translation(string id, TranslationOutput newTranslation);
 
         void setupCollectionEndpoint(std::string uri_str, std::string dbName);
 
