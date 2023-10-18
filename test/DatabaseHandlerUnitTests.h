@@ -63,6 +63,7 @@ class DatabaseHandlerTest : public ::testing::Test {
   // and cleaning up each test, you can define the following methods:
 
   void SetUp() override {
+    testTranslationOutput = TranslationOutput("sp", "en", "hello", "hola");
      // Code here will be called immediately after the constructor (right
      // before each test).
   }
@@ -79,6 +80,8 @@ class DatabaseHandlerTest : public ::testing::Test {
   mongocxx::uri testuri;
 
   mongocxx::client testclient;
+
+  TranslationOutput testTranslationOutput;
 };
 
 //TEST CREATE_USER()
@@ -145,7 +148,7 @@ TEST_F(DatabaseHandlerTest, CreateMultipleUsers)
   }
   if(res2.first == 200){
     auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(res2.second))));
-    // EXPECT_NE(doc, nullptr);
+    EXPECT_TRUE(doc);
     collection.delete_one(make_document(kvp("_id", bsoncxx::oid(res2.second))));
   }
 }
@@ -156,16 +159,16 @@ TEST_F(DatabaseHandlerTest, CreateMultipleUsers)
 // Test case: DeleteSingleUser
 // 
 // Description: Test case to create a single user  
-// then delete them to make sure they do not exist in db
+// then delete it to make sure they do not exist in db
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, DeleteSingleUser)
 {
   bsoncxx::document::view filter;
   //Create a new user
   auto collection = testdb["translations"];
+  int count = collection.count_documents(filter);
   bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  int count = collection.count_documents(filter);
   //Get user's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
@@ -173,14 +176,115 @@ TEST_F(DatabaseHandlerTest, DeleteSingleUser)
   std::pair<int, std::string> resDelete = dbHanlder.delete_user(oidStr);
   int newCount = collection.count_documents(filter);
   if(resDelete.first == 200){
-    EXPECT_EQ(newCount, count - 1);
+    EXPECT_EQ(newCount, count);
     auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
     EXPECT_TRUE(!(doc));
   } else {
-    EXPECT_EQ(newCount, count);
+    EXPECT_EQ(newCount, count + 1);
     collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: DeleteMultipleUsers
+// 
+// Description: Test case to create multiple users 
+// then delete them to make sure they do not exist in db
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
+{
+  bsoncxx::document::view filter;
+  //Create a new user
+  auto collection = testdb["translations"];
+  int count = collection.count_documents(filter);
+  bsoncxx::document::value new_doc1 = make_document(kvp("translationData", " "));
+  bsoncxx::document::value new_doc2 = make_document(kvp("translationData", " "));
+  auto res1 = testdb["translations"].insert_one(std::move(new_doc1));
+  auto res2 = testdb["translations"].insert_one(std::move(new_doc2));
+  //Get user's oid
+  bsoncxx::oid oid1 = res1->inserted_id().get_oid().value;
+  bsoncxx::oid oid2 = res2->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr1 = oid1.to_string();
+  std::string oidStr2 = oid2.to_string();
+  std::pair<int, std::string> resDelete1 = dbHanlder.delete_user(oidStr1);
+  int newCount = collection.count_documents(filter);
+  if(resDelete1.first == 200){
+    EXPECT_EQ(newCount, count + 1);
+    auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr1))));
+    EXPECT_TRUE(!(doc));
+  } else {
+    EXPECT_EQ(newCount, count + 2);
+    collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr1))));
+  }
+  std::pair<int, std::string> resDelete2 = dbHanlder.delete_user(oidStr2);
+  newCount = collection.count_documents(filter);
+  if(resDelete2.first == 200){
+    EXPECT_EQ(newCount, count);
+    auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr2))));
+    EXPECT_TRUE(!(doc));
+  } else {
+    EXPECT_EQ(newCount, count + 1);
+    collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr2))));
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: DeleteNonExistantUser
+// 
+// Description: Test case to create a user then delete it after which
+// delete function is called to see whether it returns correct output code
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, DeleteNonExistantUser)
+{
+  bsoncxx::document::view filter;
+  //Create a new user
+  auto collection = testdb["translations"];
+  int count = collection.count_documents(filter);
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
+  std::pair<int, std::string> resDelete = dbHanlder.delete_user(oidStr);
+  int newCount = collection.count_documents(filter);
+  EXPECT_EQ(resDelete.first, 404);
+  EXPECT_EQ(newCount, count);
+}
+
+//TEST POST_TRANSLATION FUNCTION
+
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: PostSingleTranslation
+// 
+// Description: Test case to post a single translation to an id
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, PostSingleTranslation)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  //Post a test translation to current id
+  dbHanlder.post_translation(oidStr, testTranslationOutput);
+  auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
+  auto view = doc->view();
+  auto element = view["translationData"];
+  auto value = element.get_string().value;
+  //TODO: ADD LINES TO COMPARE JSON STRING VALUES!!
+}
+
     
 } 
 
