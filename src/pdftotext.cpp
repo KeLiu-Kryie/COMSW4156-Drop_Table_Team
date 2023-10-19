@@ -2,7 +2,6 @@
 
 std::string data_to_text(const std::string& input_str)
 {
-
         using namespace poppler;
 
         byte_array data(input_str.begin(), input_str.end());
@@ -30,8 +29,8 @@ std::string data_to_text(const std::string& input_str)
         for (int i = 0; i < numPages; ++i) {
                 const page *pdfPage = doc->create_page(i);
                 auto text = pdfPage->text().to_latin1();
-                std::replace( text.begin(), text.end(), '\n', ' ');
-                std::replace( text.begin(), text.end(), '\t', ' ');
+                std::replace(text.begin(), text.end(), '\n', ' ');
+                std::replace(text.begin(), text.end(), '\t', ' ');
                 output += trim(text);
         }
 

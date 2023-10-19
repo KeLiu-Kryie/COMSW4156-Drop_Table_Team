@@ -4,7 +4,6 @@ namespace ocr {
 
 
 std::string optical_character_recognition(const std::string& path, const std::string& language) {
-
         tesseract::TessBaseAPI api {};
 
         if (api.Init(nullptr, language.c_str())) {
@@ -32,9 +31,7 @@ std::string optical_character_recognition(const std::string& path, const std::st
 }
 
 std::string image_to_text(const std::string& data, const std::string& language) {
-
         tesseract::TessBaseAPI api {};
-
         if (api.Init(nullptr, language.c_str())) {
                 std::cerr << "Could not initialize tesseract.\n";
                 std::exit(1);
@@ -47,11 +44,8 @@ std::string image_to_text(const std::string& data, const std::string& language) 
 
         Pix *image = nullptr;
 
-
         try {
-
                 image = pixReadMem(bytearray, length);
-
         } catch (std::exception& e) {
                 return  std::string("ERROR: ")
                         + std::string(e.what())
@@ -68,4 +62,4 @@ std::string image_to_text(const std::string& data, const std::string& language) 
 }
 
 
-}
+}  // namespace ocr
