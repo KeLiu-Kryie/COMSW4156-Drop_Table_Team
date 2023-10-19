@@ -38,6 +38,8 @@ For accessing translation, use the following query parameters:
 - `tl` = The language to translate to
 - `fl` = The source language of `tbt`
 
+tl and fl should select from the [language list](#language-list) in API odc.
+
 ## Endpoints:
 
 ### /translate/
@@ -105,7 +107,7 @@ For accessing translation, use the following query parameters:
 
 ## Translation API doc
 
-### Languages list:
+### Languages list
 
 | Supported Languages | Code |
 | :------------------ | :--- |
