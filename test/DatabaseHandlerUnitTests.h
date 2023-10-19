@@ -37,7 +37,7 @@ using bsoncxx::builder::basic::make_document;
 
 namespace DatabaseHandlerUnitTests {
 
-DatabaseHandler dbHanlder = DatabaseHandler();
+DatabaseHandler dbHandler = DatabaseHandler();
 
 // The fixture for testing class Foo.
 class DatabaseHandlerTest : public ::testing::Test {
@@ -46,6 +46,7 @@ class DatabaseHandlerTest : public ::testing::Test {
   // be empty.
 
   DatabaseHandlerTest() {
+      testTranslationOutput = TranslationOutput("sp", "en", "hello", "hola");
       nlohmann::json config;
       std::ifstream configFile("config.json");
       config = nlohmann::json::parse(configFile);
@@ -63,7 +64,6 @@ class DatabaseHandlerTest : public ::testing::Test {
   // and cleaning up each test, you can define the following methods:
 
   void SetUp() override {
-    testTranslationOutput = TranslationOutput("sp", "en", "hello", "hola");
      // Code here will be called immediately after the constructor (right
      // before each test).
   }
@@ -75,6 +75,7 @@ class DatabaseHandlerTest : public ::testing::Test {
 
   // Class members declared here can be used by all tests in the test suite
   // for Foo.
+
   mongocxx::database testdb;
 
   mongocxx::uri testuri;
@@ -97,7 +98,7 @@ TEST_F(DatabaseHandlerTest, CreateSingleUser)
   bsoncxx::document::view filter;
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
-  std::pair<int, std::string> res = dbHanlder.create_user();
+  std::pair<int, std::string> res = dbHandler.create_user();
   //If response was 200 the check if it exists in db
   //otherwise, make sure nothing was added to db
   if(res.first == 200){
@@ -127,8 +128,8 @@ TEST_F(DatabaseHandlerTest, CreateMultipleUsers)
   bsoncxx::document::view filter;
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
-  std::pair<int, std::string> res1 = dbHanlder.create_user();
-  std::pair<int, std::string> res2 = dbHanlder.create_user();
+  std::pair<int, std::string> res1 = dbHandler.create_user();
+  std::pair<int, std::string> res2 = dbHandler.create_user();
   //Based on the responses, get expected count
   //make sure it matches current db count 
   int updatedCount = count;
@@ -173,7 +174,7 @@ TEST_F(DatabaseHandlerTest, DeleteSingleUser)
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
-  std::pair<int, std::string> resDelete = dbHanlder.delete_user(oidStr);
+  std::pair<int, std::string> resDelete = dbHandler.delete_user(oidStr);
   int newCount = collection.count_documents(filter);
   if(resDelete.first == 200){
     EXPECT_EQ(newCount, count);
@@ -207,7 +208,7 @@ TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
   //make it a string
   std::string oidStr1 = oid1.to_string();
   std::string oidStr2 = oid2.to_string();
-  std::pair<int, std::string> resDelete1 = dbHanlder.delete_user(oidStr1);
+  std::pair<int, std::string> resDelete1 = dbHandler.delete_user(oidStr1);
   int newCount = collection.count_documents(filter);
   if(resDelete1.first == 200){
     EXPECT_EQ(newCount, count + 1);
@@ -217,7 +218,7 @@ TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
     EXPECT_EQ(newCount, count + 2);
     collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr1))));
   }
-  std::pair<int, std::string> resDelete2 = dbHanlder.delete_user(oidStr2);
+  std::pair<int, std::string> resDelete2 = dbHandler.delete_user(oidStr2);
   newCount = collection.count_documents(filter);
   if(resDelete2.first == 200){
     EXPECT_EQ(newCount, count);
@@ -248,7 +249,7 @@ TEST_F(DatabaseHandlerTest, DeleteNonExistantUser)
   //make it a string
   std::string oidStr = oid.to_string();
   collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
-  std::pair<int, std::string> resDelete = dbHanlder.delete_user(oidStr);
+  std::pair<int, std::string> resDelete = dbHandler.delete_user(oidStr);
   int newCount = collection.count_documents(filter);
   EXPECT_EQ(resDelete.first, 404);
   EXPECT_EQ(newCount, count);
@@ -278,15 +279,16 @@ TEST_F(DatabaseHandlerTest, PostSingleTranslation)
   //make it a string
   std::string oidStr = oid.to_string();
   //Post a test translation to current id
-  dbHanlder.post_translation(oidStr, testTranslationOutput);
+  dbHandler.post_translation(oidStr, testTranslationOutput);
   translationsExpected.AddTranslation(testTranslationOutput);
   nlohmann::json expected = translationsExpected;
   auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
   auto view = doc->view();
   auto element = view["translationData"];
   auto value = element.get_string().value;
-  EXPECT_EQ(value.to_string(), expected.dump());
-  //TODO: ADD LINES TO COMPARE JSON STRING VALUES!!
+  std::string actual = value.to_string();
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(actual, expected.dump());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -311,7 +313,7 @@ TEST_F(DatabaseHandlerTest, PostLessThanTenTranslations)
   std::string oidStr = oid.to_string();
   //Post a test translation to current id
   for(int i = 0; i < 5; i++){
-    dbHanlder.post_translation(oidStr, testTranslationOutput);
+    dbHandler.post_translation(oidStr, testTranslationOutput);
     translationsExpected.AddTranslation(testTranslationOutput);
   }
   nlohmann::json expected = translationsExpected;
@@ -319,9 +321,243 @@ TEST_F(DatabaseHandlerTest, PostLessThanTenTranslations)
   auto view = doc->view();
   auto element = view["translationData"];
   auto value = element.get_string().value;
-  EXPECT_EQ(value.to_string(), expected.dump());
-  //TODO: ADD LINES TO COMPARE JSON STRING VALUES!!
+  std::string actual = value.to_string();
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(actual, expected.dump());
 }
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: PostTenTranslations
+// 
+// Description: Test case to multiple (10) translations to see if it 
+// only stores a maximum of 10 translations
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, PostTenTranslations)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  Translations translationsExpected = Translations();
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  //Post a test translation to current id
+  for(int i = 0; i < 10; i++){
+    dbHandler.post_translation(oidStr, testTranslationOutput);
+    translationsExpected.AddTranslation(testTranslationOutput);
+  }
+  nlohmann::json expected = translationsExpected;
+  auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
+  auto view = doc->view();
+  auto element = view["translationData"];
+  auto value = element.get_string().value;
+  std::string actual = value.to_string();
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(actual, expected.dump());
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: PostMoreThanTenTranslations
+// 
+// Description: Test case to multiple (more than 10) translations to see if it 
+// only stores a maximum of 10 translations
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, PostMoreThanTenTranslations)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  Translations translationsExpected = Translations();
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  //Post a test translation to current id
+  for(int i = 0; i < 11; i++){
+    dbHandler.post_translation(oidStr, testTranslationOutput);
+  } for(int i = 0; i < 10; i++){
+    translationsExpected.AddTranslation(testTranslationOutput);
+  }
+  nlohmann::json expected = translationsExpected;
+  auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
+  auto view = doc->view();
+  auto element = view["translationData"];
+  auto value = element.get_string().value;
+  std::string actual = value.to_string();
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(actual, expected.dump());
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: PostTranslationInvalidId
+// 
+// Description: Test case to multiple (more than 10) translations to see if it 
+// only stores a maximum of 10 translations
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, PostTranslationInvalidId)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get new data oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  std::string oidStr = oid.to_string();
+  //Delete it
+  collection.delete_one(make_document(kvp("_id", oid)));
+  //Check if post_new_translation returns 404
+  std::pair<int, std::string> resPost = dbHandler.post_translation(oidStr, testTranslationOutput);
+  EXPECT_EQ(404, resPost.first);
+}
+
+
+//TEST GET_TRANSLATION_HISTORY FUNCTION
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: GetEmptyData
+// 
+// Description: Test get translation history with an empty object (no translations)
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, GetEmptyData)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  std::pair<int, std::string> resGetHistory = dbHandler.get_translation_history(oidStr);
+  nlohmann::json expected = translations;
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(resGetHistory.second, expected.dump());
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: GetDataLessThanTen
+// 
+// Description: Test get translation history for an object with less than 10
+// translations
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, GetDataLessThanTen)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  for(int i = 0; i < 5; i++){
+    translations.AddTranslation(testTranslationOutput);
+  }
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  std::pair<int, std::string> resGetHistory = dbHandler.get_translation_history(oidStr);
+  nlohmann::json expected = translations;
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(resGetHistory.second, expected.dump());
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: GetDataTen
+// 
+// Description: Test get translation history for an object with 10
+// translations
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, GetDataTen)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  for(int i = 0; i < 10; i++){
+    translations.AddTranslation(testTranslationOutput);
+  }
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  std::pair<int, std::string> resGetHistory = dbHandler.get_translation_history(oidStr);
+  nlohmann::json expected = translations;
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(resGetHistory.second, expected.dump());
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: GetDataMoreThanTen
+// 
+// Description: Test get translation history for an object with more than 10
+// translations
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, GetDataMoreThanTen)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Convert Translation to json
+  Translations translations = Translations();
+  for(int i = 0; i < 12; i++){
+    translations.AddTranslation(testTranslationOutput);
+  }
+  nlohmann::json newData = translations;
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  //make it a string
+  std::string oidStr = oid.to_string();
+  std::pair<int, std::string> resGetHistory = dbHandler.get_translation_history(oidStr);
+  nlohmann::json expected = translations;
+  collection.delete_one(make_document(kvp("_id", oid)));
+  EXPECT_EQ(resGetHistory.second, expected.dump());
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: GetDataInvalidId
+// 
+// Description: Test get translation history for an object id that does not exist
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(DatabaseHandlerTest, GetDataInvalidId)
+{
+  //Create a new user
+  auto collection = testdb["translations"];
+  //Insert new data
+  bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
+  auto res = testdb["translations"].insert_one(std::move(new_doc));
+  //Get user's oid
+  bsoncxx::oid oid = res->inserted_id().get_oid().value;
+  collection.delete_one(make_document(kvp("_id", oid)));
+  //make it a string
+  std::string oidStr = oid.to_string();
+  std::pair<int, std::string> resGetHistory = dbHandler.get_translation_history(oidStr);
+  EXPECT_EQ(resGetHistory.first, 404);
+}
+
 
     
 } 
