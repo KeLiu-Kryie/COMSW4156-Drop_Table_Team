@@ -13,9 +13,12 @@ find_package( Threads )
 add_executable(testMain
     testMain.cpp
     ../src/DatabaseHandler.cpp
-    ../src/Translator.cpp
+    ../src/Server.cpp
+    ../src/TranslationOutput.cpp
     ../src/Translations.cpp
-    ../src/TranslationOutput.cpp)
+    ../src/Translator.cpp
+    ../src/ocr.cpp
+    ../src/pdftotext.cpp)
 
 # Equivalent of INCLUDE
 target_include_directories(testMain
@@ -24,6 +27,8 @@ target_include_directories(testMain
     ../include
     /usr/local/include/mongocxx/v_noabi
     /usr/local/include/bsoncxx/v_noabi
+    /usr/include/poppler
+    /usr/include/poppler/cpp
     /usr/include/glib-2.0
     /usr/lib/x86_64-linux-gnu/glib-2.0/include
     /usr/include/poppler)
@@ -38,6 +43,7 @@ target_link_libraries(testMain
     curl
     boost_system
     mongocxx
+    poppler-cpp
     glib-2.0
     tesseract
     lept

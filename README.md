@@ -23,6 +23,8 @@ This project uses Crow to set up an HTTP server to host the service. You can dow
 
 This project uses libcurl to perform REST operations. Install this with: `sudo apt-get install libcurl4-openssl-dev`.
 
+This project uses nlohmann json to serialize and deserialize data into json strings.Install this with: 'sudo apt-get install nlohmann-json3-dev'.
+
 ## Getting Started
 1. In the project directory, run `make && ./bin/main` to compile the source code and run the server
 2. In your web browser, visit [http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en](http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en)
@@ -50,6 +52,9 @@ For accessing translation, use the following query parameters:
 * [MongoDB Connection String](https://www.mongodb.com/docs/guides/atlas/connection-string/)
 
 * [MongoDB C++ Driver](https://www.mongodb.com/docs/drivers/cxx/)
+
+### API
+* [baidufanyi-API](https://fanyi-api.baidu.com/doc/11)
 
 ### Environment
 * [Makefile Implementation](https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/Makefile)
