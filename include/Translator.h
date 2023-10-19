@@ -49,8 +49,7 @@ private:
     // REST endpoint
     std::string url;
 
-    // Not exactly sure what this field is for.
-    // @Ke -- any idea?
+    // Account for API:baidufanyi 
     std::string appId;
 
     // API Key

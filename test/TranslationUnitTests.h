@@ -71,13 +71,134 @@ TEST_F(TranslatorTest, TranslateHelloFromEnglishToSpanish)
    EXPECT_NE(outputText.find("Hola"), std::string::npos);
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// Test case: TranslateHolaFromSpanishToEnglish
+// 
+// Description: Test case to translate "Hola" from Spanish to English.
+//              The expected translation is "Hello".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateHolaFromSpanishToEnglish)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "Hola", "spa", "en");
+
+   // Find "Hello" in outputText
+   EXPECT_NE(outputText.find("Hello"), std::string::npos);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: TranslateHelloFromEnglishToChinese
+// 
+// Description: Test case to translate "Hello" from English to Chinese.
+//              The expected translation is "\u4f60\u597d".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateHelloFromEnglishToChinese)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "Hello", "en", "zh");
+   // Find "你好" unicdoe in outputText
+   EXPECT_NE(outputText.find("u4f60"), std::string::npos);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: TranslateHolaFromSpanishToChinese
+// 
+// Description: Test case to translate "Hola" from Spanish to Chinese.
+//              The expected translation is "\u4f60\u597d".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateHolaFromSpanishToChinese)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "Hola", "spa", "zh");
+   // Find "\u4f60\u597d" unicdoe in outputText
+   EXPECT_NE(outputText.find("u4f60"), std::string::npos);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: TranslateHelloFromEnglishToJapenese
+// 
+// Description: Test case to translate "Hello" from English to Japenese.
+//              The expected translation is "\u4f60\u597d".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateHelloFromEnglishToJapenese)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "Hello", "en", "jp");
+   // Find "\u3053\u3093\u306b\u3061\u306f" unicdoe in outputText
+   EXPECT_NE(outputText.find("3053"), std::string::npos);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: TranslateColumbia UniversityFromEnglishToKorean
+// 
+// Description: Test case to translate "Columbia University" from English to Korean.
+//              The expected translation is "\uceec\ub7fc\ube44\uc544 \ub300\ud559\uad50".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateColumbiaUniversityFromEnglishToKorean)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "ColumbiaUniversity", "en", "kor");
+   // Find "\uceec\ub7fc\ube44\uc544 \ub300\ud559\uad50" unicdoe in outputText
+   EXPECT_NE(outputText.find("uceec"), std::string::npos);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: Translate IngegneriadelsoftwareFromItalianToEnglish
+// 
+// Description: Test case to translate "Ingegneria del software" from Italian to English.
+//              The expected translation is "Software engineering".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateIngegneriadelsoftwareFromItalianToEnglish)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "Ingegneria del software", "it", "en");
+   // Find "Software engineering" unicdoe in outputText
+   EXPECT_NE(outputText.find("Software engineering"), std::string::npos);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: Translate TranslateIchliebeSoftwareentwicklungFromGermanToEnglish
+// 
+// Description: Test case to translate "Ich liebe Softwareentwicklung" from German to English.
+//              The expected translation is "I love software development".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateIchliebeSoftwareentwicklungFromGermanToEnglish)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "Ich liebe Softwareentwicklung", "de", "en");
+   // Find "I love software development" unicdoe in outputText
+   EXPECT_NE(outputText.find("I love software development"), std::string::npos);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Test case: Translate TranslateIchliebeSoftwareentwicklungFromEnglishToCzech
+// 
+// Description: Test case to translate "I have an apple" from English to Czech.
+//              The expected translation is "M\u00e1m jablko".
+///////////////////////////////////////////////////////////////////////////////
+TEST_F(TranslatorTest, TranslateIhaveanappleFromenToCzech)
+{
+  sleep(1);
+  std::string outputText;
+  translator->doTranslation(outputText, "I have an apple", "en", "cs");
+   // Find "M\u00e1m jablko" unicdoe in outputText
+   EXPECT_NE(outputText.find("jablko"), std::string::npos);
+}
+
 TEST_F(TranslatorTest, TranslateLoremIpsumToSpanish)
 {
   std::string outputText;
   std::string data = file_to_text("test.pdf");
   translator->doTranslation(outputText, data, "en", "spa");
 
-   // Find "Hola" in outputText
+   // Find "el" in outputText
    EXPECT_NE(outputText.find("el"), std::string::npos);
 }
 
@@ -87,7 +208,7 @@ TEST_F(TranslatorTest, NullPDFToSpanish)
   std::string data = file_to_text("nonexistent.pdf");
   translator->doTranslation(outputText, data, "en", "spa");
 
-   // Find "Hola" in outputText
+   // Find "UNABLE" in outputText
    EXPECT_NE(outputText.find("UNABLE"), std::string::npos);
 }
 
@@ -97,7 +218,7 @@ TEST_F(TranslatorTest, TranslateCedricToSpanish)
   std::string data = ocr::optical_character_recognition("test.png", "eng");
   translator->doTranslation(outputText, data, "en", "spa");
 
-   // Find "Hola" in outputText
+   // Find "propio" in outputText
    EXPECT_NE(outputText.find("propio"), std::string::npos);
 }
 
@@ -107,7 +228,7 @@ TEST_F(TranslatorTest, NullPNGToSpanish)
   std::string data = ocr::optical_character_recognition("nonexistent.png", "eng");
   translator->doTranslation(outputText, data, "en", "spa");
 
-   // Find "Hola" in outputText
+   // Find "ERROR" in outputText
    EXPECT_NE(outputText.find("ERROR"), std::string::npos);
 }
 
