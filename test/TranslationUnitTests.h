@@ -17,6 +17,8 @@
 #include <gtest/gtest.h>
 
 #include "../include/Translator.h"
+#include "../include/pdftotext.h"
+#include "../include/ocr.h"
 
 namespace TranslationUnitTests {
 
@@ -67,6 +69,46 @@ TEST_F(TranslatorTest, TranslateHelloFromEnglishToSpanish)
 
    // Find "Hola" in outputText
    EXPECT_NE(outputText.find("Hola"), std::string::npos);
+}
+
+TEST_F(TranslatorTest, TranslateLoremIpsumToSpanish)
+{
+  std::string outputText;
+  std::string data = file_to_text("test.pdf");
+  translator->doTranslation(outputText, data, "en", "spa");
+
+   // Find "Hola" in outputText
+   EXPECT_NE(outputText.find("el"), std::string::npos);
+}
+
+TEST_F(TranslatorTest, NullPDFToSpanish)
+{
+  std::string outputText;
+  std::string data = file_to_text("nonexistent.pdf");
+  translator->doTranslation(outputText, data, "en", "spa");
+
+   // Find "Hola" in outputText
+   EXPECT_NE(outputText.find("UNABLE"), std::string::npos);
+}
+
+TEST_F(TranslatorTest, TranslateCedricToSpanish)
+{
+  std::string outputText;
+  std::string data = ocr::optical_character_recognition("test.png", "eng");
+  translator->doTranslation(outputText, data, "en", "spa");
+
+   // Find "Hola" in outputText
+   EXPECT_NE(outputText.find("propio"), std::string::npos);
+}
+
+TEST_F(TranslatorTest, NullPNGToSpanish)
+{
+  std::string outputText;
+  std::string data = ocr::optical_character_recognition("nonexistent.png", "eng");
+  translator->doTranslation(outputText, data, "en", "spa");
+
+   // Find "Hola" in outputText
+   EXPECT_NE(outputText.find("ERROR"), std::string::npos);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

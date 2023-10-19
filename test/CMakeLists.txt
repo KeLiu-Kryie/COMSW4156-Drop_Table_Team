@@ -16,7 +16,9 @@ add_executable(testMain
     ../src/Server.cpp
     ../src/TranslationOutput.cpp
     ../src/Translations.cpp
-    ../src/Translator.cpp)
+    ../src/Translator.cpp
+    ../src/ocr.cpp
+    ../src/pdftotext.cpp)
 
 # Equivalent of INCLUDE
 target_include_directories(testMain
