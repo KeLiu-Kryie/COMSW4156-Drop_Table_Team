@@ -176,6 +176,8 @@ TEST_F(DatabaseHandlerTest, DeleteSingleUser)
   std::string oidStr = oid.to_string();
   std::pair<int, std::string> resDelete = dbHandler.delete_user(oidStr);
   int newCount = collection.count_documents(filter);
+  //If response is 200 make sure document is deleted
+  //else check if it did not delete anything else
   if(resDelete.first == 200){
     EXPECT_EQ(newCount, count);
     auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));

@@ -6,5 +6,6 @@
 !testMain.cpp
 !README.md
 !TranslationUnitTests.h
+!TranslationsUnitTests.h
 !DatabaseHandlerUnitTests.h
 !config.json

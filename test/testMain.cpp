@@ -9,6 +9,7 @@
 #include <gtest/gtest.h>
 
 #include "TranslationUnitTests.h"
+#include "TranslationsUnitTests.h"
 #include "DatabaseHandlerUnitTests.h"
 
 int main(int argc, char **argv) {
