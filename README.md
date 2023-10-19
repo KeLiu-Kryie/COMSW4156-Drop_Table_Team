@@ -53,6 +53,9 @@ For accessing translation, use the following query parameters:
 
 * [MongoDB C++ Driver](https://www.mongodb.com/docs/drivers/cxx/)
 
+### API
+[baidufanyi-API]([https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/setup-mongocxx](https://fanyi-api.baidu.com/doc/11))
+
 ### Environment
 * [Makefile Implementation](https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/Makefile)
 
