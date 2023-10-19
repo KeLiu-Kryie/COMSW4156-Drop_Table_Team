@@ -29,6 +29,8 @@ This project uses nlohmann json to serialize and deserialize data into json stri
 
 This project depends on poppler. Install this with: `sudo apt-get install libpoppler-dev poppler-utils && sudo apt-get install -y libpoppler-cpp-dev`.
 
+This project uses cpplint as a style checker. Install this with: `sudo apt install cpplint` and run with `cpplint include/*.h src/*.cpp`. Note that the tests directory was excluded from style checking because it is for internal use only, and sometimes requires format errors which otherwise should not exist in the codebase.
+
 ## Getting Started
 
 1. In the project directory, run `make && ./bin/main` to compile the source code and run the server
