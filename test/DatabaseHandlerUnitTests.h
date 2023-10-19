@@ -14,7 +14,7 @@
 // 3. Update the TEST_F testcases with functionality specific to the class
 ///////////////////////////////////////////////////////////////////////////////
 #include <chrono>
-
+#include <cstdlib>
 #include <bsoncxx/builder/basic/array.hpp>
 #include <bsoncxx/builder/basic/document.hpp>
 #include <bsoncxx/builder/basic/kvp.hpp>
@@ -37,7 +37,7 @@ using bsoncxx::builder::basic::make_document;
 
 namespace DatabaseHandlerUnitTests {
 
-DatabaseHandler dbHandler = DatabaseHandler();
+DatabaseHandler dbHandler = DatabaseHandler("../config.json");
 
 // The fixture for testing class Foo.
 class DatabaseHandlerTest : public ::testing::Test {
@@ -48,7 +48,7 @@ class DatabaseHandlerTest : public ::testing::Test {
   DatabaseHandlerTest() {
       testTranslationOutput = TranslationOutput("sp", "en", "hello", "hola");
       nlohmann::json config;
-      std::ifstream configFile("config.json");
+      std::ifstream configFile("../config.json");
       config = nlohmann::json::parse(configFile);
       std::string connectionStr = config["ConnectionString"];
       std::string dbName = config["DBName"];
