@@ -47,7 +47,7 @@ std::string url_encode(const std::string& decoded)
 }
 
 // Function to perform the translation
-bool Translator::doTranslation(const std::string& translatedText,  // output
+bool Translator::doTranslation(std::string& translatedText,  // output
                                std::string textToBeTranslated,
                                std::string fromLang,
                                std::string toLang) const

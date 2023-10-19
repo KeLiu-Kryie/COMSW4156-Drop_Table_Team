@@ -37,7 +37,7 @@ class Translator
     // Outputs:
     //          translatedText - the translated text
     //          bool - indicates success (true) or failure (false)
-    bool doTranslation(const std::string& translatedText,  // output
+    bool doTranslation(std::string& translatedText,  // output
                        std::string textToBeTranslated,
                        std::string fromLang,
                        std::string toLang) const;
