@@ -123,7 +123,6 @@ For accessing translation, use the following query parameters:
 | Greek               | el   |
 | Dutch               | nl   |
 | Polish              | pl   |
-| Italian             | it   |
 | Bulgarian           | bul  |
 | Estonian            | est  |
 | Danish              | dan  |
