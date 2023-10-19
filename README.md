@@ -25,7 +25,9 @@ This project uses Crow to set up an HTTP server to host the service. You can dow
 
 This project uses libcurl to perform REST operations. Install this with: `sudo apt-get install libcurl4-openssl-dev`.
 
-This project uses nlohmann json to serialize and deserialize data into json strings.Install this with: 'sudo apt-get install nlohmann-json3-dev'.
+This project uses nlohmann json to serialize and deserialize data into json strings. Install this with: `sudo apt-get install nlohmann-json3-dev`.
+
+This project depends on poppler. Install this with: `sudo apt-get install libpoppler-dev poppler-utils && sudo apt-get install -y libpoppler-cpp-dev`.
 
 ## Getting Started
 
