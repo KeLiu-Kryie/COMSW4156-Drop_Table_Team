@@ -16,10 +16,11 @@ using bsoncxx::builder::basic::kvp;
 using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
+
 class DatabaseHandler {
 
 public:
-        DatabaseHandler();
+        DatabaseHandler(std::string configPath);
 //Get transaltion history
         std::pair<int, std::string> get_translation_history(std::string id);
 

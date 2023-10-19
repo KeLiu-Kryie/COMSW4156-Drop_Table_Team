@@ -113,7 +113,7 @@ Server::Server()
         {
             // Output
             std::string translatedText;
-            translator.doTranslation(translatedText, textToBeTranslated, toLang, fromLang);
+            translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
             TranslationOutput newTranslation = TranslationOutput(toLang, fromLang, textToBeTranslated, translatedText);  
             //TODO: Check if output is valid or not
             std::pair<int, std::string> mongoRes = dbHandler.post_translation(id, newTranslation);
