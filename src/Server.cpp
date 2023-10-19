@@ -51,7 +51,7 @@ Server::Server()
     });
 
  // Create a new user to add translations to
-    CROW_ROUTE(app,"/create_user/")([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app,"/create_user/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         std::pair<int, std::string> mongoRes = dbHandler.create_user();
         std::ostringstream oss;
                 oss << "Output Message: " << mongoRes.second
@@ -82,7 +82,7 @@ Server::Server()
         }
     });
 
-    CROW_ROUTE(app,"/delete_user/")([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app,"/delete_user/").methods("DELETE"_method)([this](const crow::request& req, crow::response& res){
         auto id = req.url_params.get("id");
         if(id){
              std::pair<int, std::string> mongoRes = dbHandler.delete_user(id);
@@ -101,7 +101,7 @@ Server::Server()
         }
     });
     //Add a translation into a user given a user id
-    CROW_ROUTE(app,"/post_translation_to_user/")([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app,"/post_translation_to_user/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         auto id = req.url_params.get("id");
         auto textToBeTranslated = req.url_params.get("tbt");
@@ -208,7 +208,7 @@ Server::Server()
     });
 
     //define route to store translations onto a mongodb collection
-    CROW_ROUTE(app,"/post_pdf_translation/")([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app,"/post_pdf_translation/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
         auto pdf = msg.get_part_by_name("file").body;
@@ -318,7 +318,7 @@ Server::Server()
     });
 
     //define route to store translations onto a mongodb collection
-    CROW_ROUTE(app,"/post_image_translation/")([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app,"/post_image_translation/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
         auto image = msg.get_part_by_name("file").body;
