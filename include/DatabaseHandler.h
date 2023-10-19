@@ -24,7 +24,7 @@ public:
 //Get transaltion history
         std::pair<int, std::string> get_translation_history(std::string id);
 
-//Post
+//Create a new user
 
         std::pair<int, std::string> create_user();
 
@@ -32,9 +32,8 @@ public:
 
         std::pair<int, std::string> delete_user(std::string id);
 
+//Post translation to user
         std::pair<int, std::string> post_translation(std::string id, TranslationOutput newTranslation);
-
-        void setupCollectionEndpoint(std::string uri_str, std::string dbName);
 
 private:
   // Create an instance. Note there must only be one instance

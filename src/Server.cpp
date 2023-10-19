@@ -50,7 +50,8 @@ Server::Server()
         }
     });
 
- // Create a new user to add translations to
+    // Create a new user to add translations to
+    // Response returns id of user if successful
     CROW_ROUTE(app,"/create_user/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         std::pair<int, std::string> mongoRes = dbHandler.create_user();
         std::ostringstream oss;
@@ -62,7 +63,9 @@ Server::Server()
         res.write(oss.str());
         res.end();
     });
-
+     
+     // Given a valid user id (returned from create user)
+     // Return the translation history as a json string
      CROW_ROUTE(app,"/get_translation_history/")([this](const crow::request& req, crow::response& res){
         auto id = req.url_params.get("id");
         if(id){
@@ -81,7 +84,7 @@ Server::Server()
             res.end();
         }
     });
-
+    //Delete a given user id
     CROW_ROUTE(app,"/delete_user/").methods("DELETE"_method)([this](const crow::request& req, crow::response& res){
         auto id = req.url_params.get("id");
         if(id){
@@ -101,6 +104,7 @@ Server::Server()
         }
     });
     //Add a translation into a user given a user id
+    //Translation output is stored in mongodb
     CROW_ROUTE(app,"/post_translation_to_user/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         auto id = req.url_params.get("id");
@@ -143,7 +147,7 @@ Server::Server()
         }
     });
 
-    // Define the translation route
+    // Read a pdf file and return text output
     CROW_ROUTE(app,"/pdf_to_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
 
@@ -171,7 +175,7 @@ Server::Server()
             res.end();
         }
     });
-
+    //Take a pdf file and return the text in a different language
     CROW_ROUTE(app,"/translate_pdf_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
@@ -207,7 +211,8 @@ Server::Server()
         }
     });
 
-    //define route to store translations onto a mongodb collection
+    //Take a pdf file and return the text in a different language
+    //Store translation output into id provided
     CROW_ROUTE(app,"/post_pdf_translation/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
@@ -250,7 +255,7 @@ Server::Server()
         }
     });
 
-    // Define the translation route
+    // Take in image and return string text present in image
     CROW_ROUTE(app,"/image_to_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
 
@@ -278,7 +283,7 @@ Server::Server()
             res.end();
         }
     });
-
+    // Take in image and return the translation output of the text in the image
     CROW_ROUTE(app,"/translate_image_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
@@ -317,7 +322,8 @@ Server::Server()
         }
     });
 
-    //define route to store translations onto a mongodb collection
+   // Take in image and translate the text 
+   // store translation output into mongodb
     CROW_ROUTE(app,"/post_image_translation/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
