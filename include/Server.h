@@ -36,7 +36,7 @@ private:
 
     //dbHandler takes care of sending and getting data to and from
     //a mongoDB collection
-    DatabaseHandler dbHandler = DatabaseHandler();
+    DatabaseHandler dbHandler = DatabaseHandler("config.json");
     
 };
 

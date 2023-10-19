@@ -30,7 +30,8 @@ target_include_directories(testMain
     /usr/include/poppler
     /usr/include/poppler/cpp
     /usr/include/glib-2.0
-    /usr/lib/x86_64-linux-gnu/glib-2.0/include)
+    /usr/lib/x86_64-linux-gnu/glib-2.0/include
+    /usr/include/poppler)
 
 # Equivalent of LIBS
 target_link_libraries(testMain
@@ -45,7 +46,8 @@ target_link_libraries(testMain
     poppler-cpp
     glib-2.0
     tesseract
-    lept)
+    lept
+    poppler-cpp)
 
 # Equivalent of CXX_FLAGS
 target_compile_options(testMain PRIVATE -Wno-deprecated-declarations)

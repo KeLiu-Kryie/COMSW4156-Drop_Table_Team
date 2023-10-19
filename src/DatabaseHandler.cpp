@@ -4,9 +4,9 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 
-DatabaseHandler::DatabaseHandler(){
+DatabaseHandler::DatabaseHandler(std::string configPath){
         nlohmann::json config;
-        std::ifstream configFile("config.json");
+        std::ifstream configFile(configPath);
         config = nlohmann::json::parse(configFile);
         std::string connectionStr = config["ConnectionString"];
         std::string dbName = config["DBName"];
