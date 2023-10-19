@@ -48,70 +48,71 @@ tl and fl should select from the [language list](#language-list) in API odc.
 
 - translates text from one language to another and returns output
 
-Required Params:
+#### /Required Params:/
 tbt: String of the text to be translated
 tl: Code for languge to be translated to
 fl: Code for language to be translated from 
 
-Example successful response: textToBeTranslated: the-quick-fox-jumps-over-the-lazy-brown-dog, toLang: spa, fromLang: en
-Translated text: {"from":"en","to":"spa","trans_result":[{"src":"the-quick-fox-jumps-over-the-lazy-brown-dog","dst":"El zorro \u00e1gil se salta al perro marr\u00f3n perezoso"}]}
+#### /Example successful response:/ 
+- textToBeTranslated: the-quick-fox-jumps-over-the-lazy-brown-dog, toLang: spa, fromLang: en Translated text: {"from":"en","to":"spa","trans_result":[{"src":"the-quick-fox-jumps-over-the-lazy-brown-dog","dst":"El zorro \u00e1gil se salta al perro marr\u00f3n perezoso"}]}
 
-Curl error codes
-400 - Invalid or missing params
+#### /Curl error codes/
+- 400 - Invalid or missing params
 
 ### /create_user/
 
 - creates a "user" which stores the 10 most recent translations posted
 
-Example successful response: 
+#### /Example successful response:/ 
 Output Message: 6531acf31b61c9766809cac1 (User id)
 Output Code: 200
 
-Curl error codes
-400 - Invalid or missing params
+#### /Curl error codes/
+- 400 - Invalid or missing params
 
-MongoDB error codes
-500 - Internal server error or other exception
+#### /MongoDB error codes/
+- 500 - Internal server error or other exception
 
 ### /delete_user/
 
 - delete user with given id (deletes all translation history)
 
-Required Params:
-id: string of id returned from create_use
+#### /Required Params:/
+- id: string of id returned from create_use
 
-Example successful response:
+#### /Example successful response:/
 Output Message: Delete Successful
 Output Code: 200
 
-Curl error codes
-400 - Invalid or missing params
+#### /Curl error codes/
+- 400 - Invalid or missing params
 
-MongoDB error codes 
-404 - ID not found in database
-500 - Internal server error or other exception
+#### /MongoDB error codes/ 
+- 404 - ID not found in database
+- 500 - Internal server error or other exception
 
 ### /post_translation_to_user/
 
 - puts translation in a database given a user id (returned from create_user)
 
-- Required Params:
-tbt: String of the text to be translated
-tl: Code for languge to be translated to
-fl: Code for language to be translated from
-id: string of id returned from create_user
+#### /Required Params:/
+- tbt: String of the text to be translated
+- tl: Code for languge to be translated to
+- fl: Code for language to be translated from
+- id: string of id returned from create_user
 
-Example successful response: textToBeTranslated: dog, toLang: de, fromLang: en
+#### /Example successful response:/ 
+textToBeTranslated: dog, toLang: de, fromLang: en
 Translated text: {"from":"en","to":"de","trans_result":[{"src":"dog","dst":"Hund"}]}
 Mongo res: Update successful
 Mongo code: 200
 
-Curl error codes
-400 - Invalid or missing params
+#### /Curl error codes/
+- 400 - Invalid or missing params
 
-MongoDB error codes 
-404 - ID not found in database
-500 - Internal server error or other exception
+#### /MongoDB error codes/
+- 404 - ID not found in database
+- 500 - Internal server error or other exception
 
 ### /pdf_to_text/
 
