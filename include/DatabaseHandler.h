@@ -23,7 +23,7 @@ using bsoncxx::builder::basic::make_document;
 
 class DatabaseHandler {
  public:
-        explicit DatabaseHandler(std::string configPath) ;
+        explicit DatabaseHandler(std::string configPath);
 
         // Get translation history
         std::pair<int, std::string> get_translation_history(std::string id);
