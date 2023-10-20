@@ -51,14 +51,17 @@ tl and fl should select from the [language list](###language-list) in API odc.
 - translates text from one language to another and returns output
 
 #### Required Params:
+
 tbt: String of the text to be translated
 tl: Code for languge to be translated to
-fl: Code for language to be translated from 
+fl: Code for language to be translated from
 
 #### Example successful response:
+
 - textToBeTranslated: the-quick-fox-jumps-over-the-lazy-brown-dog, toLang: spa, fromLang: en Translated text: {"from":"en","to":"spa","trans_result":[{"src":"the-quick-fox-jumps-over-the-lazy-brown-dog","dst":"El zorro \u00e1gil se salta al perro marr\u00f3n perezoso"}]}
 
 #### Curl error codes
+
 - 400 - Invalid or missing params
 
 ### /create_user/
@@ -66,13 +69,16 @@ fl: Code for language to be translated from
 - creates a "user" which stores the 10 most recent translations posted
 
 #### Example successful response:
+
 Output Message: 6531acf31b61c9766809cac1 (User id)
 Output Code: 200
 
 #### Curl error codes
+
 - 400 - Invalid or missing params
 
 #### MongoDB error codes
+
 - 500 - Internal server error or other exception
 
 ### /delete_user/
@@ -80,16 +86,20 @@ Output Code: 200
 - delete user with given id (deletes all translation history)
 
 #### Required Params:
+
 - id: string of id returned from create_use
 
 #### Example successful response:
+
 Output Message: Delete Successful
 Output Code: 200
 
 #### Curl error codes
+
 - 400 - Invalid or missing params
 
 #### MongoDB error codes
+
 - 404 - ID not found in database
 - 500 - Internal server error or other exception
 
@@ -98,21 +108,25 @@ Output Code: 200
 - puts translation in a database given a user id (returned from create_user)
 
 #### Required Params:
+
 - tbt: String of the text to be translated
 - tl: Code for languge to be translated to
 - fl: Code for language to be translated from
 - id: string of id returned from create_user
 
 #### Example successful response:
+
 textToBeTranslated: dog, toLang: de, fromLang: en
 Translated text: {"from":"en","to":"de","trans_result":[{"src":"dog","dst":"Hund"}]}
 Mongo res: Update successful
 Mongo code: 200
 
 #### Curl error codes
+
 - 400 - Invalid or missing params
 
 #### MongoDB error codes
+
 - 404 - ID not found in database
 - 500 - Internal server error or other exception
 
@@ -120,25 +134,114 @@ Mongo code: 200
 
 - scans pdf for text in some language and gives the user that text as a string
 
+#### Required Params:
+
+file: file in pdf format
+
+#### Example successful response:
+
+Output Message: content of the PDF  
+Output Code: 200
+
+#### Curl error codes
+
+- 400 - Invalid or missing params
+
 ### /translate_pdf_text/
 
 - translates text in a pdf and returns the trnslation as a string
+
+### Required Params:
+
+file: PDF file as multipart form data
+tl: language to be translated to
+fl: language to be trnaslated from
+
+### Example Successful Response
+
+200 OK: source and target languages, and source and target text
 
 ### /image_to_text/
 
 - scans image for text, similar to /pdf_to_text/
 
+### Required Params
+
+file: Image file - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
+
+### Example Successful Response
+
+200 OK: Content of Image text - may be random if image has insufficient text
+
+#### Curl error codes
+
+- 400 - Invalid or missing params
+
 ### /translate_image_text/
 
-- translates text in an image and returns the trnslation as a string
+- translates text in an image and returns the translation as a string
+
+### Required Params
+
+file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
+tl: target language
+fl: source language
+
+### Example Successful Response
+
+200 OK: source and target languages, and source and target text
+
+#### Curl error codes
+
+- 400 - Invalid or missing params
 
 ### /post_pdf_translation/
 
 - puts pdf translation into database
 
+### Required Params
+
+file: PDF file in multipart form data
+tl: target language
+fl: source language
+
+### Example Successful Response
+
+200 OK: source and target languages, and source and target text
+
+#### Curl error codes
+
+- 400 - Invalid or missing params
+
+#### MongoDB error codes
+
+200: successful operation
+404: resource not available
+500: internal error
+
 ### /post_image_translation/
 
-- puts pdf translation into database
+- puts image translation into database
+
+### Required Params
+
+file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
+tl: target language
+fl: source language
+
+### Example Successful Response
+
+200 OK: source and target languages, and source and target text
+
+#### Curl error codes
+
+- 400 - Invalid or missing params
+
+#### MongoDB error codes
+
+200: successful operation
+404: resource not available
+500: internal error
 
 ## Sources:
 
@@ -163,7 +266,8 @@ Mongo code: 200
 - [MongoDB C++ Driver](https://www.mongodb.com/docs/drivers/cxx/)
 
 ### API
-* [baidufanyi-API](https://fanyi-api.baidu.com/doc/11)
+
+- [baidufanyi-API](https://fanyi-api.baidu.com/doc/11)
 
 ### Environment
 
