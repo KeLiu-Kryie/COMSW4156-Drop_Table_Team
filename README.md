@@ -143,6 +143,8 @@ file: file in pdf format
 Output Message: content of the PDF  
 Output Code: 200
 
+text: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+
 #### Curl error codes
 
 - 400 - Invalid or missing params
@@ -153,13 +155,16 @@ Output Code: 200
 
 ### Required Params:
 
-file: PDF file as multipart form data
-tl: language to be translated to
-fl: language to be trnaslated from
+- file: PDF file as multipart form data
+- tl: language to be translated to
+- fl: language to be trnaslated from
 
 ### Example Successful Response
 
-200 OK: source and target languages, and source and target text
+- 200 OK: source and target languages, and source and target text. may contain unicode or other characters
+
+textToBeTranslated: Lorem Ipsum is simply dummy text of the printing and typesetting industry., toLang: de, fromLang: en
+Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see above]","dst":"lorem - ipsum - es - simple - Dummy - texto - de - la - impresi\u00f3n - y - tipseting - industria"}]}
 
 ### /image_to_text/
 
@@ -167,11 +172,13 @@ fl: language to be trnaslated from
 
 ### Required Params
 
-file: Image file - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
+- file: Image file - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
 
 ### Example Successful Response
 
-200 OK: Content of Image text - may be random if image has insufficient text
+- 200 OK: Content of Image text - may be random if image has insufficient text
+
+text: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 
 #### Curl error codes
 
@@ -183,13 +190,16 @@ file: Image file - PNG, JPG, JPEG, all formats accepted by the tesseract OCR lib
 
 ### Required Params
 
-file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
-tl: target language
-fl: source language
+- file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
+- tl: target language
+- fl: source language
 
 ### Example Successful Response
 
-200 OK: source and target languages, and source and target text
+- 200 OK: source and target languages, and source and target text
+
+textToBeTranslated: Lorem Ipsum is simply dummy text of the printing and typesetting industry., toLang: de, fromLang: en
+Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see above]","dst":"lorem - ipsum - es - simple - Dummy - texto - de - la - impresi\u00f3n - y - tipseting - industria"}]}
 
 #### Curl error codes
 
@@ -201,13 +211,18 @@ fl: source language
 
 ### Required Params
 
-file: PDF file in multipart form data
-tl: target language
-fl: source language
+- file: PDF file in multipart form data
+- tl: target language
+- fl: source language
 
 ### Example Successful Response
 
-200 OK: source and target languages, and source and target text
+- 200 OK: source and target languages, and source and target text
+
+textToBeTranslated: Lorem Ipsum is simply dummy text of the printing and typesetting industry., toLang: de, fromLang: en
+Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see above]","dst":"lorem - ipsum - es - simple - Dummy - texto - de - la - impresi\u00f3n - y - tipseting - industria"}]}
+Mongo res: Update successful
+Mongo code: 200
 
 #### Curl error codes
 
@@ -215,9 +230,9 @@ fl: source language
 
 #### MongoDB error codes
 
-200: successful operation
-404: resource not available
-500: internal error
+- 200: successful operation
+- 404: resource not available
+- 500: internal error
 
 ### /post_image_translation/
 
@@ -225,13 +240,18 @@ fl: source language
 
 ### Required Params
 
-file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
-tl: target language
-fl: source language
+- file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
+- tl: target language
+- fl: source language
 
 ### Example Successful Response
 
-200 OK: source and target languages, and source and target text
+- 200 OK: source and target languages, and source and target text
+
+textToBeTranslated: Lorem Ipsum is simply dummy text of the printing and typesetting industry., toLang: de, fromLang: en
+Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see above]","dst":"lorem - ipsum - es - simple - Dummy - texto - de - la - impresi\u00f3n - y - tipseting - industria"}]}
+Mongo res: Update successful
+Mongo code: 200
 
 #### Curl error codes
 
@@ -239,9 +259,9 @@ fl: source language
 
 #### MongoDB error codes
 
-200: successful operation
-404: resource not available
-500: internal error
+- 200: successful operation
+- 404: resource not available
+- 500: internal error
 
 ## Sources:
 
@@ -275,7 +295,7 @@ fl: source language
 
 ### Environment
 
-- [Makefile Implementation](https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/Makefile) -- Makefile was initially used to get flags to compile MongoDB code. Modified once more dependencies were added.  
+- [Makefile Implementation](https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/Makefile) -- Makefile was initially used to get flags to compile MongoDB code. Modified once more dependencies were added.
 
 - [Setup dependencies file source](https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/setup-mongocxx) -- Modifications were made based on different versions of mongocxx (source file dowloaded older versions of mongocxx with outdated links)
 
