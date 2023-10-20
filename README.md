@@ -214,6 +214,7 @@ Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see ab
 - file: PDF file in multipart form data
 - tl: target language
 - fl: source language
+- id: string of id returned from create_user
 
 ### Example Successful Response
 
@@ -243,6 +244,7 @@ Mongo code: 200
 - file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
 - tl: target language
 - fl: source language
+- id: string of id returned from create_user
 
 ### Example Successful Response
 
