@@ -294,6 +294,9 @@ Mongo code: 200
 
 - [baidufanyi-API](https://fanyi-api.baidu.com/doc/11)
 
+### JSON Serialization
+- [nlohmann json](https://github.com/nlohmann/json)
+
 ### Tesseract
 
 - [Tesseract](https://github.com/tesseract-ocr/tesseract)
