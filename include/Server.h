@@ -7,10 +7,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef SERVER_H
-#define SERVER_H
+#ifndef INCLUDE_SERVER_H_
+#define INCLUDE_SERVER_H_
 // This is the only include needed for crow
-#include "crow.h"
+#include <crow.h>
 #include "TranslationOutput.h"
 #include "Translations.h"
 #include "DatabaseHandler.h"
@@ -20,24 +20,23 @@
 
 class Server
 {
-public:
+ public:
     // ctor
     Server();
 
     // Function to start the server
     void run();
 
-private:
+ private:
     // The app itself
     crow::SimpleApp app;
 
     // Translator object to do translations
     Translator translator;
 
-    //dbHandler takes care of sending and getting data to and from
-    //a mongoDB collection
+    // dbHandler takes care of sending and getting data to and from
+    // a mongoDB collection
     DatabaseHandler dbHandler = DatabaseHandler("config.json");
-    
 };
 
-#endif // SERVER_H
+#endif  // INCLUDE_SERVER_H_

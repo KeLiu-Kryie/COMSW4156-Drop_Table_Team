@@ -1,5 +1,5 @@
-#ifndef OCR_H
-#define OCR_H
+#ifndef INCLUDE_OCR_H_
+#define INCLUDE_OCR_H_
 
 #include <tesseract/baseapi.h>
 #include <leptonica/allheaders.h>
@@ -17,4 +17,4 @@ std::string image_to_text(const std::string& data, const std::string& language);
 
 }
 
-#endif
+#endif  // INCLUDE_OCR_H_

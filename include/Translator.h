@@ -6,14 +6,14 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#ifndef TRANSLATOR_H
-#define TRANSLATOR_H
+#ifndef INCLUDE_TRANSLATOR_H_
+#define INCLUDE_TRANSLATOR_H_
 #include <curl/curl.h>
-#include <iostream>
 #include <openssl/md5.h>
+#include <cstring>
+#include <iostream>
 #include <sstream>
 #include <string>
-#include <cstring>
 
 // Non-class defined static string to store the translated result
 // after performing the curl operation
@@ -21,7 +21,7 @@ static std::string readBuffer;
 
 class Translator
 {
-public:
+ public:
     // ctor
     Translator();
 
@@ -37,23 +37,23 @@ public:
     // Outputs:
     //          translatedText - the translated text
     //          bool - indicates success (true) or failure (false)
-    bool doTranslation(std::string& translatedText, // output
+    bool doTranslation(std::string& translatedText,  // output
                        std::string textToBeTranslated,
                        std::string fromLang,
                        std::string toLang) const;
 
-private:
+ private:
     // Fundamental curl pointer
     CURL *curl;
 
     // REST endpoint
     std::string url;
 
-    // Account for API:baidufanyi 
+    // Account for API:baidufanyi
     std::string appId;
 
     // API Key
     std::string key;
 };
 
-#endif // TRANSLATOR_H
+#endif  // INCLUDE_TRANSLATOR_H_

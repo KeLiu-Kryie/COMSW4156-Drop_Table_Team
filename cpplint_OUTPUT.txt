@@ -1,0 +1,16 @@
+Done processing include/DatabaseHandler.h
+Done processing include/Server.h
+Done processing include/TranslationOutput.h
+Done processing include/Translations.h
+Done processing include/Translator.h
+Done processing include/ocr.h
+Done processing include/pdftotext.h
+Done processing include/tesseract.h
+Done processing src/DatabaseHandler.cpp
+Done processing src/Server.cpp
+Done processing src/TranslationOutput.cpp
+Done processing src/Translations.cpp
+Done processing src/Translator.cpp
+Done processing src/main.cpp
+Done processing src/ocr.cpp
+Done processing src/pdftotext.cpp

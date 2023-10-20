@@ -1,13 +1,16 @@
+#ifndef INCLUDE_TESSERACT_H_
+#define INCLUDE_TESSERACT_H_
+
 #include <tesseract/baseapi.h>
 #include <leptonica/allheaders.h>
 
 #include <iostream>
+#include <string>
 
 namespace ocr
 {
 
-std::string optical_character_recognition(std::string& path, std::string& language) {
-
+std::string optical_character_recognition(const std::string& path, const std::string& language) {
         tesseract::TessBaseAPI api {};
 
         if (api.Init(nullptr, language.c_str())) {
@@ -25,4 +28,6 @@ std::string optical_character_recognition(std::string& path, std::string& langua
         return out;
 }
 
-}
+}  // namespace ocr
+
+#endif  // INCLUDE_TESSERACT_H_

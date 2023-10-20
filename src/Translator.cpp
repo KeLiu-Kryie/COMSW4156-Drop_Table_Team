@@ -34,7 +34,7 @@ size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
     readBuffer.clear();
 
     size_t realsize = size * nmemb;
-    readBuffer.append((char*)contents, realsize);
+    readBuffer.append(reinterpret_cast<char*>(contents), realsize);
     return realsize;
 }
 
@@ -47,7 +47,7 @@ std::string url_encode(const std::string& decoded)
 }
 
 // Function to perform the translation
-bool Translator::doTranslation(std::string& translatedText, // output
+bool Translator::doTranslation(std::string& translatedText,  // output
                                std::string textToBeTranslated,
                                std::string fromLang,
                                std::string toLang) const
@@ -94,13 +94,13 @@ bool Translator::doTranslation(std::string& translatedText, // output
 
     for (int i = 0; i < 16; i++)
     {
-        sprintf(tmp,"%2.2x",md[i]);
-        strcat(buf,tmp);
+        sprintf(tmp, "%2.2x", md[i]);
+        strcat(buf, tmp);
     }
 
     // Assemble the query string
     std::ostringstream oss;
-    oss << url 
+    oss << url
     << "q=" << tbt
     << "&from=" << fromLang <<
     "&to=" << toLang <<
