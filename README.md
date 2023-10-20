@@ -350,4 +350,8 @@ automatic detection : 'auto' can only be used in source language.
 | 58000      | The IP address of the client is invalid | Check whether the IP address filled in the personal information is correct, you can go to the management control platform to modify, IP restrictions, IP can be left blank |
 | 58002      | The service is currently closed         | Please go to the administrative console to start the service                                                                                                               |
 
+## Postman Workspace
+
+You can find our postman workspace here: https://comsw4156-drop-table-team.postman.co/workspace/COMSW4156-DROP-TABLE-TEAM~49856fcb-f206-4b50-b334-2d072ec3ae61/collection/25922238-41aab0aa-1091-4b54-93b7-b5d71415617d?action=share&creator=25922238
+
 ---
