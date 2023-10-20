@@ -60,7 +60,7 @@ fl: Code for language to be translated from
 
 - textToBeTranslated: the-quick-fox-jumps-over-the-lazy-brown-dog, toLang: spa, fromLang: en Translated text: {"from":"en","to":"spa","trans_result":[{"src":"the-quick-fox-jumps-over-the-lazy-brown-dog","dst":"El zorro \u00e1gil se salta al perro marr\u00f3n perezoso"}]}
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -73,7 +73,7 @@ fl: Code for language to be translated from
 Output Message: 6531acf31b61c9766809cac1 (User id)
 Output Code: 200
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -94,7 +94,7 @@ Output Code: 200
 Output Message: Delete Successful
 Output Code: 200
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -121,7 +121,7 @@ Translated text: {"from":"en","to":"de","trans_result":[{"src":"dog","dst":"Hund
 Mongo res: Update successful
 Mongo code: 200
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -145,7 +145,7 @@ Output Code: 200
 
 text: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -180,7 +180,7 @@ Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see ab
 
 text: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -201,7 +201,7 @@ text: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 textToBeTranslated: Lorem Ipsum is simply dummy text of the printing and typesetting industry., toLang: de, fromLang: en
 Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see above]","dst":"lorem - ipsum - es - simple - Dummy - texto - de - la - impresi\u00f3n - y - tipseting - industria"}]}
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -224,7 +224,7 @@ Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see ab
 Mongo res: Update successful
 Mongo code: 200
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
@@ -253,7 +253,7 @@ Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see ab
 Mongo res: Update successful
 Mongo code: 200
 
-#### Curl error codes
+#### HTTP Error Codes
 
 - 400 - Invalid or missing params
 
