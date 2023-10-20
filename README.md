@@ -79,7 +79,8 @@ Output Code: 200
 
 #### MongoDB error codes
 
-- 500 - Internal server error or other exception
+- 200: successful operation
+- 500: internal error
 
 ### /delete_user/
 
@@ -100,8 +101,9 @@ Output Code: 200
 
 #### MongoDB error codes
 
-- 404 - ID not found in database
-- 500 - Internal server error or other exception
+- 200: successful operation
+- 404: resource not available
+- 500: internal error
 
 ### /post_translation_to_user/
 
@@ -127,8 +129,9 @@ Mongo code: 200
 
 #### MongoDB error codes
 
-- 404 - ID not found in database
-- 500 - Internal server error or other exception
+- 200: successful operation
+- 404: resource not available
+- 500: internal error
 
 ### /pdf_to_text/
 
@@ -214,6 +217,7 @@ Translated text: {"from":"en","to":"de","trans_result":[{"src":"[omitted, see ab
 - file: PDF file in multipart form data
 - tl: target language
 - fl: source language
+- id: string of id returned from create_user
 
 ### Example Successful Response
 
@@ -243,6 +247,7 @@ Mongo code: 200
 - file: Image file in multipart form data - PNG, JPG, JPEG, all formats accepted by the tesseract OCR library:
 - tl: target language
 - fl: source language
+- id: string of id returned from create_user
 
 ### Example Successful Response
 
@@ -334,7 +339,7 @@ Mongo code: 200
 
 automatic detection : 'auto' can only be used in source language.
 
-### Error code list:
+### Error code list for translation api:
 
 | Error Code | Meaning                                 | Solution                                                                                                                                                                   |
 | :--------- | :-------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
