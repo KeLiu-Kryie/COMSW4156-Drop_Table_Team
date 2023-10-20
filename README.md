@@ -42,7 +42,7 @@ For accessing translation, use the following query parameters:
 - `tl` = The language to translate to
 - `fl` = The source language of `tbt`
 
-tl and fl should select from the [language list](###language-list) in API odc.
+tl and fl should be selected from the language list in API doc.
 
 ## Endpoints:
 
@@ -268,6 +268,10 @@ fl: source language
 ### API
 
 - [baidufanyi-API](https://fanyi-api.baidu.com/doc/11)
+
+### Tesseract
+
+- [Tesseract](https://github.com/tesseract-ocr/tesseract)
 
 ### Environment
 
