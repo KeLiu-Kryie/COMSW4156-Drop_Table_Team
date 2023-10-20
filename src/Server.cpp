@@ -282,6 +282,7 @@ Server::Server()
             res.end();
         }
     });
+
     // Take in image and return the translation output of the text in the image
     CROW_ROUTE(app, "/translate_image_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
@@ -331,7 +332,7 @@ Server::Server()
         auto toLang = req.url_params.get("tl");
         auto fromLang = req.url_params.get("fl");
 
-        auto textToBeTranslated = ocr::image_to_text(image, fromLang);
+        auto textToBeTranslated = ocr::image_to_text(image, "eng");
 
         // Check if parameters exist and handle accordingly
         if (textToBeTranslated.size() && toLang && fromLang)

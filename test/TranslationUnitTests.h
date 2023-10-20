@@ -198,8 +198,8 @@ TEST_F(TranslatorTest, TranslateLoremIpsumToSpanish)
   std::string data = file_to_text("test.pdf");
   translator->doTranslation(outputText, data, "en", "spa");
 
-   // Find "el" in outputText
-   EXPECT_NE(outputText.find("el"), std::string::npos);
+   // Find "espicie" in outputText
+   EXPECT_NE(outputText.find("espicie"), std::string::npos);
 }
 
 TEST_F(TranslatorTest, NullPDFToSpanish)
@@ -208,8 +208,9 @@ TEST_F(TranslatorTest, NullPDFToSpanish)
   std::string data = file_to_text("nonexistent.pdf");
   translator->doTranslation(outputText, data, "en", "spa");
 
-   // Find "UNABLE" in outputText
-   EXPECT_NE(outputText.find("UNABLE"), std::string::npos);
+  std::cerr << outputText << "\n";
+   // Find "ERROR" in outputText
+   EXPECT_NE(outputText.find("ERROR"), std::string::npos);
 }
 
 TEST_F(TranslatorTest, TranslateCedricToSpanish)

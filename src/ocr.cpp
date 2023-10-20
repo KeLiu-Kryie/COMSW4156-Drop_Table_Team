@@ -15,6 +15,14 @@ std::string optical_character_recognition(const std::string& path, const std::st
 
         try {
                 image = pixRead(path.c_str());
+
+                api.SetImage(image);
+                std::string out = api.GetUTF8Text();
+
+                api.End();
+                pixDestroy(&image);
+
+                return out;
         } catch (std::exception& e) {
                 return  std::string("ERROR: ")
                         + std::string(e.what())
@@ -46,6 +54,14 @@ std::string image_to_text(const std::string& data, const std::string& language) 
 
         try {
                 image = pixReadMem(bytearray, length);
+
+                api.SetImage(image);
+                std::string out = api.GetUTF8Text();
+
+                api.End();
+                pixDestroy(&image);
+
+                return out;
         } catch (std::exception& e) {
                 return  std::string("ERROR: ")
                         + std::string(e.what())
