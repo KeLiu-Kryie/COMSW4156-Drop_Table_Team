@@ -66,7 +66,7 @@ std::pair<int, std::string> DatabaseHandler::get_translation_history(std::string
         return std::make_pair(500, "Server error!");
 }
 
-std::pair<int, std::string> DatabaseHandler::create_user()
+std::pair<int, std::string> DatabaseHandler::create_client()
 {
         try {
                 Translations translations = Translations();
@@ -82,7 +82,7 @@ std::pair<int, std::string> DatabaseHandler::create_user()
         return std::make_pair(500, "Server error!");
 }
 
-std::pair<int, std::string> DatabaseHandler::delete_user(std::string id)
+std::pair<int, std::string> DatabaseHandler::delete_client(std::string id)
 {
         try {
                 auto collection = db["translations"];

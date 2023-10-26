@@ -85,20 +85,20 @@ class DatabaseHandlerTest : public ::testing::Test {
   TranslationOutput testTranslationOutput;
 };
 
-//TEST CREATE_USER()
+//TEST create_client()
 
 ///////////////////////////////////////////////////////////////////////////////
-// Test case: CreateSingleUser
+// Test case: CreateSingleClient
 // 
-// Description: Test case to create a single user in the 
+// Description: Test case to create a single Client in the 
 // database and check if it exists
 ///////////////////////////////////////////////////////////////////////////////
-TEST_F(DatabaseHandlerTest, CreateSingleUser)
+TEST_F(DatabaseHandlerTest, CreateSingleClient)
 {
   bsoncxx::document::view filter;
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
-  std::pair<int, std::string> res = dbHandler.create_user();
+  std::pair<int, std::string> res = dbHandler.create_client();
   //If response was 200 the check if it exists in db
   //otherwise, make sure nothing was added to db
   if(res.first == 200){
@@ -107,7 +107,7 @@ TEST_F(DatabaseHandlerTest, CreateSingleUser)
     int newCount = collection.count_documents(filter);
     //Check if count is only incremented by 1 
     EXPECT_EQ(newCount, count + 1);
-    //Delete user once done
+    //Delete Client once done
     collection.delete_one(make_document(kvp("_id", bsoncxx::oid(res.second))));
   } else {
     int newCount = collection.count_documents(filter);
@@ -118,18 +118,18 @@ TEST_F(DatabaseHandlerTest, CreateSingleUser)
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// Test case: CreateMultipleUsers
+// Test case: CreateMultipleClients
 // 
-// Description: Test case to create multiple (2) users in the 
+// Description: Test case to create multiple (2) Clients in the 
 // database and check if they exist
 ///////////////////////////////////////////////////////////////////////////////
-TEST_F(DatabaseHandlerTest, CreateMultipleUsers)
+TEST_F(DatabaseHandlerTest, CreateMultipleClients)
 {
   bsoncxx::document::view filter;
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
-  std::pair<int, std::string> res1 = dbHandler.create_user();
-  std::pair<int, std::string> res2 = dbHandler.create_user();
+  std::pair<int, std::string> res1 = dbHandler.create_client();
+  std::pair<int, std::string> res2 = dbHandler.create_client();
   //Based on the responses, get expected count
   //make sure it matches current db count 
   int updatedCount = count;
@@ -154,27 +154,27 @@ TEST_F(DatabaseHandlerTest, CreateMultipleUsers)
   }
 }
 
-//TEST DELETE_USER FUNCTION
+//TEST delete_client FUNCTION
 
 ///////////////////////////////////////////////////////////////////////////////
-// Test case: DeleteSingleUser
+// Test case: DeleteSingleClient
 // 
-// Description: Test case to create a single user  
+// Description: Test case to create a single Client  
 // then delete it to make sure they do not exist in db
 ///////////////////////////////////////////////////////////////////////////////
-TEST_F(DatabaseHandlerTest, DeleteSingleUser)
+TEST_F(DatabaseHandlerTest, DeleteSingleClient)
 {
   bsoncxx::document::view filter;
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
   bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
-  std::pair<int, std::string> resDelete = dbHandler.delete_user(oidStr);
+  std::pair<int, std::string> resDelete = dbHandler.delete_client(oidStr);
   int newCount = collection.count_documents(filter);
   //If response is 200 make sure document is deleted
   //else check if it did not delete anything else
@@ -189,28 +189,28 @@ TEST_F(DatabaseHandlerTest, DeleteSingleUser)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Test case: DeleteMultipleUsers
+// Test case: DeleteMultipleClients
 // 
-// Description: Test case to create multiple users 
+// Description: Test case to create multiple Clients 
 // then delete them to make sure they do not exist in db
 ///////////////////////////////////////////////////////////////////////////////
-TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
+TEST_F(DatabaseHandlerTest, DeleteMultipleClients)
 {
   bsoncxx::document::view filter;
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
   bsoncxx::document::value new_doc1 = make_document(kvp("translationData", " "));
   bsoncxx::document::value new_doc2 = make_document(kvp("translationData", " "));
   auto res1 = testdb["translations"].insert_one(std::move(new_doc1));
   auto res2 = testdb["translations"].insert_one(std::move(new_doc2));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid1 = res1->inserted_id().get_oid().value;
   bsoncxx::oid oid2 = res2->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr1 = oid1.to_string();
   std::string oidStr2 = oid2.to_string();
-  std::pair<int, std::string> resDelete1 = dbHandler.delete_user(oidStr1);
+  std::pair<int, std::string> resDelete1 = dbHandler.delete_client(oidStr1);
   int newCount = collection.count_documents(filter);
   if(resDelete1.first == 200){
     EXPECT_EQ(newCount, count + 1);
@@ -220,7 +220,7 @@ TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
     EXPECT_EQ(newCount, count + 2);
     collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr1))));
   }
-  std::pair<int, std::string> resDelete2 = dbHandler.delete_user(oidStr2);
+  std::pair<int, std::string> resDelete2 = dbHandler.delete_client(oidStr2);
   newCount = collection.count_documents(filter);
   if(resDelete2.first == 200){
     EXPECT_EQ(newCount, count);
@@ -233,25 +233,25 @@ TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Test case: DeleteNonExistantUser
+// Test case: DeleteNonExistantClient
 // 
-// Description: Test case to create a user then delete it after which
+// Description: Test case to create a Client then delete it after which
 // delete function is called to see whether it returns correct output code
 ///////////////////////////////////////////////////////////////////////////////
-TEST_F(DatabaseHandlerTest, DeleteNonExistantUser)
+TEST_F(DatabaseHandlerTest, DeleteNonExistantClient)
 {
   bsoncxx::document::view filter;
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
   bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
   collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
-  std::pair<int, std::string> resDelete = dbHandler.delete_user(oidStr);
+  std::pair<int, std::string> resDelete = dbHandler.delete_client(oidStr);
   int newCount = collection.count_documents(filter);
   EXPECT_EQ(resDelete.first, 404);
   EXPECT_EQ(newCount, count);
@@ -267,7 +267,7 @@ TEST_F(DatabaseHandlerTest, DeleteNonExistantUser)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, PostSingleTranslation)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -276,7 +276,7 @@ TEST_F(DatabaseHandlerTest, PostSingleTranslation)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -300,7 +300,7 @@ TEST_F(DatabaseHandlerTest, PostSingleTranslation)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, PostLessThanTenTranslations)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -309,7 +309,7 @@ TEST_F(DatabaseHandlerTest, PostLessThanTenTranslations)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -336,7 +336,7 @@ TEST_F(DatabaseHandlerTest, PostLessThanTenTranslations)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, PostTenTranslations)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -345,7 +345,7 @@ TEST_F(DatabaseHandlerTest, PostTenTranslations)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -372,7 +372,7 @@ TEST_F(DatabaseHandlerTest, PostTenTranslations)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, PostMoreThanTenTranslations)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -381,7 +381,7 @@ TEST_F(DatabaseHandlerTest, PostMoreThanTenTranslations)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -409,7 +409,7 @@ TEST_F(DatabaseHandlerTest, PostMoreThanTenTranslations)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, PostTranslationInvalidId)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
@@ -434,7 +434,7 @@ TEST_F(DatabaseHandlerTest, PostTranslationInvalidId)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, GetEmptyData)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -442,7 +442,7 @@ TEST_F(DatabaseHandlerTest, GetEmptyData)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -460,7 +460,7 @@ TEST_F(DatabaseHandlerTest, GetEmptyData)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, GetDataLessThanTen)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -471,7 +471,7 @@ TEST_F(DatabaseHandlerTest, GetDataLessThanTen)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -489,7 +489,7 @@ TEST_F(DatabaseHandlerTest, GetDataLessThanTen)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, GetDataTen)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -500,7 +500,7 @@ TEST_F(DatabaseHandlerTest, GetDataTen)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -518,7 +518,7 @@ TEST_F(DatabaseHandlerTest, GetDataTen)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, GetDataMoreThanTen)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Convert Translation to json
   Translations translations = Translations();
@@ -529,7 +529,7 @@ TEST_F(DatabaseHandlerTest, GetDataMoreThanTen)
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", newData.dump()));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
@@ -546,12 +546,12 @@ TEST_F(DatabaseHandlerTest, GetDataMoreThanTen)
 ///////////////////////////////////////////////////////////////////////////////
 TEST_F(DatabaseHandlerTest, GetDataInvalidId)
 {
-  //Create a new user
+  //Create a new Client
   auto collection = testdb["translations"];
   //Insert new data
   bsoncxx::document::value new_doc = make_document(kvp("translationData", " "));
   auto res = testdb["translations"].insert_one(std::move(new_doc));
-  //Get user's oid
+  //Get Client's oid
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   collection.delete_one(make_document(kvp("_id", oid)));
   //make it a string

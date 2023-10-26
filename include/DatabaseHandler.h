@@ -29,10 +29,10 @@ class DatabaseHandler {
         std::pair<int, std::string> get_translation_history(std::string id);
 
         // Create a new user
-        std::pair<int, std::string> create_user();
+        std::pair<int, std::string> create_client();
 
         // Delete
-        std::pair<int, std::string> delete_user(std::string id);
+        std::pair<int, std::string> delete_client(std::string id);
 
         // Post translation to user
         std::pair<int, std::string> post_translation(std::string id, TranslationOutput newTranslation);
