@@ -52,8 +52,8 @@ Server::Server()
 
     // Create a new user to add translations to
     // Response returns id of user if successful
-    CROW_ROUTE(app, "/create_user/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
-        std::pair<int, std::string> mongoRes = dbHandler.create_user();
+    CROW_ROUTE(app, "/create_client/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
+        std::pair<int, std::string> mongoRes = dbHandler.create_client();
         std::ostringstream oss;
                 oss << "Output Message: " << mongoRes.second
                     << std::endl
@@ -85,10 +85,10 @@ Server::Server()
         }
     });
     // Delete a given user id
-    CROW_ROUTE(app, "/delete_user/").methods("DELETE"_method)([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app, "/delete_client/").methods("DELETE"_method)([this](const crow::request& req, crow::response& res){
         auto id = req.url_params.get("id");
         if (id) {
-             std::pair<int, std::string> mongoRes = dbHandler.delete_user(id);
+             std::pair<int, std::string> mongoRes = dbHandler.delete_client(id);
             std::ostringstream oss;
                 oss << "Output Message: " << mongoRes.second
                     << std::endl
@@ -105,7 +105,7 @@ Server::Server()
     });
     // Add a translation into a user given a user id
     // Translation output is stored in mongodb
-    CROW_ROUTE(app, "/post_translation_to_user/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
+    CROW_ROUTE(app, "/post_translation_to_client/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         auto id = req.url_params.get("id");
         auto textToBeTranslated = req.url_params.get("tbt");
