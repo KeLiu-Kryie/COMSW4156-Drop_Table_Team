@@ -158,20 +158,36 @@ Server::Server()
         if (pdf.size())
         {
             // Output
-            std::string text = data_to_text(pdf);
 
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "text: " << text << std::endl;
+                try {
+                    std::string text = data_to_text(pdf);
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
-            res.end();
+                    if (text.size() == 0) {
+                        res.code = 400;
+                        res.set_header("Content-Type", "text/plain");
+                        res.write("Invalid PDF file");
+                        res.end();
+                    }
+                    // The rest of this IF block is for debugging
+                    std::ostringstream oss;
+                    oss << "text: " << text << std::endl;
+
+                    res.code = 200;
+                    res.set_header("Content-Type", "text/plain");
+                    res.write(oss.str());
+                    res.end();
+
+                } catch (const std::exception& e) {
+                        res.code = 400;
+                        res.set_header("Content-Type", "text/plain");
+                        res.write("Invalid PDF file");
+                        res.end();
+                }
         }
         else
         {
             res.code = 400;  // Bad Request
-            res.write("Missing query parameters.\n");
+            res.write("Missing Query Parameters.\n");
             res.end();
         }
     });
@@ -184,6 +200,13 @@ Server::Server()
         auto toLang = req.url_params.get("tl");
         auto fromLang = req.url_params.get("fl");
         std::string textToBeTranslated = data_to_text(pdf);
+
+        if (textToBeTranslated.size() == 0) {
+                res.code = 400;
+                res.set_header("Content-Type", "text/plain");
+                res.write("Invalid PDF file");
+                res.end();
+        }
 
         // Check if parameters exist and handle accordingly
         if (textToBeTranslated.size() && toLang && fromLang)
@@ -223,6 +246,13 @@ Server::Server()
         auto fromLang = req.url_params.get("fl");
 
         auto textToBeTranslated = data_to_text(pdf);
+
+        if (textToBeTranslated.size() == 0) {
+                res.code = 400;
+                res.set_header("Content-Type", "text/plain");
+                res.write("Invalid PDF file");
+                res.end();
+        }
 
         // Check if parameters exist and handle accordingly
         if (textToBeTranslated.size() && toLang && fromLang)
@@ -267,6 +297,13 @@ Server::Server()
             // Output
             std::string text = ocr::image_to_text(image, "eng");
 
+                if (text.size() == 0) {
+                        res.code = 400;
+                        res.set_header("Content-Type", "text/plain");
+                        res.write("Invalid file");
+                        res.end();
+                }
+
             // The rest of this IF block is for debugging
             std::ostringstream oss;
             oss << "text: " << text << std::endl;
@@ -293,6 +330,13 @@ Server::Server()
         auto fromLang = req.url_params.get("fl");
 
         auto textToBeTranslated = ocr::image_to_text(image, "eng");
+
+        if (textToBeTranslated.size() == 0) {
+                res.code = 400;
+                res.set_header("Content-Type", "text/plain");
+                res.write("Invalid file");
+                res.end();
+        }
 
         // Check if parameters exist and handle accordingly
         if (textToBeTranslated.size() && toLang && fromLang)
@@ -333,6 +377,13 @@ Server::Server()
         auto fromLang = req.url_params.get("fl");
 
         auto textToBeTranslated = ocr::image_to_text(image, "eng");
+
+        if (textToBeTranslated.size() == 0) {
+                res.code = 400;
+                res.set_header("Content-Type", "text/plain");
+                res.write("Invalid file");
+                res.end();
+        }
 
         // Check if parameters exist and handle accordingly
         if (textToBeTranslated.size() && toLang && fromLang)

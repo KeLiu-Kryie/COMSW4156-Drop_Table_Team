@@ -63,9 +63,7 @@ std::string image_to_text(const std::string& data, const std::string& language) 
 
                 return out;
         } catch (std::exception& e) {
-                return  std::string("ERROR: ")
-                        + std::string(e.what())
-                        + std::string("\n");
+                return  std::string("");
         }
 
         api.SetImage(image);
