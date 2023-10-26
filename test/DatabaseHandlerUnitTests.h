@@ -85,7 +85,7 @@ class DatabaseHandlerTest : public ::testing::Test {
   TranslationOutput testTranslationOutput;
 };
 
-//TEST CREATE_USER()
+//TEST create_client()
 
 ///////////////////////////////////////////////////////////////////////////////
 // Test case: CreateSingleUser
@@ -98,7 +98,7 @@ TEST_F(DatabaseHandlerTest, CreateSingleUser)
   bsoncxx::document::view filter;
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
-  std::pair<int, std::string> res = dbHandler.create_user();
+  std::pair<int, std::string> res = dbHandler.create_client();
   //If response was 200 the check if it exists in db
   //otherwise, make sure nothing was added to db
   if(res.first == 200){
@@ -128,8 +128,8 @@ TEST_F(DatabaseHandlerTest, CreateMultipleUsers)
   bsoncxx::document::view filter;
   auto collection = testdb["translations"];
   int count = collection.count_documents(filter);
-  std::pair<int, std::string> res1 = dbHandler.create_user();
-  std::pair<int, std::string> res2 = dbHandler.create_user();
+  std::pair<int, std::string> res1 = dbHandler.create_client();
+  std::pair<int, std::string> res2 = dbHandler.create_client();
   //Based on the responses, get expected count
   //make sure it matches current db count 
   int updatedCount = count;
@@ -154,7 +154,7 @@ TEST_F(DatabaseHandlerTest, CreateMultipleUsers)
   }
 }
 
-//TEST DELETE_USER FUNCTION
+//TEST delete_client FUNCTION
 
 ///////////////////////////////////////////////////////////////////////////////
 // Test case: DeleteSingleUser
@@ -174,7 +174,7 @@ TEST_F(DatabaseHandlerTest, DeleteSingleUser)
   bsoncxx::oid oid = res->inserted_id().get_oid().value;
   //make it a string
   std::string oidStr = oid.to_string();
-  std::pair<int, std::string> resDelete = dbHandler.delete_user(oidStr);
+  std::pair<int, std::string> resDelete = dbHandler.delete_client(oidStr);
   int newCount = collection.count_documents(filter);
   //If response is 200 make sure document is deleted
   //else check if it did not delete anything else
@@ -210,7 +210,7 @@ TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
   //make it a string
   std::string oidStr1 = oid1.to_string();
   std::string oidStr2 = oid2.to_string();
-  std::pair<int, std::string> resDelete1 = dbHandler.delete_user(oidStr1);
+  std::pair<int, std::string> resDelete1 = dbHandler.delete_client(oidStr1);
   int newCount = collection.count_documents(filter);
   if(resDelete1.first == 200){
     EXPECT_EQ(newCount, count + 1);
@@ -220,7 +220,7 @@ TEST_F(DatabaseHandlerTest, DeleteMultipleUsers)
     EXPECT_EQ(newCount, count + 2);
     collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr1))));
   }
-  std::pair<int, std::string> resDelete2 = dbHandler.delete_user(oidStr2);
+  std::pair<int, std::string> resDelete2 = dbHandler.delete_client(oidStr2);
   newCount = collection.count_documents(filter);
   if(resDelete2.first == 200){
     EXPECT_EQ(newCount, count);
@@ -251,7 +251,7 @@ TEST_F(DatabaseHandlerTest, DeleteNonExistantUser)
   //make it a string
   std::string oidStr = oid.to_string();
   collection.delete_one(make_document(kvp("_id", bsoncxx::oid(oidStr))));
-  std::pair<int, std::string> resDelete = dbHandler.delete_user(oidStr);
+  std::pair<int, std::string> resDelete = dbHandler.delete_client(oidStr);
   int newCount = collection.count_documents(filter);
   EXPECT_EQ(resDelete.first, 404);
   EXPECT_EQ(newCount, count);
