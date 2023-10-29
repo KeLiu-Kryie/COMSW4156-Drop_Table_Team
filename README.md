@@ -64,7 +64,7 @@ fl: Code for language to be translated from
 
 - 400 - Invalid or missing params
 
-### /create_user/
+### /create_client/
 
 - creates a "user" which stores the 10 most recent translations posted
 
@@ -82,7 +82,7 @@ Output Code: 200
 - 200: successful operation
 - 500: internal error
 
-### /delete_user/
+### /delete_client/
 
 - delete user with given id (deletes all translation history)
 
@@ -105,7 +105,7 @@ Output Code: 200
 - 404: resource not available
 - 500: internal error
 
-### /post_translation_to_user/
+### /post_translation_to_client/
 
 - puts translation in a database given a user id (returned from create_user)
 
