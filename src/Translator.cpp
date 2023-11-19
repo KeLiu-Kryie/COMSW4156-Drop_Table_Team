@@ -8,6 +8,7 @@
 
 #include "../include/Translator.h"
 #include <ctype.h>
+#include <nlohmann/json.hpp>
 
 // ctor
 Translator::Translator()
@@ -125,15 +126,15 @@ bool Translator::doTranslation(std::string& translatedText,  // output
         return false;
     }
 
-    // Print the raw response (for debugging only; TODO delete)
-    // std::cout << "Response: " << readBuffer << std::endl;
-
     // The raw response is a std::string containing JSON data.
     // The relevant field is trans_result.dst which contains the translated text.
-    // TODO: Parse the JSON.
+    //
+    // Parse the JSON
+    nlohmann::json j = nlohmann::json::parse(readBuffer);
 
-    // Set the output
-    translatedText = readBuffer;
+    // Get the translated text
+    nlohmann::json trans_result = j["trans_result"][0];
+    translatedText = trans_result["dst"];
 
     return true;
 }
