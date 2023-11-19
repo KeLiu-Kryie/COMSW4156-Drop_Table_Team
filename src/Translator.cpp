@@ -16,9 +16,9 @@ Translator::Translator()
         url("http://api.fanyi.baidu.com/api/trans/vip/translate?"),
         appId("20231114001879483"),
         key("RIFhcKg9F5Dtn6VPgmaM")
-        //Another account for Ke:
-        //appId("20231001001833905"),
-        //key("6SSOJ03Rb9dNXrTFPaV2")
+        // Another account for Ke:
+        // appId("20231001001833905"),
+        // key("6SSOJ03Rb9dNXrTFPaV2")
 {
     if (!curl) {
         std::cerr << "Error initializing libcurl." << std::endl;

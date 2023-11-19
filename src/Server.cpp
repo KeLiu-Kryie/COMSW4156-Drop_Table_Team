@@ -12,7 +12,6 @@
 #include "../include/ocr.h"
 #include "../include/pdftotext.h"
 
-
 // ctor
 Server::Server()
     : app(),
@@ -47,10 +46,6 @@ Server::Server()
             // Convert the JSON object to a string and return it
             res.write(j.dump());
             res.end();
-
-            // res.set_header("Content-Type", "text/plain");
-            // res.write(oss.str());
-            // res.end();
         }
         else
         {
@@ -69,7 +64,7 @@ Server::Server()
     CROW_ROUTE(app, "/create_client/").methods("POST"_method)([this](const crow::request& req, crow::response& res)
     {
         std::pair<int, std::string> mongoRes = dbHandler.create_client();
-        
+
         // Construct a json object
         nlohmann::json j;
         j["message"] = mongoRes.second;
@@ -201,7 +196,6 @@ Server::Server()
         if (pdf.size())
         {
             // Output
-
             try
             {
                 std::string text = data_to_text(pdf);

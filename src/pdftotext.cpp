@@ -32,7 +32,6 @@ std::string data_to_text(const std::string& input_str)
 
         std::cerr << output << "\n";
         return output;
-
 }
 
 std::string file_to_text(const std::string& inputPdfPath)
@@ -56,7 +55,6 @@ std::string file_to_text(const std::string& inputPdfPath)
                 }
 
                 return output;
-
         } catch (const std::exception& e) {
                 std::cerr << "ERROR: " << e.what() << "\n";
         }
