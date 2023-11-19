@@ -25,7 +25,7 @@ class Server
     Server();
 
     // Function to start the server
-    void run();
+    void run(unsigned int port);
 
  private:
     // The app itself

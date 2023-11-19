@@ -6,17 +6,25 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "nlohmann/json.hpp"
+
 #include "../include/Server.h"
 #include "../include/ocr.h"
 #include "../include/pdftotext.h"
+
 
 // ctor
 Server::Server()
     : app(),
       translator()
 {
-    // Define the translation route
-    CROW_ROUTE(app, "/translate/")([this](const crow::request& req, crow::response& res){
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /translate/
+    //
+    //  Function: Provide base translation functionality.
+    ///////////////////////////////////////////////////////////////////////////
+    CROW_ROUTE(app, "/translate/")([this](const crow::request& req, crow::response& res)
+    {
         // Access query string parameters using crow::request::url_params
         auto textToBeTranslated = req.url_params.get("tbt");
         auto toLang = req.url_params.get("tl");
@@ -29,17 +37,68 @@ Server::Server()
             std::string translatedText;
             translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
 
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "textToBeTranslated: " << textToBeTranslated
-                << ", toLang: " << toLang
-                << ", fromLang: " << fromLang
-                << std::endl
-                << "Translated text: " << translatedText
-                << std::endl;
+            // Create a JSON object
+            nlohmann::json j;
+            j["textToBeTranslated"] = textToBeTranslated;
+            j["toLang"] = toLang;
+            j["fromLang"] = fromLang;
+            j["translatedText"] = translatedText;
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
+            // Convert the JSON object to a string and return it
+            res.write(j.dump());
+            res.end();
+
+            // res.set_header("Content-Type", "text/plain");
+            // res.write(oss.str());
+            // res.end();
+        }
+        else
+        {
+            res.code = 400;  // Bad Request
+            res.write("Missing query parameters.\n");
+            res.end();
+        }
+    });
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /create_client/
+    //
+    //  Function: Create a new MongoDB ID string to associate translations to.
+    //            The response returns the id of the user if successful.
+    ///////////////////////////////////////////////////////////////////////////
+    CROW_ROUTE(app, "/create_client/").methods("POST"_method)([this](const crow::request& req, crow::response& res)
+    {
+        std::pair<int, std::string> mongoRes = dbHandler.create_client();
+        
+        // Construct a json object
+        nlohmann::json j;
+        j["message"] = mongoRes.second;
+        j["code"] = mongoRes.first;
+
+        // Write response
+        res.write(j.dump());
+        res.end();
+    });
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /get_translation_history/
+    //
+    //  Function: Given a valid user ID (returned from the /create_client endpoint),
+    //            Return the translation history as a json string.
+    ///////////////////////////////////////////////////////////////////////////
+    CROW_ROUTE(app, "/get_translation_history/")([this](const crow::request& req, crow::response& res)
+    {
+        auto id = req.url_params.get("id");
+        if (id) {
+            std::pair<int, std::string> mongoRes = dbHandler.get_translation_history(id);
+
+            // Construct a json object
+            nlohmann::json j;
+            j["message"] = mongoRes.second;
+            j["code"] = mongoRes.first;
+
+            // Write response
+            res.write(j.dump());
             res.end();
         }
         else
@@ -50,61 +109,40 @@ Server::Server()
         }
     });
 
-    // Create a new user to add translations to
-    // Response returns id of user if successful
-    CROW_ROUTE(app, "/create_client/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
-        std::pair<int, std::string> mongoRes = dbHandler.create_client();
-        std::ostringstream oss;
-                oss << "Output Message: " << mongoRes.second
-                    << std::endl
-                    << "Output Code: " << mongoRes.first
-                    << std::endl;
-        res.set_header("Content-Type", "text/plain");
-        res.write(oss.str());
-        res.end();
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /delete_client/
+    //
+    //  Function: Delete the passed-in user ID and any data associated with it.
+    ///////////////////////////////////////////////////////////////////////////
+    CROW_ROUTE(app, "/delete_client/").methods("DELETE"_method)([this](const crow::request& req, crow::response& res)
+    {
+        auto id = req.url_params.get("id");
+        if (id) {
+            std::pair<int, std::string> mongoRes = dbHandler.delete_client(id);
+
+            // Construct a json object
+            nlohmann::json j;
+            j["message"] = mongoRes.second;
+            j["code"] = mongoRes.first;
+
+            // Write response
+            res.write(j.dump());
+            res.end();
+        }
+        else
+        {
+            res.code = 400;  // Bad Request
+            res.write("Missing query parameters.\n");
+            res.end();
+        }
     });
 
-     // Given a valid user id (returned from create user)
-     // Return the translation history as a json string
-     CROW_ROUTE(app, "/get_translation_history/")([this](const crow::request& req, crow::response& res){
-        auto id = req.url_params.get("id");
-        if (id) {
-            std::pair<int, std::string> mongoRes = dbHandler.get_translation_history(id);
-            std::ostringstream oss;
-                oss << "Output Message: " << mongoRes.second
-                    << std::endl
-                    << "Output Code: " << mongoRes.first
-                    << std::endl;
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
-            res.end();
-        } else {
-            res.code = 400;  // Bad Request
-            res.write("Missing query parameters.\n");
-            res.end();
-        }
-    });
-    // Delete a given user id
-    CROW_ROUTE(app, "/delete_client/").methods("DELETE"_method)([this](const crow::request& req, crow::response& res){
-        auto id = req.url_params.get("id");
-        if (id) {
-             std::pair<int, std::string> mongoRes = dbHandler.delete_client(id);
-            std::ostringstream oss;
-                oss << "Output Message: " << mongoRes.second
-                    << std::endl
-                    << "Output Code: " << mongoRes.first
-                    << std::endl;
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
-            res.end();
-        } else {
-            res.code = 400;  // Bad Request
-            res.write("Missing query parameters.\n");
-            res.end();
-        }
-    });
-    // Add a translation into a user given a user id
-    // Translation output is stored in mongodb
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /post_translation_to_client/
+    //
+    //  Function: Store a translation into the datastore and
+    //            associate it with the given user ID.
+    ///////////////////////////////////////////////////////////////////////////
     CROW_ROUTE(app, "/post_translation_to_client/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         auto id = req.url_params.get("id");
@@ -123,20 +161,20 @@ Server::Server()
             std::pair<int, std::string> mongoRes = dbHandler.post_translation(id, newTranslation);
             int mongoResCode = mongoRes.first;
             std::string mongoResText = mongoRes.second;
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "textToBeTranslated: " << textToBeTranslated
-                << ", toLang: " << toLang
-                << ", fromLang: " << fromLang
-                << std::endl
-                << "Translated text: " << translatedText
-                << std::endl
-                << "Mongo res: "<< mongoResText
-                << std::endl
-                << "Mongo code: "<< mongoResCode;
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
+
+            // Construct a json object
+            nlohmann::json j;
+            j["textToBeTranslated"] = textToBeTranslated;
+            j["toLang"] = toLang;
+            j["fromLang"] = fromLang;
+            j["translatedText"] = translatedText;
+            j["mongoRes"] = mongoResText;
+            j["mongoCode"] = mongoResCode;
+
+
+            // Write response
+            res.write(j.dump());
             res.end();
         }
         else
@@ -147,7 +185,12 @@ Server::Server()
         }
     });
 
-    // Read a pdf file and return text output
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /pdf_to_text/
+    //
+    //  Function: Read a passed-in PDF file and return the text output.
+    //            This endpoint does not perform translation, only OCR.
+    ///////////////////////////////////////////////////////////////////////////
     CROW_ROUTE(app, "/pdf_to_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
 
@@ -159,30 +202,31 @@ Server::Server()
         {
             // Output
 
-                try {
-                    std::string text = data_to_text(pdf);
+            try
+            {
+                std::string text = data_to_text(pdf);
 
-                    if (text.size() == 0) {
-                        res.code = 400;
-                        res.set_header("Content-Type", "text/plain");
-                        res.write("Invalid PDF file");
-                        res.end();
-                    }
-                    // The rest of this IF block is for debugging
-                    std::ostringstream oss;
-                    oss << "text: " << text << std::endl;
-
-                    res.code = 200;
+                if (text.size() == 0) {
+                    res.code = 400;
                     res.set_header("Content-Type", "text/plain");
-                    res.write(oss.str());
+                    res.write("Invalid PDF file");
                     res.end();
-
-                } catch (const std::exception& e) {
-                        res.code = 400;
-                        res.set_header("Content-Type", "text/plain");
-                        res.write("Invalid PDF file");
-                        res.end();
                 }
+
+                // Construct a json object
+                nlohmann::json j;
+                j["text"] = text;
+
+                // Write response
+                res.write(j.dump());
+            }
+            catch (const std::exception& e)
+            {
+                    res.code = 400;
+                    res.set_header("Content-Type", "text/plain");
+                    res.write("Invalid PDF file");
+                    res.end();
+            }
         }
         else
         {
@@ -191,7 +235,13 @@ Server::Server()
             res.end();
         }
     });
-    // Take a pdf file and return the text in a different language
+
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /translate_pdf_text/
+    //
+    //  Function: Read a passed-in PDF file, perform translation,
+    //            and return the text output.
+    ///////////////////////////////////////////////////////////////////////////
     CROW_ROUTE(app, "/translate_pdf_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
@@ -201,7 +251,8 @@ Server::Server()
         auto fromLang = req.url_params.get("fl");
         std::string textToBeTranslated = data_to_text(pdf);
 
-        if (textToBeTranslated.size() == 0) {
+        if (textToBeTranslated.size() == 0)
+        {
                 res.code = 400;
                 res.set_header("Content-Type", "text/plain");
                 res.write("Invalid PDF file");
@@ -215,15 +266,15 @@ Server::Server()
             std::string translatedText;
             translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
 
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "toLang: " << toLang
-                << ", fromLang: " << fromLang
-                << "Translated text: " << translatedText
-                << std::endl;
+            // Construct a json object
+            nlohmann::json j;
+            j["textToBeTranslated"] = textToBeTranslated;
+            j["toLang"] = toLang;
+            j["fromLang"] = fromLang;
+            j["translatedText"] = translatedText;
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
+            // Write response
+            res.write(j.dump());
             res.end();
         }
         else
@@ -234,8 +285,12 @@ Server::Server()
         }
     });
 
-    // Take a pdf file and return the text in a different language
-    // Store translation output into id provided
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /post_pdf_translation/
+    //
+    //  Function: Read a passed-in PDF file, perform translation,
+    //            store the result in the datastore, and return the text output.
+    ///////////////////////////////////////////////////////////////////////////
     CROW_ROUTE(app, "/post_pdf_translation/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
@@ -247,7 +302,8 @@ Server::Server()
 
         auto textToBeTranslated = data_to_text(pdf);
 
-        if (textToBeTranslated.size() == 0) {
+        if (textToBeTranslated.size() == 0)
+        {
                 res.code = 400;
                 res.set_header("Content-Type", "text/plain");
                 res.write("Invalid PDF file");
@@ -263,18 +319,17 @@ Server::Server()
             TranslationOutput newTranslation = TranslationOutput(toLang, fromLang, textToBeTranslated, translatedText);
             // TODO: Check if output is valid or not
             std::pair<int, std::string> mongoRes = dbHandler.post_translation(id, newTranslation);
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "textToBeTranslated: " << textToBeTranslated
-                << ", toLang: " << toLang
-                << ", fromLang: " << fromLang
-                << std::endl
-                << "Translated text: " << translatedText
-                << std::endl
-                <<"Mongo res: "<< mongoRes.first;
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
+            // Construct a json object
+            nlohmann::json j;
+            j["textToBeTranslated"] = textToBeTranslated;
+            j["toLang"] = toLang;
+            j["fromLang"] = fromLang;
+            j["translatedText"] = translatedText;
+            j["mongoRes"] = mongoRes.second;
+
+            // Write response
+            res.write(j.dump());
             res.end();
         }
         else
@@ -285,6 +340,11 @@ Server::Server()
         }
     });
 
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /image_to_text/
+    //
+    //  Function: Read a passed-in image file and return the text output.
+    ///////////////////////////////////////////////////////////////////////////
     // Take in image and return string text present in image
     CROW_ROUTE(app, "/image_to_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
@@ -297,30 +357,37 @@ Server::Server()
             // Output
             std::string text = ocr::image_to_text(image, "eng");
 
-                if (text.size() == 0) {
-                        res.code = 400;
-                        res.set_header("Content-Type", "text/plain");
-                        res.write("Invalid file");
-                        res.end();
-                }
+            if (text.size() == 0)
+            {
+                    res.code = 400;
+                    res.set_header("Content-Type", "text/plain");
+                    res.write("Invalid file");
+                    res.end();
+            }
 
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "text: " << text << std::endl;
+            // Construct a json object
+            nlohmann::json j;
+            j["text"] = text;
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
+            // Write response
+            res.write(j.dump());
             res.end();
         }
         else
         {
             res.code = 400;  // Bad Request
+            res.set_header("Content-Type", "text/plain");
             res.write("Missing query parameters.\n");
             res.end();
         }
     });
 
-    // Take in image and return the translation output of the text in the image
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /translate_image_text/
+    //
+    //  Function: Read a passed-in image file, perform translation,
+    //            and return the text output.
+    ///////////////////////////////////////////////////////////////////////////
     CROW_ROUTE(app, "/translate_image_text/")([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
@@ -331,7 +398,8 @@ Server::Server()
 
         auto textToBeTranslated = ocr::image_to_text(image, "eng");
 
-        if (textToBeTranslated.size() == 0) {
+        if (textToBeTranslated.size() == 0)
+        {
                 res.code = 400;
                 res.set_header("Content-Type", "text/plain");
                 res.write("Invalid file");
@@ -345,29 +413,32 @@ Server::Server()
             std::string translatedText;
             translator.doTranslation(translatedText, textToBeTranslated, fromLang, toLang);
 
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "textToBeTranslated: " << textToBeTranslated
-                << ", toLang: " << toLang
-                << ", fromLang: " << fromLang
-                << std::endl
-                << "Translated text: " << translatedText
-                << std::endl;
+            // Construct a json object
+            nlohmann::json j;
+            j["textToBeTranslated"] = textToBeTranslated;
+            j["toLang"] = toLang;
+            j["fromLang"] = fromLang;
+            j["translatedText"] = translatedText;
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
+            // Write response
+            res.write(j.dump());
             res.end();
         }
         else
         {
             res.code = 400;  // Bad Request
             res.write("Missing query parameters.\n");
+            res.set_header("Content-Type", "text/plain");
             res.end();
         }
     });
 
-    // Take in image and translate the text
-    // store translation output into mongodb
+    ///////////////////////////////////////////////////////////////////////////
+    //  Route: /post_image_translation/
+    //
+    //  Function: Read a passed-in image file, perform translation,
+    //            store the result in the datastore, and return the text output.
+    ///////////////////////////////////////////////////////////////////////////
     CROW_ROUTE(app, "/post_image_translation/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         crow::multipart::message msg(req);
@@ -378,7 +449,8 @@ Server::Server()
 
         auto textToBeTranslated = ocr::image_to_text(image, "eng");
 
-        if (textToBeTranslated.size() == 0) {
+        if (textToBeTranslated.size() == 0)
+        {
                 res.code = 400;
                 res.set_header("Content-Type", "text/plain");
                 res.write("Invalid file");
@@ -394,18 +466,17 @@ Server::Server()
             TranslationOutput newTranslation = TranslationOutput(toLang, fromLang, textToBeTranslated, translatedText);
             // TODO: Check if output is valid or not
             std::pair<int, std::string> mongoRes = dbHandler.post_translation(id, newTranslation);
-            // The rest of this IF block is for debugging
-            std::ostringstream oss;
-            oss << "textToBeTranslated: " << textToBeTranslated
-                << ", toLang: " << toLang
-                << ", fromLang: " << fromLang
-                << std::endl
-                << "Translated text: " << translatedText
-                << std::endl
-                <<"Mongo res: "<< mongoRes.first;
 
-            res.set_header("Content-Type", "text/plain");
-            res.write(oss.str());
+            // Construct a json object
+            nlohmann::json j;
+            j["textToBeTranslated"] = textToBeTranslated;
+            j["toLang"] = toLang;
+            j["fromLang"] = fromLang;
+            j["translatedText"] = translatedText;
+            j["mongoRes"] = mongoRes.second;
+
+            // Write response
+            res.write(j.dump());
             res.end();
         }
         else
@@ -418,7 +489,7 @@ Server::Server()
 }
 
 // Function to start the server
-void Server::run()
+void Server::run(unsigned int port)
 {
-    app.port(18080).multithreaded().run();
+    app.port(port).multithreaded().run();
 }
