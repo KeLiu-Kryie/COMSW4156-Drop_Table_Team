@@ -62,8 +62,6 @@ bool Translator::doTranslation(std::string& translatedText,  // output
         return false;
     }
     // Change the space to '-'
-
-
     for (char &ch : textToBeTranslated) {
         if (ch == ' ') {
             ch = '-';
@@ -86,8 +84,6 @@ bool Translator::doTranslation(std::string& translatedText,  // output
 
     // Create the sign
     std::string sign = appId + tbt + salt + key;
-
-    std::cerr << sign << "\n";
 
     // Generate an MD5 hash of the sign
     unsigned char md[16];
