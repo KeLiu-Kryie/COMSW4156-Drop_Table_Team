@@ -10,4 +10,4 @@ if ! test -d ./CMakeFiles; then
     echo "First-time CMAKE DONE"
 fi
 make && echo "================================================================================" && \
-./testMain
+./testMain $1

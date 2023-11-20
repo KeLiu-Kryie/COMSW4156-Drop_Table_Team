@@ -31,7 +31,6 @@ std::string optical_character_recognition(const std::string& path, const std::st
 
         api.SetImage(image);
         std::string out = api.GetUTF8Text();
-
         api.End();
         pixDestroy(&image);
 
@@ -57,7 +56,6 @@ std::string image_to_text(const std::string& data, const std::string& language) 
 
                 api.SetImage(image);
                 std::string out = api.GetUTF8Text();
-
                 api.End();
                 pixDestroy(&image);
 
