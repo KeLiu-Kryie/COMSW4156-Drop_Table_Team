@@ -44,6 +44,12 @@ For accessing translation, use the following query parameters:
 
 tl and fl should be selected from the language list in API doc.
 
+## CI
+This respository uses GitHub Actions for its Continuous Integration (CI).
+
+Sources:
+* [The ReadME Project](https://github.com/readme/guides/sothebys-github-actions?fbclid=IwAR0P4vhynavWx4OGXc6ErreHWuE3jI7kdoPnaMCgZU2S6slIj38TBV7CFYI)
+* [GitHub Documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions?fbclid=IwAR3pq7lW-xNw5jzPhpfNRXhLbMIykoTBs-U6UUqAurZK8JNLUVk1zB-arGY)
 ## Endpoints:
 
 ### /translate/
