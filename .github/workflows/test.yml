@@ -23,6 +23,11 @@ jobs:
         cat /home/runner/.ssh/known_hosts
     - name: Install dependencies
       run: |
+        sudo ./setup-mongocxx
+        sudo apt-get install libboost-all-dev libcurl4-openssl-dev libssl-dev nlohmann-json3-dev
+        sudo apt-get install libpoppler-dev poppler-utils
+        sudo apt-get install -y libpoppler-cpp-dev
+        sudo apt-get install tesseract-ocr libtesseract-dev g++ autoconf automake libtool pkg-config libpng-dev libjpeg8-dev libtiff5-dev zlib1g-dev libwebpdemux2 libwebp-dev libopenjp2-7-dev libgif-dev libarchive-dev libcurl4-openssl-dev libleptonica-dev libpoppler-dev libglib2.0-dev poppler-utils nlohmann-json3-dev
         mkdir tessdata 
         export TESSDATA_PREFIX=$(pwd)/tessdata/ 
         git clone https://github.com/tesseract-ocr/tessdata_fast.git $(pwd)/tessdata/
