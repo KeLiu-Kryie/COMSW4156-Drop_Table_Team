@@ -14,6 +14,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Configure GitHub SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.ACTIONS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
     - name: Install dependencies
       run: |
         sudo ./setup-mongocxx
@@ -21,7 +27,7 @@ jobs:
         sudo apt-get install libpoppler-dev poppler-utils
         sudo apt-get install -y libpoppler-cpp-dev
         sudo apt-get install tesseract-ocr libtesseract-dev g++ autoconf automake libtool pkg-config libpng-dev libjpeg8-dev libtiff5-dev zlib1g-dev libwebpdemux2 libwebp-dev libopenjp2-7-dev libgif-dev libarchive-dev libcurl4-openssl-dev libleptonica-dev libpoppler-dev libglib2.0-dev poppler-utils nlohmann-json3-dev
-        mkdir tessdata && export TESSDATA_PREFIX=$(pwd)/tessdata/ && wget --recursive --no-parent https://github.com/tesseract-ocr/tessdata_fast.git $(pwd)/tessdata/
+        mkdir tessdata && export TESSDATA_PREFIX=$(pwd)/tessdata/ && git clone git@github.com:tesseract-ocr/tessdata_fast.git $(pwd)/tessdata/
     - name: Run tests
       run: |
         cd test
