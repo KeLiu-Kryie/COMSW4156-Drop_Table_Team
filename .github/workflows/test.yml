@@ -1,0 +1,38 @@
+---
+name: Drop Table Team Service CI
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Configure GitHub SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.ACTIONS_SSH_PRIVATE_KEY }}" > /home/runner/.ssh/id_rsa
+        chmod 600 /home/runner/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - name: Install dependencies
+      run: |
+        sudo ./setup-mongocxx
+        sudo apt-get install libboost-all-dev libcurl4-openssl-dev libssl-dev nlohmann-json3-dev
+        sudo apt-get install libpoppler-dev poppler-utils
+        sudo apt-get install -y libpoppler-cpp-dev
+        sudo apt-get install tesseract-ocr libtesseract-dev g++ autoconf automake libtool pkg-config libpng-dev libjpeg8-dev libtiff5-dev zlib1g-dev libwebpdemux2 libwebp-dev libopenjp2-7-dev libgif-dev libarchive-dev libcurl4-openssl-dev libleptonica-dev libpoppler-dev libglib2.0-dev poppler-utils nlohmann-json3-dev
+        mkdir tessdata 
+        export TESSDATA_PREFIX=$(pwd)/tessdata/ 
+        git clone https://github.com/tesseract-ocr/tessdata_fast.git $(pwd)/tessdata/
+    - name: Run tests
+      run: |
+        cd test
+        sudo ./installGtest.sh
+        ./runGtest.sh

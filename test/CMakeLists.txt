@@ -1,7 +1,7 @@
 # Source from:
 # https://www.eriksmistad.no/getting-started-with-google-test-on-ubuntu/?fbclid=IwAR0EFwGwosIMM4m2nmDXp2c3d-De1AyAmkl_8LsYONzlYJ3LJ_1fRUZkBEA
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 project(DropTableTeamUnitTests)
  
 # Locate GTest
@@ -13,7 +13,6 @@ find_package( Threads )
 add_executable(testMain
     testMain.cpp
     ../src/DatabaseHandler.cpp
-    ../src/Server.cpp
     ../src/TranslationOutput.cpp
     ../src/Translations.cpp
     ../src/Translator.cpp
