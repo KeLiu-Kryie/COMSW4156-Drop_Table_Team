@@ -17,9 +17,10 @@ jobs:
     - name: Configure GitHub SSH
       run: |
         mkdir -p ~/.ssh/
-        echo "${{ secrets.ACTIONS_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        echo "${{ secrets.ACTIONS_SSH_PRIVATE_KEY }}" > /home/runner/.ssh/id_rsa
+        chmod 600 /home/runner/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
+        cat /home/runner/.ssh/known_hosts
     - name: Install dependencies
       run: |
         sudo ./setup-mongocxx
