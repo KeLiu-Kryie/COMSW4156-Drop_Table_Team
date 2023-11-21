@@ -13,7 +13,6 @@ find_package( Threads )
 add_executable(testMain
     testMain.cpp
     ../src/DatabaseHandler.cpp
-    ../src/Server.cpp
     ../src/TranslationOutput.cpp
     ../src/Translations.cpp
     ../src/Translator.cpp
