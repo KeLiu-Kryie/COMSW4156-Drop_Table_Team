@@ -23,7 +23,9 @@ jobs:
         cat /home/runner/.ssh/known_hosts
     - name: Install dependencies
       run: |
-        mkdir tessdata && export TESSDATA_PREFIX=$(pwd)/tessdata/ && git clone git@github.com:tesseract-ocr/tessdata_fast.git $(pwd)/tessdata/
+        mkdir tessdata 
+        export TESSDATA_PREFIX=$(pwd)/tessdata/ 
+        git clone https://github.com/tesseract-ocr/tessdata_fast.git $(pwd)/tessdata/
     - name: Run tests
       run: |
         cd test
