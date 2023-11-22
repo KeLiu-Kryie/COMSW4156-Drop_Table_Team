@@ -2,7 +2,6 @@
 
 namespace ocr {
 
-
 std::string optical_character_recognition(const std::string& path, const std::string& language) {
         tesseract::TessBaseAPI api {};
 

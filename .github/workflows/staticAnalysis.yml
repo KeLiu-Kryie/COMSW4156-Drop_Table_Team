@@ -1,0 +1,34 @@
+# https://github.com/marketplace/actions/cppcheck-action
+---
+name: Drop Table Team Service Static Analysis
+on:
+  schedule:
+    - cron: '0 0 */2 * *'
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: cppcheck-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install cppcheck
+        run: sudo apt-get install cppcheck
+          
+      - name: Run CppCheck
+        run: |
+          cppcheck src/ --enable=all --suppress=missingInclude --suppress=unusedFunction --std=c++17 --xml --xml-version=2 2> cppcheck-result.xml
+          export CPPCHECK_RESULT=$?
+
+      - name: Upload cppcheck-result.xml
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: cppcheck-result
+          path: cppcheck-result.xml

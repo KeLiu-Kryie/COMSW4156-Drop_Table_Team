@@ -1,3 +1,5 @@
+# https://github.com/readme/guides/sothebys-github-actions?fbclid=IwAR38U744n0STHzCFZJ5FLDFSgX98WxvLkJsAi3wzIMGI3ww37XHLGEyC01Q
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions?fbclid=IwAR3kXfjxwkgT7M7wEK4VWcpxk3E63D52ixyNHeM21YaKla995qn6rEBhL4s 
 ---
 name: Drop Table Team Service CI
 on:
@@ -10,7 +12,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  UnitTest:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

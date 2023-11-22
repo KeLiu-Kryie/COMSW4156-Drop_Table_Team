@@ -1,6 +1,6 @@
 #include "../include/TranslationOutput.h"
 
-TranslationOutput::TranslationOutput(std::string to, std::string from, std::string inputText, std::string outputText){
+TranslationOutput::TranslationOutput(const std::string& to, const std::string& from, const std::string& inputText, const std::string& outputText){
   this->to = to;
   this->from = from;
   this->inputText = inputText;
