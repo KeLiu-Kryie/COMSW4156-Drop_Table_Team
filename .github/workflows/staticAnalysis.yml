@@ -22,7 +22,18 @@ jobs:
       - name: Install cppcheck
         run: sudo apt-get install cppcheck
           
-      - name: cppcheck
-        uses: deep5050/cppcheck-action@main
+      - name: Run CppCheck
+        run: |
+          cppcheck src/ --enable=all --std=c++17 --xml --xml-version=2 2> cppcheck-result.xml
+          export CPPCHECK_RESULT=$?
+
+      - name: Upload cppcheck-result.xml
+        uses: actions/upload-artifact@v2
+        if: always()
         with:
-          github_token: ${{ secrets.ACTIONS_SSH_PRIVATE_KEY}}
+          name: cppcheck-result
+          path: cppcheck-result.xml
+
+      - name: Set Status on Failure
+        if: ${{ env.CPPCHECK_RESULT != 0 }}
+        run: exit 1
