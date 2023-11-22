@@ -45,11 +45,14 @@ For accessing translation, use the following query parameters:
 tl and fl should be selected from the language list in API doc.
 
 ## CI
-This respository uses GitHub Actions for its Continuous Integration (CI).
+This respository uses GitHub Actions for its Continuous Integration (CI). There are two GitHub Actions; one runs the unit tests (1) every 12 hours on `main`, (2) on every push to `main`, and (3) for every PR to `main`. The other runs `cppcheck` as a static analysis tool (1) every other day on `main`, (2) on every push to `main`, and (3) on every PR to `main`.
+
+The static analysis action uploads the analysis artifact to the Actions tab after every run. It can be found by selecting `Actions` --> `Drop Table Team Service Static Analysis` --> Job of choice --> `cppcheck-result`.
 
 Sources:
 * [The ReadME Project](https://github.com/readme/guides/sothebys-github-actions?fbclid=IwAR0P4vhynavWx4OGXc6ErreHWuE3jI7kdoPnaMCgZU2S6slIj38TBV7CFYI)
 * [GitHub Documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions?fbclid=IwAR3pq7lW-xNw5jzPhpfNRXhLbMIykoTBs-U6UUqAurZK8JNLUVk1zB-arGY)
+* [Uploading Artifacts](https://github.com/marketplace/actions/upload-a-build-artifact)
 ## Endpoints:
 
 ### /translate/
