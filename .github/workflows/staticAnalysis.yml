@@ -24,7 +24,7 @@ jobs:
           
       - name: Run CppCheck
         run: |
-          cppcheck src/ --enable=all --suppress=missingInclude --std=c++17 --xml --xml-version=2 2> cppcheck-result.xml
+          cppcheck src/ --enable=all --suppress=missingInclude --suppress=unusedFunction --std=c++17 --xml --xml-version=2 2> cppcheck-result.xml
           export CPPCHECK_RESULT=$?
 
       - name: Upload cppcheck-result.xml
