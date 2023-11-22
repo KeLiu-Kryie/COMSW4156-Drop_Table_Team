@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - Coverity-Integration
   pull_request:
     branches:
       - main
