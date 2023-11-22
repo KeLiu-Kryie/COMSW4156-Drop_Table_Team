@@ -11,7 +11,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  UnitTest:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -37,3 +37,13 @@ jobs:
         cd test
         sudo ./installGtest.sh
         ./runGtest.sh
+  Coverity:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: vapier/coverity-scan-action@v1
+      with:
+        email: ${{ secrets.COVERITY_SCAN_EMAIL }}
+        token: ${{ secrets.COVERITY_SCAN_TOKEN }}
+        build_language: 'cxx'
+        description: 'Automated CI'
