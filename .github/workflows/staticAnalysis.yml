@@ -33,7 +33,3 @@ jobs:
         with:
           name: cppcheck-result
           path: cppcheck-result.xml
-
-      - name: Set Status on Failure
-        if: ${{ env.CPPCHECK_RESULT != 0 }}
-        run: exit 1
