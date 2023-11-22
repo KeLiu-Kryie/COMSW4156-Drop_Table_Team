@@ -1,0 +1,30 @@
+# https://github.com/marketplace/actions/cppcheck-action
+---
+name: Drop Table Team Service Static Analysis
+on:
+  schedule:
+    - cron: '0 0 */2 * *'
+  push:
+    branches:
+      - main
+      - Coverity-Integration
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: cppcheck-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+          
+      - name: cppcheck
+        uses: deep5050/cppcheck-action@main
+        with:
+          github_token: ${{ secrets.ACTIONS_SSH_PRIVATE_KEY}}
+        
+      - name: publish report    
+        uses: mikeal/publish-to-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_SSH_PRIVATE_KEY }}
+          BRANCH_NAME: 'main' 

@@ -1,3 +1,5 @@
+# https://github.com/readme/guides/sothebys-github-actions?fbclid=IwAR38U744n0STHzCFZJ5FLDFSgX98WxvLkJsAi3wzIMGI3ww37XHLGEyC01Q
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions?fbclid=IwAR3kXfjxwkgT7M7wEK4VWcpxk3E63D52ixyNHeM21YaKla995qn6rEBhL4s 
 ---
 name: Drop Table Team Service CI
 on:
@@ -37,13 +39,3 @@ jobs:
         cd test
         sudo ./installGtest.sh
         ./runGtest.sh
-  Coverity:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: vapier/coverity-scan-action@v1
-      with:
-        email: ${{ secrets.COVERITY_SCAN_EMAIL }}
-        token: ${{ secrets.COVERITY_SCAN_TOKEN }}
-        build_language: 'cxx'
-        description: 'Automated CI'
