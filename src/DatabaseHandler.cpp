@@ -15,7 +15,7 @@ DatabaseHandler::DatabaseHandler(std::string configPath){
         db = client[dbName];
 }
 
-std::pair<int, std::string> DatabaseHandler::post_translation(std::string id, TranslationOutput newTranslation){
+std::pair<int, std::string> DatabaseHandler::post_translation(std::string id, const TranslationOutput& newTranslation){
         try{
                 auto collection = db["translations"];
                 auto doc = collection.find_one(make_document(kvp("_id", bsoncxx::oid(id))));

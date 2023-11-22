@@ -35,7 +35,7 @@ class DatabaseHandler {
         std::pair<int, std::string> delete_client(std::string id);
 
         // Post translation to user
-        std::pair<int, std::string> post_translation(std::string id, TranslationOutput newTranslation);
+        std::pair<int, std::string> post_translation(std::string id, const TranslationOutput& newTranslation);
 
  private:
         // Create an instance. Note there must only be one instance

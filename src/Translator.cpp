@@ -53,20 +53,17 @@ std::string url_encode(const std::string& decoded)
 // Function to perform the translation
 bool Translator::doTranslation(std::string& translatedText,  // output
                                std::string textToBeTranslated,
-                               std::string fromLang,
-                               std::string toLang) const
+                               std::string& fromLang,
+                               std::string& toLang) const
 {
     // Check that curl was initialized on construction
     if (!curl) {
         std::cerr << "Error initializing libcurl." << std::endl;
         return false;
     }
-    // Change the space to '-'
-    for (char &ch : textToBeTranslated) {
-        if (ch == ' ') {
-            ch = '-';
-        }
-    }
+
+    // Change the space to '-' using std::replace_if
+    std::replace_if(textToBeTranslated.begin(), textToBeTranslated.end(), [](char c) { return c == ' '; }, '-');
 
     std::string tbt = "";
 

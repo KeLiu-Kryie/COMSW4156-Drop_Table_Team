@@ -39,8 +39,8 @@ class Translator
     //          bool - indicates success (true) or failure (false)
     bool doTranslation(std::string& translatedText,  // output
                        std::string textToBeTranslated,
-                       std::string fromLang,
-                       std::string toLang) const;
+                       std::string& fromLang,
+                       std::string& toLang) const;
 
  private:
     // Fundamental curl pointer
