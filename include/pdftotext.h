@@ -12,6 +12,6 @@
 
 std::string data_to_text(const std::string& input_str);
 
-// std::string file_to_text(const std::string& inputPdfPath);
+std::string file_to_text(const std::string& inputPdfPath);
 
 #endif  // INCLUDE_PDFTOTEXT_H_

@@ -2,7 +2,6 @@
 
 namespace ocr {
 
-/*
 std::string optical_character_recognition(const std::string& path, const std::string& language) {
         tesseract::TessBaseAPI api {};
 
@@ -36,7 +35,6 @@ std::string optical_character_recognition(const std::string& path, const std::st
 
         return out;
 }
-*/
 
 std::string image_to_text(const std::string& data, const std::string& language) {
         tesseract::TessBaseAPI api {};
