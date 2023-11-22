@@ -11,7 +11,7 @@
 namespace ocr
 {
 
-std::string optical_character_recognition(const std::string& path, const std::string& language);
+// std::string optical_character_recognition(const std::string& path, const std::string& language);
 
 std::string image_to_text(const std::string& data, const std::string& language);
 
