@@ -25,12 +25,12 @@ Server::Server()
     CROW_ROUTE(app, "/translate/")([this](const crow::request& req, crow::response& res)
     {
         // Access query string parameters using crow::request::url_params
-        auto textToBeTranslated = req.url_params.get("tbt");
-        auto toLang = req.url_params.get("tl");
-        auto fromLang = req.url_params.get("fl");
+        std::string textToBeTranslated = req.url_params.get("tbt");
+        std::string toLang = req.url_params.get("tl");
+        std::string fromLang = req.url_params.get("fl");
 
         // Check if parameters exist and handle accordingly
-        if (textToBeTranslated && toLang && fromLang)
+        if (textToBeTranslated.size() && toLang.size() && fromLang.size())
         {
             // Output
             std::string translatedText;
@@ -141,12 +141,12 @@ Server::Server()
     CROW_ROUTE(app, "/post_translation_to_client/").methods("POST"_method)([this](const crow::request& req, crow::response& res){
         // Access query string parameters using crow::request::url_params
         auto id = req.url_params.get("id");
-        auto textToBeTranslated = req.url_params.get("tbt");
-        auto toLang = req.url_params.get("tl");
-        auto fromLang = req.url_params.get("fl");
+        std::string textToBeTranslated = req.url_params.get("tbt");
+        std::string toLang = req.url_params.get("tl");
+        std::string fromLang = req.url_params.get("fl");
 
         // Check if parameters exist and handle accordingly
-        if (textToBeTranslated && toLang && fromLang)
+        if (textToBeTranslated.size() && toLang.size() && fromLang.size())
         {
             // Output
             std::string translatedText;
@@ -241,8 +241,8 @@ Server::Server()
         crow::multipart::message msg(req);
         auto pdf = msg.get_part_by_name("file").body;
 
-        auto toLang = req.url_params.get("tl");
-        auto fromLang = req.url_params.get("fl");
+        std::string toLang = req.url_params.get("tl");
+        std::string fromLang = req.url_params.get("fl");
         std::string textToBeTranslated = data_to_text(pdf);
 
         if (textToBeTranslated.size() == 0)
@@ -254,7 +254,7 @@ Server::Server()
         }
 
         // Check if parameters exist and handle accordingly
-        if (textToBeTranslated.size() && toLang && fromLang)
+        if (textToBeTranslated.size() && toLang.size() && fromLang.size())
         {
             // Output
             std::string translatedText;
@@ -290,11 +290,11 @@ Server::Server()
         crow::multipart::message msg(req);
         auto pdf = msg.get_part_by_name("file").body;
 
-        auto toLang = req.url_params.get("tl");
+        std::string toLang = req.url_params.get("tl");
         auto id = req.url_params.get("id");
-        auto fromLang = req.url_params.get("fl");
+        std::string fromLang = req.url_params.get("fl");
 
-        auto textToBeTranslated = data_to_text(pdf);
+        std::string textToBeTranslated = data_to_text(pdf);
 
         if (textToBeTranslated.size() == 0)
         {
@@ -305,7 +305,7 @@ Server::Server()
         }
 
         // Check if parameters exist and handle accordingly
-        if (textToBeTranslated.size() && toLang && fromLang)
+        if (textToBeTranslated.size() && toLang.size() && fromLang.size())
         {
             // Output
             std::string translatedText;
@@ -387,10 +387,10 @@ Server::Server()
         crow::multipart::message msg(req);
         auto image = msg.get_part_by_name("file").body;
 
-        auto toLang = req.url_params.get("tl");
-        auto fromLang = req.url_params.get("fl");
+        std::string toLang = req.url_params.get("tl");
+        std::string fromLang = req.url_params.get("fl");
 
-        auto textToBeTranslated = ocr::image_to_text(image, "eng");
+        std::string textToBeTranslated = ocr::image_to_text(image, "eng");
 
         if (textToBeTranslated.size() == 0)
         {
@@ -401,7 +401,7 @@ Server::Server()
         }
 
         // Check if parameters exist and handle accordingly
-        if (textToBeTranslated.size() && toLang && fromLang)
+        if (textToBeTranslated.size() && toLang.size() && fromLang.size())
         {
             // Output
             std::string translatedText;
@@ -438,10 +438,10 @@ Server::Server()
         crow::multipart::message msg(req);
         auto image = msg.get_part_by_name("file").body;
         auto id = req.url_params.get("id");
-        auto toLang = req.url_params.get("tl");
-        auto fromLang = req.url_params.get("fl");
+        std::string toLang = req.url_params.get("tl");
+        std::string fromLang = req.url_params.get("fl");
 
-        auto textToBeTranslated = ocr::image_to_text(image, "eng");
+        std::string textToBeTranslated = ocr::image_to_text(image, "eng");
 
         if (textToBeTranslated.size() == 0)
         {
@@ -452,7 +452,7 @@ Server::Server()
         }
 
         // Check if parameters exist and handle accordingly
-        if (textToBeTranslated.size() && toLang && fromLang)
+        if (textToBeTranslated.size() && toLang.size() && fromLang.size())
         {
             // Output
             std::string translatedText;

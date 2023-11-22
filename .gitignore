@@ -1,2 +1,3 @@
 .vscode/
 cppcheck-result.xml
+tessdata/
