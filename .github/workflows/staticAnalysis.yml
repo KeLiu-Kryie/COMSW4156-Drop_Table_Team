@@ -16,15 +16,13 @@ jobs:
     name: cppcheck-test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install cppcheck
+        run: sudo apt-get install cppcheck
           
       - name: cppcheck
         uses: deep5050/cppcheck-action@main
         with:
           github_token: ${{ secrets.ACTIONS_SSH_PRIVATE_KEY}}
-        
-      - name: publish report    
-        uses: mikeal/publish-to-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTIONS_SSH_PRIVATE_KEY }}
-          BRANCH_NAME: 'main' 
