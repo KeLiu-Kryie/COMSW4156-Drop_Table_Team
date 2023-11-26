@@ -25,6 +25,7 @@ jobs:
         ssh-keyscan github.com >> ~/.ssh/known_hosts
     - name: Install dependencies
       run: |
+        sudo apt-get update
         sudo ./setup-mongocxx
         sudo apt-get install libboost-all-dev libcurl4-openssl-dev libssl-dev nlohmann-json3-dev
         sudo apt-get install libpoppler-dev poppler-utils
