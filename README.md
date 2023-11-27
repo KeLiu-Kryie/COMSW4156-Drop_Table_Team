@@ -55,7 +55,7 @@ The static analysis action uploads the analysis artifact to the Actions tab afte
 3. In your web browser, visit [http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en](http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en). Use some other cases like different text to translate, different language or text, pdf.
 4. run `lcov --capture --directory ./bin --output-file coverage.info`.
 5. run `genhtml coverage.info --output-directory coverage-html`.
-6. open the branch coverage through `overage-html/index.html`.
+6. open the branch coverage through `coverage-html/index.html`.
 
 Sources:
 * [The ReadME Project](https://github.com/readme/guides/sothebys-github-actions?fbclid=IwAR0P4vhynavWx4OGXc6ErreHWuE3jI7kdoPnaMCgZU2S6slIj38TBV7CFYI)
