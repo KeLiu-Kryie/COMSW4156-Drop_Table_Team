@@ -1,6 +1,6 @@
 #Source: https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/Makefile
 CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb -Wno-unused-parameter -Wno-deprecated-declarations
+CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb -Wno-unused-parameter -Wno-deprecated-declarations --coverage
 
 BIN		:= bin
 SRC		:= src/*.cpp $(shell find $(lib) -name *.cpp -not -path "./test*")
@@ -18,6 +18,7 @@ LIBRARIES	:=  -lpthread -lcrypto \
 
 
 EXECUTABLE	:= main
+COVERAGE_EXE := $(BIN)/$(EXECUTABLE)_coverage
 
 
 all: $(BIN)/$(EXECUTABLE)
@@ -29,6 +30,11 @@ run: clean all
 $(BIN)/$(EXECUTABLE): $(SRC)
 	$(CXX) $(CXX_FLAGS) $(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
 
-clean:
+coverage: $(SRC)
+	$(CXX) $(CXX_FLAGS) $(INCLUDE) -L$(LIB) $^ -o $(COVERAGE_EXE) $(LIBRARIES)
 
+clean:
 	-rm -f $(BIN)/*
+	-rm -f *.gc*
+	-rm -rf coverage-html
+
