@@ -49,6 +49,14 @@ This respository uses GitHub Actions for its Continuous Integration (CI). There 
 
 The static analysis action uploads the analysis artifact to the Actions tab after every run. It can be found by selecting `Actions` --> `Drop Table Team Service Static Analysis` --> Job of choice --> `cppcheck-result`.
 
+## Branch Coverage
+1. Branch coverage needs `lcov`. Install with this: `sudo apt-get install lcov`.
+2. In the project directory, run `make coverage` and `./bin/main_coverage` to compile the source code and run the server.
+3. In your web browser, visit [http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en](http://localhost:18080/translate/?tbt=hello&tl=jp&fl=en). Use some other cases like different text to translate, different language or text, pdf.
+4. run `lcov --capture --directory ./bin --output-file coverage.info`.
+5. run `genhtml coverage.info --output-directory coverage-html`.
+6. open the branch coverage through `overage-html/index.html`.
+
 Sources:
 * [The ReadME Project](https://github.com/readme/guides/sothebys-github-actions?fbclid=IwAR0P4vhynavWx4OGXc6ErreHWuE3jI7kdoPnaMCgZU2S6slIj38TBV7CFYI)
 * [GitHub Documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions?fbclid=IwAR3pq7lW-xNw5jzPhpfNRXhLbMIykoTBs-U6UUqAurZK8JNLUVk1zB-arGY)
