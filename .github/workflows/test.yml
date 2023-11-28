@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - main
+      - branchCoverage_3
   pull_request:
     branches:
       - main
@@ -39,3 +40,8 @@ jobs:
         cd test
         sudo ./installGtest.sh
         ./runGtest.sh
+    - name: Export Code Coverage
+      uses: actions/upload-artifact@v3
+      with:
+        name: lcov-output
+        path: testMain.dir_out

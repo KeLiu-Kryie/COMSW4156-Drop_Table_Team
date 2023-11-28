@@ -35,5 +35,3 @@ for dir in $gcda_dirs; do
     # Break out of this loop, since all of the directories contain copies of the same gcda files
     break
 done
-
-#genhtml coverage.info --output-directory out
