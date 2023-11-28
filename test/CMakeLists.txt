@@ -9,15 +9,28 @@ find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 find_package( Threads )
 
-# Link testMain with what we want to test
-add_executable(testMain
-    testMain.cpp
+# For UT Code Coverage
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -g -O0 -fprofile-arcs -ftest-coverage")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+# List all the source files
+set(SRC_FILES
     ../src/DatabaseHandler.cpp
     ../src/TranslationOutput.cpp
     ../src/Translations.cpp
     ../src/Translator.cpp
     ../src/ocr.cpp
-    ../src/pdftotext.cpp)
+    ../src/pdftotext.cpp
+)
+
+# Link testMain with what we want to test
+add_executable(testMain
+    testMain.cpp
+    ${SRC_FILES})
 
 # Equivalent of INCLUDE
 target_include_directories(testMain
@@ -49,4 +62,4 @@ target_link_libraries(testMain
     poppler-cpp)
 
 # Equivalent of CXX_FLAGS
-target_compile_options(testMain PRIVATE -Wno-deprecated-declarations)
+target_compile_options(testMain PRIVATE -Wno-deprecated-declarations --coverage)
