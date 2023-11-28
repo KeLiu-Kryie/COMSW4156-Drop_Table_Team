@@ -49,6 +49,13 @@ This respository uses GitHub Actions for its Continuous Integration (CI). There 
 
 The static analysis action uploads the analysis artifact to the Actions tab after every run. It can be found by selecting `Actions` --> `Drop Table Team Service Static Analysis` --> Job of choice --> `cppcheck-result`.
 
+## Branch Coverage
+To manually run branch coverage, install `lcov` with this: `sudo apt-get install lcov`. Then, navigate to the `test` directory and run `./runGtest.sh`. Branch coverage will be automatically run as part of the unit tests (and therefore, as part of the CI). 
+
+The branch coverage output can then be found in `./test/testMain.dir_out/index.html` or, in the automated case, as an artifact in GitHub Actions.
+
+Since branch coverage analyzes which code paths are flexed by the unit tests, we do not meet the 85% coverage requirement. However, upon closer inspection, the reason for this failure is because we do not have any unit tests for `src/ocr.cpp` or `src/pdftotext.cpp`. However, these functionalities are not essential for either our service or our client application, so we've made the decision to skip implementing these unit tests in favor of focusing on the remainder of the project.
+
 Sources:
 * [The ReadME Project](https://github.com/readme/guides/sothebys-github-actions?fbclid=IwAR0P4vhynavWx4OGXc6ErreHWuE3jI7kdoPnaMCgZU2S6slIj38TBV7CFYI)
 * [GitHub Documentation](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions?fbclid=IwAR3pq7lW-xNw5jzPhpfNRXhLbMIykoTBs-U6UUqAurZK8JNLUVk1zB-arGY)

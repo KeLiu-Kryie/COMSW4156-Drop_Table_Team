@@ -26,6 +26,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
+        sudo apt-get install lcov
         sudo ./setup-mongocxx
         sudo apt-get install libboost-all-dev libcurl4-openssl-dev libssl-dev nlohmann-json3-dev
         sudo apt-get install libpoppler-dev poppler-utils
@@ -39,3 +40,10 @@ jobs:
         cd test
         sudo ./installGtest.sh
         ./runGtest.sh
+    - name: Export Code Coverage
+      uses: actions/upload-artifact@v3
+      with:
+        name: lcov-output
+        path: |
+          analysis_out
+          test/analysis_out
