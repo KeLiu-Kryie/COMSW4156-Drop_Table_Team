@@ -30,7 +30,7 @@ for dir in $gcda_dirs; do
     lcov --remove "${dir_name}_coverage.info" "poppler*" -o "${dir_name}_coverage.info"
     lcov --remove "${dir_name}_coverage.info" "tesseract*" -o "${dir_name}_coverage.info"
 
-    genhtml "${dir_name}_coverage.info" --output-directory "${dir_name}_out"
+    genhtml "${dir_name}_coverage.info" --output-directory "analysis_out"
 
     # Break out of this loop, since all of the directories contain copies of the same gcda files
     break

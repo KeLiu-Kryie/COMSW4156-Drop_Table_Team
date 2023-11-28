@@ -45,4 +45,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: lcov-output
-        path: testMain.dir_out
+        path: |
+          analysis_out
+          test/analysis_out
