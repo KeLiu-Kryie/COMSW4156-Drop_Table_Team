@@ -11,6 +11,8 @@
 | Siddharth Ananth | sa4287  |
 | Tony Faller      | af3370  |
 
+[Jump to the second team's repository](https://github.com/KeLiu-Kryie/flashcards)
+
 ## Project setup
 
 This project uses linux-based commands to setup all the external libraries / apis needed. You would either pull this project on a linux machine or run it using WSL.
