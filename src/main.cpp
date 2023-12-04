@@ -5,6 +5,6 @@
 int main()
 {
     Server serviceHost;
-    serviceHost.run(18080);
+    serviceHost.run(8080);
     return 0;
 }
