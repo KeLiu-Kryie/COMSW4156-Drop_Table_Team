@@ -1,9 +1,10 @@
 #Source: https://github.com/evanugarte/mongocxx-tutorial/blob/09dc4bf76d57fe40cf7154a8eb9e7530d49ab536/Makefile
 CXX		  := g++
-CXX_FLAGS := -Wall -Wextra -std=c++17 \
-			 -ggdb -Wno-unused-parameter \
-			 -Wno-deprecated-declarations --coverage \
-			 $(pkg-config --cflags --libs libmongocxx)
+CXX_FLAGS := 	-Wall -Wextra -std=c++17 \
+			 	-ggdb -Wno-unused-parameter \
+			 	-Wno-deprecated-declarations --coverage \
+				$(pkg-config --cflags --libs libmongocxx) \
+				-Wl,-rpath,/usr/local/lib
 
 BIN		:= bin
 SRC		:= src/*.cpp $(shell find $(lib) -name *.cpp -not -path "./test*")
@@ -17,13 +18,11 @@ INCLUDE	:= -Iinclude -Ilib \
 LIB		:= lib
 
 LIBRARIES	:=  -lpthread -lcrypto \
-				-lssl  -lbsoncxx -lcurl -lboost_system -lmongocxx \
+				-lssl -lbsoncxx -lcurl -lboost_system -lmongocxx \
 				-lpoppler-cpp -lglib-2.0 -ltesseract -llept
-
 
 EXECUTABLE	:= main
 COVERAGE_EXE := $(BIN)/$(EXECUTABLE)_coverage
-
 
 all: $(BIN)/$(EXECUTABLE)
 

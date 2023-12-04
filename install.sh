@@ -2,7 +2,7 @@
 function install_general_dependencies() {
         sudo apt-get install -y tesseract-ocr \
                 libtesseract-dev g++ autoconf \
-                automake libtool pkg-config \
+                automake libtool \
                 libpng-dev libjpeg8-dev \
                 libtiff5-dev zlib1g-dev \
                 libwebpdemux2 libwebp-dev \
@@ -13,6 +13,13 @@ function install_general_dependencies() {
                 nlohmann-json3-dev wget \
                 libpoppler-cpp-dev cpplint \
                 libboost-all-dev
+        sudo apt-get install -y pkg-config
+        if [ $? -eq 0 ]; then
+            echo "pkg-config installed successfully."
+        else
+            echo "Error: pkg-config installation failed."
+            exit 1  # Exit the script with an error code
+        fi
         # mkdir tessdata && export TESSDATA_PREFIX=$(pwd)/tessdata/ # && git clone git@github.com:tesseract-ocr/tessdata_fast.git $(pwd)/tessdata/
 }
 
@@ -22,9 +29,12 @@ function install_general_dependencies() {
 
 function install_mongocxx_dependencies() {
   TOP_DIR=$(pwd)
+
   sudo apt-get install -y libmongoc-dev \
       libbson-dev cmake \
-      libssl-dev libsasl2-dev zlib1g-dev
+      libssl-dev libsasl2-dev \
+      zlib1g-dev curl
+  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
   sudo ldconfig
 
   wget https://github.com/mongodb/mongo-c-driver/releases/download/1.24.4/mongo-c-driver-1.24.4.tar.gz
@@ -51,6 +61,9 @@ function install_mongocxx_dependencies() {
   sudo cmake --build . --target install
   cd $TOP_DIR
   rm -rf mongo-c-driver-1.24.4*
+  sudo ln -s /usr/local/lib/libmogocxx.so.3.8.0 libmongocxx.so._noabi && \
+  sudo ln -s /usr/local/lib/libmongocxx.so._noabi /usr/local/lib/libmongocxx.so
+  export PKG_CONFIG_PATH=$HOME/mongo-cxx-driver/lib/pkgconfig
 }
 
 function main() {
